@@ -23,6 +23,15 @@ namespace VisualNovelSystem
             var ui = runner != null ? runner.UIController : null;
             if (ui != null)
             {
+                // Esperar si la pantalla aún está en proceso de Fade antes de empezar a escribir el texto y reproducir audio
+                if (ui.Fader != null)
+                {
+                    while (ui.Fader.IsFading)
+                    {
+                        yield return null;
+                    }
+                }
+
                 yield return ui.ShowDialogue(speakerName, dialogueText, characterPortrait, voiceClip, typewriterSpeed, waitForClick);
                 if (hideAfterFinished)
                 {
