@@ -5,10 +5,10 @@
     "topics": [
         {
             "id": "mark_noises",
-            "displayName": "Preguntarle qué vio",
+            "displayName": "Preguntarle qué vio o escuchó",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
             ],
             "variants": [
                 {
@@ -16,11 +16,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Mark está sentado contra la pared de la gasolinera, hablando solo hasta que me acerco." },
+                        { "speaker": "", "text": "Mark está sentado contra la pared de la gasolinera, temblando y hablando entre dientes." },
                         { "speaker": "Mark", "text": "Ruidos. Anoche, antes, siempre. Golpes abajo. Como que alguien golpea para que lo escuchen y nadie escucha." },
                         { "speaker": "Gabe", "text": "¿Golpes de dónde?" },
                         { "speaker": "Mark", "text": "Del motel. Debajo del motel. Ahí hay gente. Encerrada gente. Se lo dije a Frank una vez y se rió." },
-                        { "speaker": "", "text": "Habla rápido, salta de una idea a otra, pero hay algo ahí. Un patrón debajo del ruido." }
+                        { "speaker": "", "text": "Habla rápido, salta de una idea a otra, pero hay un patrón debajo de su delirio." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "basement_noises_match", "b": "" }
@@ -33,7 +33,7 @@
             "displayName": "Decirle que le cree",
             "kind": 1,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false },
+                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
                 { "kind": 2, "a": "mark", "b": "mark_noises", "negate": false },
                 { "kind": 2, "a": "mark", "b": "mark_noises_believe", "negate": true },
                 { "kind": 2, "a": "mark", "b": "mark_noises_dismiss", "negate": true }
@@ -44,10 +44,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Le creo. Siga." },
+                        { "speaker": "Gabe", "text": "Le creo, Mark. Siga." },
                         { "speaker": "Mark", "text": "¿Sí? Nadie me cree nunca. Ni yo a veces." },
-                        { "speaker": "", "text": "Se relaja un poco. Solo un poco." },
-                        { "speaker": "Mark", "text": "Hale. Siempre Hale bajando de noche. Con una bolsa, con una caja. Nunca vacío, nunca lleno igual." }
+                        { "speaker": "", "text": "Se calma un poco, mirándome a los ojos." },
+                        { "speaker": "Mark", "text": "Hale. Siempre Hale bajando de noche. Con una bolsa, con una caja. Nunca baja vacío." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "mark_trusted", "b": "" }
@@ -60,7 +60,7 @@
             "displayName": "Cortarlo, no suena confiable",
             "kind": 1,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false },
+                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
                 { "kind": 2, "a": "mark", "b": "mark_noises", "negate": false },
                 { "kind": 2, "a": "mark", "b": "mark_noises_believe", "negate": true },
                 { "kind": 2, "a": "mark", "b": "mark_noises_dismiss", "negate": true }
@@ -71,9 +71,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Ya, ya. Gracias, Mark." },
-                        { "speaker": "", "text": "No le creo del todo. Se le nota en la cara que lo nota." },
-                        { "speaker": "Mark", "text": "Claro. Como todos. Como Marta, como el que sea. El loco habla, el loco no importa." }
+                        { "speaker": "Gabe", "text": "Ya entendí, Mark. Gracias." },
+                        { "speaker": "", "text": "No le creo. Y se nota enseguida." },
+                        { "speaker": "Mark", "text": "Claro. Como todos. El loco habla, el loco no importa." }
                     ],
                     "effects": [
                         { "kind": 4, "a": "mark_credibility_broken", "b": "1" }
@@ -96,10 +96,10 @@
                         { "kind": 5, "a": "mark_credibility_broken", "b": "1", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "Mark", "text": "Botellas vacías... todo se mezcla. El frío, el viento, la gasolinera. No sé nada, no me acuerdo de nada." },
-                        { "speaker": "Gabe", "text": "¿Y de los pasos que escuchaba antes? ¿Los que bajaban al sótano?" },
-                        { "speaker": "Mark", "text": "¿Qué pasos? Déjeme en paz. Ya me dijo que no me cree, ¿para qué me sigue jodiendo?" },
-                        { "speaker": "", "text": "Se da vuelta contra la pared. No hay forma de sacarle nada útil ahora." }
+                        { "speaker": "Mark", "text": "Botellas vacías... todo se mezcla. El frío, el viento. No sé nada, no me acuerdo de nada." },
+                        { "speaker": "Gabe", "text": "¿Y de los pasos que escuchaba antes?" },
+                        { "speaker": "Mark", "text": "¿Qué pasos? Déjeme en paz. Ya me dijo que no me cree." },
+                        { "speaker": "", "text": "Se da vuelta contra la pared. No hay forma de sacarle nada ahora." }
                     ],
                     "effects": []
                 },
@@ -108,9 +108,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Mark", "text": "Pasos. Casi todas las noches, pasos bajando. Cuento las noches que no, y son menos que las que sí." },
-                        { "speaker": "Gabe", "text": "¿Y la noche que murió la chica? ¿Esa noche qué pasos escuchó?" },
-                        { "speaker": "Mark", "text": "Esa... no. Esa no la tengo. Se me borra justo ahí. Como si alguien me la hubiera sacado de la cabeza." },
+                        { "speaker": "Mark", "text": "Pasos. Casi todas las noches, pasos bajando." },
+                        { "speaker": "Gabe", "text": "¿Y la noche que murió la chica?" },
+                        { "speaker": "Mark", "text": "Esa... no. Esa noche se me borra. Como si alguien me la hubiera arrancado de la cabeza." },
                         { "speaker": "", "text": "Es la primera vez que lo veo admitir que no sabe algo, en vez de inventarlo." }
                     ],
                     "effects": [
