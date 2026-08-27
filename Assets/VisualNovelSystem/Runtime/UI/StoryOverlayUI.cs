@@ -195,27 +195,60 @@ namespace VisualNovelSystem
                     contentContainer.anchorMin = new Vector2(0.5f, 0.5f);
                     contentContainer.anchorMax = new Vector2(0.5f, 0.5f);
                     contentContainer.pivot = new Vector2(0.5f, 0.5f);
+                    contentContainer.sizeDelta = new Vector2(1700f, 350f);
                     contentContainer.anchoredPosition = Vector2.zero;
-                    if (titleText != null) titleText.alignment = TextAlignmentOptions.Center;
-                    if (subtitleText != null) subtitleText.alignment = TextAlignmentOptions.Center;
+                    if (titleText != null)
+                    {
+                        titleText.alignment = TextAlignmentOptions.Center;
+                        titleText.enableAutoSizing = true;
+                        titleText.fontSizeMin = 32f;
+                        titleText.fontSizeMax = 56f;
+                        titleText.enableWordWrapping = true;
+                    }
+                    if (subtitleText != null)
+                    {
+                        subtitleText.alignment = TextAlignmentOptions.Center;
+                        subtitleText.enableAutoSizing = true;
+                        subtitleText.fontSizeMin = 22f;
+                        subtitleText.fontSizeMax = 32f;
+                        subtitleText.enableWordWrapping = true;
+                    }
                     break;
 
                 case OverlayDisplayMode.TopHeader:
                     contentContainer.anchorMin = new Vector2(0.5f, 1f);
                     contentContainer.anchorMax = new Vector2(0.5f, 1f);
                     contentContainer.pivot = new Vector2(0.5f, 1f);
-                    contentContainer.anchoredPosition = new Vector2(0, -80);
-                    if (titleText != null) titleText.alignment = TextAlignmentOptions.Center;
-                    if (subtitleText != null) subtitleText.alignment = TextAlignmentOptions.Center;
+                    contentContainer.sizeDelta = new Vector2(1700f, 180f);
+                    contentContainer.anchoredPosition = new Vector2(0, -60);
+                    if (titleText != null)
+                    {
+                        titleText.alignment = TextAlignmentOptions.Center;
+                        titleText.enableWordWrapping = false;
+                    }
+                    if (subtitleText != null)
+                    {
+                        subtitleText.alignment = TextAlignmentOptions.Center;
+                        subtitleText.enableWordWrapping = false;
+                    }
                     break;
 
                 case OverlayDisplayMode.BottomTimestamp:
                     contentContainer.anchorMin = new Vector2(1f, 0f);
                     contentContainer.anchorMax = new Vector2(1f, 0f);
                     contentContainer.pivot = new Vector2(1f, 0f);
+                    contentContainer.sizeDelta = new Vector2(1000f, 160f);
                     contentContainer.anchoredPosition = new Vector2(-60, 60);
-                    if (titleText != null) titleText.alignment = TextAlignmentOptions.Right;
-                    if (subtitleText != null) subtitleText.alignment = TextAlignmentOptions.Right;
+                    if (titleText != null)
+                    {
+                        titleText.alignment = TextAlignmentOptions.Right;
+                        titleText.enableWordWrapping = false;
+                    }
+                    if (subtitleText != null)
+                    {
+                        subtitleText.alignment = TextAlignmentOptions.Right;
+                        subtitleText.enableWordWrapping = false;
+                    }
                     break;
             }
         }
