@@ -24,35 +24,65 @@ namespace Investigation.EditorTools
 
             Transform uiTrans = uiController.transform;
 
-            // 1. Obtener o crear CharacterStage (medio cuerpo) como hijo de StoryUIController
-            var existingStage = uiTrans.Find("CharacterStage");
-            GameObject stageGO;
-            if (existingStage != null)
+            // Limpiar stage antiguo si existe
+            var oldSingleStage = uiTrans.Find("CharacterStage");
+            if (oldSingleStage != null) Object.DestroyImmediate(oldSingleStage.gameObject);
+
+            // 1. Obtener o crear CharacterStage_Left (Gabe / Protagonista)
+            var leftStageTrans = uiTrans.Find("CharacterStage_Left");
+            GameObject leftStageGO;
+            if (leftStageTrans != null)
             {
-                stageGO = existingStage.gameObject;
+                leftStageGO = leftStageTrans.gameObject;
             }
             else
             {
-                stageGO = new GameObject("CharacterStage", typeof(RectTransform), typeof(Image));
-                stageGO.transform.SetParent(uiTrans, false);
+                leftStageGO = new GameObject("CharacterStage_Left", typeof(RectTransform), typeof(Image));
+                leftStageGO.transform.SetParent(uiTrans, false);
             }
+            leftStageGO.transform.SetSiblingIndex(0);
 
-            // Poner el personaje detrás de la caja de diálogo
-            stageGO.transform.SetSiblingIndex(0);
+            var leftRect = leftStageGO.GetComponent<RectTransform>();
+            leftRect.anchorMin = new Vector2(0.24f, 0f);
+            leftRect.anchorMax = new Vector2(0.24f, 0f);
+            leftRect.pivot = new Vector2(0.5f, 0f);
+            leftRect.sizeDelta = new Vector2(500f, 750f);
+            leftRect.anchoredPosition = new Vector2(0f, 100f);
 
-            var stageRect = stageGO.GetComponent<RectTransform>();
-            stageRect.anchorMin = new Vector2(0.5f, 0f);
-            stageRect.anchorMax = new Vector2(0.5f, 0f);
-            stageRect.pivot = new Vector2(0.5f, 0f);
-            stageRect.sizeDelta = new Vector2(520f, 750f);
-            stageRect.anchoredPosition = new Vector2(0f, 100f);
+            var leftImg = leftStageGO.GetComponent<Image>();
+            leftImg.preserveAspect = true;
+            leftImg.raycastTarget = false;
+            leftImg.color = new Color(0.35f, 0.50f, 0.70f, 1f);
+            leftStageGO.SetActive(false);
 
-            var stageImg = stageGO.GetComponent<Image>();
-            stageImg.preserveAspect = true;
-            stageImg.raycastTarget = false;
-            stageGO.SetActive(false);
+            // 2. Obtener o crear CharacterStage_Right (NPC / Interlocutor)
+            var rightStageTrans = uiTrans.Find("CharacterStage_Right");
+            GameObject rightStageGO;
+            if (rightStageTrans != null)
+            {
+                rightStageGO = rightStageTrans.gameObject;
+            }
+            else
+            {
+                rightStageGO = new GameObject("CharacterStage_Right", typeof(RectTransform), typeof(Image));
+                rightStageGO.transform.SetParent(uiTrans, false);
+            }
+            rightStageGO.transform.SetSiblingIndex(1);
 
-            // 2. Limpiar / Refactorizar DialogueBox
+            var rightRect = rightStageGO.GetComponent<RectTransform>();
+            rightRect.anchorMin = new Vector2(0.76f, 0f);
+            rightRect.anchorMax = new Vector2(0.76f, 0f);
+            rightRect.pivot = new Vector2(0.5f, 0f);
+            rightRect.sizeDelta = new Vector2(500f, 750f);
+            rightRect.anchoredPosition = new Vector2(0f, 100f);
+
+            var rightImg = rightStageGO.GetComponent<Image>();
+            rightImg.preserveAspect = true;
+            rightImg.raycastTarget = false;
+            rightImg.color = new Color(0.75f, 0.55f, 0.35f, 1f);
+            rightStageGO.SetActive(false);
+
+            // 3. Limpiar / Refactorizar DialogueBox
             var dialogueUI = Object.FindAnyObjectByType<StoryDialogueUI>();
             if (dialogueUI == null)
             {
@@ -75,12 +105,12 @@ namespace Investigation.EditorTools
 
             // Destruir portrait viejo si estaba adentro de DialogueBox
             var oldPortrait = diagGO.transform.Find("CharacterPortrait");
-            if (oldPortrait != null && oldPortrait.gameObject != stageGO)
+            if (oldPortrait != null)
             {
                 Object.DestroyImmediate(oldPortrait.gameObject);
             }
 
-            // 3. Ajustar SpeakerName (ancho completo superior)
+            // 4. Ajustar SpeakerName (ancho completo superior)
             var speakerTrans = diagGO.transform.Find("SpeakerName");
             TextMeshProUGUI speakerTMP = null;
             if (speakerTrans != null)
@@ -101,7 +131,7 @@ namespace Investigation.EditorTools
                 }
             }
 
-            // 4. Ajustar DialogueText (ancho completo cuerpo)
+            // 5. Ajustar DialogueText (ancho completo cuerpo)
             var textTrans = diagGO.transform.Find("DialogueText");
             TextMeshProUGUI textTMP = null;
             if (textTrans != null)
@@ -121,7 +151,7 @@ namespace Investigation.EditorTools
                 }
             }
 
-            // 5. Ajustar OverlayUI (Carteles de título de capítulo amplios y sin cortes)
+            // 6. Ajustar OverlayUI (Carteles de título de capítulo amplios y sin cortes)
             var overlayUI = Object.FindAnyObjectByType<StoryOverlayUI>();
             if (overlayUI != null)
             {
@@ -151,8 +181,7 @@ namespace Investigation.EditorTools
                         var tTMP = tTrans.GetComponent<TextMeshProUGUI>();
                         if (tTMP != null)
                         {
-                            var bebas = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Bebas_Neue/BebasNeue-Regular SDF.asset");
-                            if (bebas != null) tTMP.font = bebas;
+                            if (courier != null) tTMP.font = courier;
                             tTMP.fontSize = 46f;
                             tTMP.enableAutoSizing = true;
                             tTMP.fontSizeMin = 28f;
@@ -185,9 +214,11 @@ namespace Investigation.EditorTools
                 EditorUtility.SetDirty(overlayUI);
             }
 
-            // 6. Vincular al componente StoryDialogueUI
+            // 7. Vincular al componente StoryDialogueUI
             var so = new SerializedObject(dialogueUI);
-            so.FindProperty("characterPortrait").objectReferenceValue = stageImg;
+            so.FindProperty("leftCharacterPortrait").objectReferenceValue = leftImg;
+            so.FindProperty("rightCharacterPortrait").objectReferenceValue = rightImg;
+            so.FindProperty("characterPortrait").objectReferenceValue = rightImg; // Fallback
             if (speakerTMP != null) so.FindProperty("speakerNameText").objectReferenceValue = speakerTMP;
             if (textTMP != null) so.FindProperty("dialogueText").objectReferenceValue = textTMP;
             if (keyClip != null) so.FindProperty("typingAudioClip").objectReferenceValue = keyClip;
@@ -195,12 +226,13 @@ namespace Investigation.EditorTools
 
             // Guardar cambios
             EditorUtility.SetDirty(diagGO);
-            EditorUtility.SetDirty(stageGO);
+            EditorUtility.SetDirty(leftStageGO);
+            EditorUtility.SetDirty(rightStageGO);
             EditorUtility.SetDirty(dialogueUI);
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
             AssetDatabase.SaveAssets();
 
-            Debug.Log("[DialogueUIRefactor] ¡UI de Diálogo refactorizada exitosamente con Stage de medio cuerpo y caja de texto limpia!");
+            Debug.Log("[DialogueUIRefactor] ¡UI de Diálogo Dual Stage (Gabe Izquierda, NPC Derecha + Enfoque Dinámico) configurada exitosamente!");
         }
     }
 }
