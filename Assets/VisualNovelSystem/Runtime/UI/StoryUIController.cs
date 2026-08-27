@@ -84,6 +84,7 @@ namespace VisualNovelSystem
 
         public IEnumerator ShowOverlay(string title, string subtitle, OverlayDisplayMode mode, OverlayEffect effect, float duration, bool waitForClick, float fadeDuration = 0.5f)
         {
+            HideDialogue();
             if (overlayUI != null)
             {
                 yield return overlayUI.ShowOverlayRoutine(title, subtitle, mode, effect, duration, waitForClick, fadeDuration);
