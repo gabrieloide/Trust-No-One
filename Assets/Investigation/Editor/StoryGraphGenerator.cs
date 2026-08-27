@@ -182,7 +182,7 @@ namespace Investigation.EditorTools
             // ==========================================
             // 3. LA NOCHE DEL CRIMEN (02:15 AM)
             // ==========================================
-            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeOut, duration = 0.8f, waitForCompletion = true });
+            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeOut, duration = 0.6f, waitForCompletion = true });
             seqNode.actions.Add(new OverlayTextAction
             {
                 titleText = "",
@@ -192,6 +192,8 @@ namespace Investigation.EditorTools
                 duration = 2.0f,
                 waitForClick = true
             });
+            seqNode.actions.Add(new TravelLocationAction { targetLocationId = "motel" });
+            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeIn, duration = 0.6f, waitForCompletion = true });
 
             seqNode.actions.Add(new DialogueAction
             {
@@ -199,8 +201,6 @@ namespace Investigation.EditorTools
                 dialogueText = "Un grito desgarrador corta la madrugada. Después, el sonido seco de vidrio rompiéndose contra el suelo.",
                 waitForClick = true
             });
-
-            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeIn, duration = 0.5f, waitForCompletion = true });
 
             seqNode.actions.Add(new DialogueAction
             {
