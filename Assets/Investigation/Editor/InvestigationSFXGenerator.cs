@@ -17,8 +17,17 @@ namespace Investigation.EditorTools
             if (!Directory.Exists(SfxFolder))
             {
                 Directory.CreateDirectory(SfxFolder);
-                AssetDatabase.Refresh();
             }
+            else
+            {
+                // Limpiar archivos anteriores para no crear sufijos numéricos (_1, _2)
+                var existingFiles = Directory.GetFiles(SfxFolder, "*.wav");
+                foreach (var f in existingFiles)
+                {
+                    File.Delete(f);
+                }
+            }
+            AssetDatabase.Refresh();
 
             // 1. Typewriter Key (Golpe de tecla seco y mecánico para el teletipo)
             GenerateTypewriterKey();
