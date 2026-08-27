@@ -14,7 +14,11 @@ namespace Investigation
 
         public override IEnumerator Execute(StoryRunner runner)
         {
-            if (CaseState.Instance != null)
+            if (PhaseController.Instance != null)
+            {
+                PhaseController.Instance.SetPhase(targetDay, targetPhase, actionsRemaining);
+            }
+            else if (CaseState.Instance != null)
             {
                 CaseState.Instance.currentDay = targetDay;
                 CaseState.Instance.currentPhase = targetPhase;
