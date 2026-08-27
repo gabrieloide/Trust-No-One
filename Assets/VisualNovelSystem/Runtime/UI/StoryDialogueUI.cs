@@ -26,6 +26,8 @@ namespace VisualNovelSystem
         [SerializeField] private Image characterPortrait;
         [SerializeField] private GameObject continueIndicator;
         [SerializeField] private AudioSource voiceAudioSource;
+        [SerializeField] private AudioClip typingAudioClip;
+        [SerializeField] [Range(0f, 1f)] private float typingAudioVolume = 0.35f;
 
         [Header("Settings")]
         [SerializeField] private float defaultTypewriterSpeed = 0.03f;
@@ -160,6 +162,14 @@ namespace VisualNovelSystem
                     }
 
                     dialogueText.text = text.Substring(0, i);
+
+                    // Reproducir teletipo al tipear caracteres (evitando espacios)
+                    if (i > 0 && i < text.Length && text[i - 1] != ' ' && voiceAudioSource != null && typingAudioClip != null)
+                    {
+                        voiceAudioSource.pitch = UnityEngine.Random.Range(0.92f, 1.08f);
+                        voiceAudioSource.PlayOneShot(typingAudioClip, typingAudioVolume);
+                    }
+
                     yield return new WaitForSeconds(speed);
                 }
 

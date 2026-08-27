@@ -67,13 +67,21 @@ namespace Investigation
 
         public void CollectClue(string clueId)
         {
-            if (collectedClues.Add(clueId)) OnClueCollected?.Invoke();
+            if (collectedClues.Add(clueId))
+            {
+                AudioManager.Play(SFXType.ClueFound);
+                OnClueCollected?.Invoke();
+            }
         }
 
         public bool HasClue(string clueId) => collectedClues.Contains(clueId);
         public IReadOnlyCollection<string> CollectedClues => collectedClues;
 
-        public void RecordConfrontation(string characterId, string clueId) => confrontations.Add(ConfrontKey(characterId, clueId));
+        public void RecordConfrontation(string characterId, string clueId)
+        {
+            confrontations.Add(ConfrontKey(characterId, clueId));
+            AudioManager.Play(SFXType.ConfrontationSlam);
+        }
         public bool WasConfrontedWith(string characterId, string clueId) => confrontations.Contains(ConfrontKey(characterId, clueId));
 
         public int IncrementCounter(string key, int amount = 1)

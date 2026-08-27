@@ -22,11 +22,12 @@ namespace VisualNovelSystem
     {
         // Desacoplados a propósito: VisualNovelSystem no referencia el código del juego
         // (Investigation). Los listeners (ConversationController/LocationController) se
-        // suscriben desde afuera.
         public static event Action<string> OnOpenConversationRequested;
         public static event Action<string> OnInvestigateRequested;
         public static event Action<string> OnGoToLocationRequested;
         public static event Action OnOpenAccusationRequested;
+        public static event Action OnAnyInteractClicked;
+        public static event Action OnAnyInteractHovered;
 
         [Header("Interaction Settings")]
         [SerializeField] private InteractType interactType = InteractType.QuickDialogue;
@@ -196,6 +197,7 @@ namespace VisualNovelSystem
         {
             if (eventData.button == PointerEventData.InputButton.Left)
             {
+                OnAnyInteractClicked?.Invoke();
                 Interact();
             }
         }
@@ -204,6 +206,7 @@ namespace VisualNovelSystem
         {
             if (!IsInteractable) return;
             isHovered = true;
+            OnAnyInteractHovered?.Invoke();
 
             if (StoryCursorManager.Instance != null)
             {
