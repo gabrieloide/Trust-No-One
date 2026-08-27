@@ -12,10 +12,12 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Ramas rotas, tierra removida. Alguien pasó por acá corriendo, o escondiéndose." },
-                        { "speaker": "", "text": "No hay huella clara. Solo el hecho de que alguien estuvo." }
+                        { "speaker": "", "text": "Ramas rotas en la banquina, tierra removida. Alguien pasó por acá con apuro hacia la parte trasera del motel." },
+                        { "speaker": "", "text": "No hay una huella clara, pero confirma lo que vio el camionero en la madrugada." }
                     ],
-                    "effects": []
+                    "effects": [
+                        { "kind": 0, "a": "arbustos_examined", "b": "" }
+                    ]
                 }
             ]
         },
