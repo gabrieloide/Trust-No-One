@@ -26,29 +26,33 @@ namespace Investigation.EditorTools
         [MenuItem("Tools/Investigation/Generate TMP Font Assets and Apply to Scene")]
         public static void GenerateAndApplyAll()
         {
-            var courier = CreateDynamicFontAsset(CourierTtfPath, CourierAssetPath);
-            var bebas = CreateDynamicFontAsset(BebasTtfPath, BebasAssetPath);
-            var spaceMono = CreateDynamicFontAsset(SpaceMonoTtfPath, SpaceMonoAssetPath);
-            var specialElite = CreateDynamicFontAsset(SpecialEliteTtfPath, SpecialEliteAssetPath);
+            var courier = CreateProperFontAsset(CourierTtfPath, CourierAssetPath);
+            var bebas = CreateProperFontAsset(BebasTtfPath, BebasAssetPath);
+            var spaceMono = CreateProperFontAsset(SpaceMonoTtfPath, SpaceMonoAssetPath);
+            var specialElite = CreateProperFontAsset(SpecialEliteTtfPath, SpecialEliteAssetPath);
 
-            // Configurar Courier y LiberationSans como fallback de BebasNeue para caracteres especiales/minúsculas/acentos
-            if (bebas != null && courier != null)
+            var libSans = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset");
+
+            // Configurar Courier y LiberationSans como fallbacks universales
+            if (bebas != null)
             {
-                var libSans = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset");
-                var fallbacks = new List<TMP_FontAsset> { courier };
+                var fallbacks = new List<TMP_FontAsset>();
+                if (courier != null) fallbacks.Add(courier);
                 if (libSans != null) fallbacks.Add(libSans);
                 bebas.fallbackFontAssetTable = fallbacks;
                 EditorUtility.SetDirty(bebas);
             }
 
-            if (courier != null)
+            if (courier != null && libSans != null)
             {
-                var libSans = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset");
-                if (libSans != null)
-                {
-                    courier.fallbackFontAssetTable = new List<TMP_FontAsset> { libSans };
-                    EditorUtility.SetDirty(courier);
-                }
+                courier.fallbackFontAssetTable = new List<TMP_FontAsset> { libSans };
+                EditorUtility.SetDirty(courier);
+            }
+
+            if (spaceMono != null && libSans != null)
+            {
+                spaceMono.fallbackFontAssetTable = new List<TMP_FontAsset> { libSans };
+                EditorUtility.SetDirty(spaceMono);
             }
 
             ApplyFontsToActiveScene(bebas, courier, spaceMono, specialElite);
@@ -61,11 +65,16 @@ namespace Investigation.EditorTools
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            Debug.Log("[FontAssetSetup] ¡Fuentes TMP dinámicas (con soporte completo de acentos, caracteres especiales y fallbacks) generadas y aplicadas!");
+            Debug.Log("[FontAssetSetup] ¡Fuentes TMP recreadas con Materiales y Texturas sub-asset completas!");
         }
 
-        public static TMP_FontAsset CreateDynamicFontAsset(string fontPath, string targetAssetPath)
+        public static TMP_FontAsset CreateProperFontAsset(string fontPath, string targetAssetPath)
         {
+            if (File.Exists(targetAssetPath))
+            {
+                AssetDatabase.DeleteAsset(targetAssetPath);
+            }
+
             var font = AssetDatabase.LoadAssetAtPath<Font>(fontPath);
             if (font == null)
             {
@@ -73,23 +82,53 @@ namespace Investigation.EditorTools
                 return null;
             }
 
-            var fontAsset = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(targetAssetPath);
+            var fontAsset = TMP_FontAsset.CreateFontAsset(font, 90, 9, UnityEngine.TextCore.LowLevel.GlyphRenderMode.SDFAA, 1024, 1024, AtlasPopulationMode.Dynamic);
             if (fontAsset == null)
             {
-                fontAsset = TMP_FontAsset.CreateFontAsset(font, 90, 9, UnityEngine.TextCore.LowLevel.GlyphRenderMode.SDFAA, 1024, 1024);
-                string dir = Path.GetDirectoryName(targetAssetPath);
-                if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-
-                AssetDatabase.CreateAsset(fontAsset, targetAssetPath);
+                Debug.LogError($"[FontAssetSetup] Falló CreateFontAsset para {fontPath}");
+                return null;
             }
 
-            if (fontAsset != null)
+            string dir = Path.GetDirectoryName(targetAssetPath);
+            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+
+            Shader shader = Shader.Find("TextMeshPro/Distance Field");
+            if (shader == null) shader = Shader.Find("TextMeshPro/Mobile/Distance Field");
+
+            Material material = new Material(shader);
+            material.name = fontAsset.name + " Material";
+
+            if (fontAsset.atlasTexture != null)
             {
-                fontAsset.atlasPopulationMode = AtlasPopulationMode.Dynamic;
-                fontAsset.isMultiAtlasTexturesEnabled = true;
-                EditorUtility.SetDirty(fontAsset);
-                AssetDatabase.SaveAssets();
+                material.SetTexture(ShaderUtilities.ID_MainTex, fontAsset.atlasTexture);
+                material.SetFloat(ShaderUtilities.ID_TextureWidth, fontAsset.atlasTexture.width);
+                material.SetFloat(ShaderUtilities.ID_TextureHeight, fontAsset.atlasTexture.height);
             }
+            material.SetFloat(ShaderUtilities.ID_GradientScale, fontAsset.atlasPadding + 1);
+            material.SetFloat(ShaderUtilities.ID_WeightNormal, fontAsset.normalStyle);
+            material.SetFloat(ShaderUtilities.ID_WeightBold, fontAsset.boldStyle);
+
+            fontAsset.material = material;
+
+            AssetDatabase.CreateAsset(fontAsset, targetAssetPath);
+
+            if (fontAsset.atlasTextures != null)
+            {
+                foreach (var tex in fontAsset.atlasTextures)
+                {
+                    if (tex != null) AssetDatabase.AddObjectToAsset(tex, fontAsset);
+                }
+            }
+            else if (fontAsset.atlasTexture != null)
+            {
+                AssetDatabase.AddObjectToAsset(fontAsset.atlasTexture, fontAsset);
+            }
+
+            AssetDatabase.AddObjectToAsset(material, fontAsset);
+
+            EditorUtility.SetDirty(fontAsset);
+            EditorUtility.SetDirty(material);
+            AssetDatabase.SaveAssets();
 
             return fontAsset;
         }
@@ -109,32 +148,30 @@ namespace Investigation.EditorTools
                 Transform parent = tmp.transform.parent;
                 string parentName = parent != null ? parent.name.ToLower() : "";
 
-                // 1. Títulos, Carteles y Overlays -> Bebas Neue
-                if (name.Contains("title") || name.Contains("overlay") || name.Contains("header") ||
-                    parentName.Contains("overlay") || parentName.Contains("accuse") ||
-                    (parentName.StartsWith("location_") && name.Contains("label")))
+                // 1. Títulos de Carteles principales -> Courier o Bebas
+                if (name.Contains("title") || (parentName.Contains("overlay") && name.Contains("title")))
                 {
-                    tmp.font = bebas != null ? bebas : courier;
-                    if (tmp.fontMaterial != null && bebas != null) tmp.fontSharedMaterial = bebas.material;
+                    tmp.font = courier != null ? courier : bebas;
+                    if (tmp.font != null) tmp.fontSharedMaterial = tmp.font.material;
                 }
-                // 2. Diálogos, Textos largos y Nombres de personajes -> Courier Prime
+                // 2. Diálogos, Textos de personajes y subtítulos -> Courier Prime
                 else if (name.Contains("dialogue") || name.Contains("speaker") || name.Contains("subtitle"))
                 {
                     tmp.font = courier;
-                    if (tmp.fontMaterial != null && courier != null) tmp.fontSharedMaterial = courier.material;
+                    if (courier != null) tmp.fontSharedMaterial = courier.material;
                 }
-                // 3. Botones, HUD, Pistas, Opciones y Prompt -> Space Mono
+                // 3. Botones, HUD, Pistas, Opciones y Navegación -> Space Mono
                 else
                 {
                     tmp.font = spaceMono != null ? spaceMono : courier;
-                    if (tmp.fontMaterial != null && spaceMono != null) tmp.fontSharedMaterial = spaceMono.material;
+                    if (tmp.font != null) tmp.fontSharedMaterial = tmp.font.material;
                 }
 
                 EditorUtility.SetDirty(tmp);
                 count++;
             }
 
-            Debug.Log($"[FontAssetSetup] Se asignaron las nuevas fuentes a {count} componentes TextMeshPro en la escena.");
+            Debug.Log($"[FontAssetSetup] Se asignaron las nuevas fuentes correctamente con materiales a {count} componentes TextMeshPro en la escena.");
         }
     }
 }
