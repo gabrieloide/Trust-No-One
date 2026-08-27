@@ -177,7 +177,7 @@
             "displayName": "Volver a hablar con ella",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false },
+                { "kind": 0, "a": "d3p2_started", "b": "", "negate": false },
                 { "kind": 0, "a": "elena_trust_broken", "b": "", "negate": true }
             ],
             "variants": [

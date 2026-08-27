@@ -32,6 +32,8 @@ namespace VisualNovelSystem
         private Coroutine activeOverlayRoutine;
         private bool skipRequested = false;
 
+        public bool IsActive => canvasGroup != null && canvasGroup.blocksRaycasts && canvasGroup.alpha > 0f;
+
         private void Awake()
         {
             if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();

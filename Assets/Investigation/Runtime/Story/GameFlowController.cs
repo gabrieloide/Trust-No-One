@@ -4,7 +4,7 @@ using VisualNovelSystem;
 
 namespace Investigation
 {
-    // Controla los eventos cinemáticos y transiciones de días usando StoryGraphs.
+    // Controla los eventos cinemáticos y transiciones de días usando StoryGraphs y secuencias noir.
     public class GameFlowController : MonoBehaviour
     {
         [Header("Story Graph del Prólogo")]
@@ -54,6 +54,7 @@ namespace Investigation
 
         private void CheckDayTransition()
         {
+            if (CaseState.Instance == null) return;
             int day = CaseState.Instance.currentDay;
             if (day == lastSeenDay) return;
 
@@ -66,9 +67,9 @@ namespace Investigation
                 // y hace la transición directa al Día 2, por lo que no debe duplicarse.
                 return;
             }
-            else if (day == 3)
+            else if (fromDay == 2 && day == 3)
             {
-                StartCoroutine(SimpleDayOverlay(3, "Última oportunidad para investigar"));
+                StartCoroutine(Day2ToDay3TransitionRoutine());
             }
             else if (day > 3)
             {
@@ -76,13 +77,52 @@ namespace Investigation
             }
         }
 
-        private IEnumerator SimpleDayOverlay(int day, string subtitle)
+        private IEnumerator Day2ToDay3TransitionRoutine()
         {
-            yield return UI.ShowOverlay("DÍA " + day, subtitle, OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2.5f, true);
+            if (LocationController.Instance != null)
+            {
+                LocationController.Instance.SetWorldUIActive(false);
+            }
+
+            // 1. Monólogo reflexivo de Gabe al terminar el Día 2
+            yield return UI.ShowDialogue("", "La noche se puso demasiado fría y oscura para seguir afuera. El pueblo entero parece haberse apagado.", null, null, -1f, true);
+            yield return UI.ShowDialogue("", "Es hora de volver a mi habitación en el Starlight Motel a repasar en mi libreta todo lo que descubrí hoy.", null, null, -1f, true);
+
+            UI.HideDialogue();
+
+            // 2. Fundido a negro (Fade Out)
+            yield return UI.FadeScreen(1f, Color.black, 0.8f);
+
+            // 3. Reubicación automática en el Motel
+            if (LocationController.Instance != null)
+            {
+                LocationController.Instance.GoTo("motel");
+            }
+
+            // 4. Cartel de Título de Día 3 limpio
+            yield return UI.ShowOverlay("DÍA 3", "08:00 AM — Última oportunidad para investigar", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Instant, 2.5f, true);
+
+            // 5. Fundido de entrada (Fade In)
+            yield return UI.FadeScreen(0f, Color.black, 0.8f);
+
+            if (LocationController.Instance != null)
+            {
+                LocationController.Instance.SetWorldUIActive(true);
+                LocationController.Instance.RefreshAll();
+            }
+
+            // 6. Monólogo de Gabe al amanecer del Día 3
+            yield return UI.ShowDialogue("", "Amanece sobre el motel. El sheriff llegará al caer la noche para cerrar el caso. Todo lo que no averigüe hoy, quedará enterrado.", null, null, -1f, true);
+            UI.HideDialogue();
         }
 
         private IEnumerator EndInvestigationOverlay()
         {
+            if (LocationController.Instance != null)
+            {
+                LocationController.Instance.SetWorldUIActive(false);
+            }
+
             yield return UI.ShowOverlay("PLAZO AGOTADO", "El tiempo de investigación ha terminado. Es hora de formular la acusación.", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 3f, true);
             
             if (AccusationController.Instance != null)
