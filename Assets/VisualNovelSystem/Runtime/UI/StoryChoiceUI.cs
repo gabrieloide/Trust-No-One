@@ -46,6 +46,11 @@ namespace VisualNovelSystem
             choiceMade = false;
             selectedIndex = -1;
 
+            if (StoryUIController.Instance != null)
+            {
+                StoryUIController.Instance.HideDialogue();
+            }
+
             if (promptText != null)
             {
                 promptText.text = prompt;

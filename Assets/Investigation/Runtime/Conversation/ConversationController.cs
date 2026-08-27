@@ -79,6 +79,7 @@ namespace Investigation
             if (visibleTopics.Count == 0)
             {
                 yield return UI.ShowDialogue(character.displayName, "No tengo nada más que decir por ahora.", null, null, -1f, true);
+                UI.HideDialogue();
                 isBusy = false;
                 yield break;
             }
@@ -93,6 +94,10 @@ namespace Investigation
             {
                 var topic = visibleTopics.First(t => t.id == options[selected].id);
                 yield return PlayTopic(character, topic);
+            }
+            else
+            {
+                UI.HideDialogue();
             }
 
             isBusy = false;
@@ -119,6 +124,7 @@ namespace Investigation
                 else
                 {
                     yield return UI.ShowDialogue(character.displayName, "Todavía no tengo nada que decir sobre eso.", null, null, -1f, true);
+                    UI.HideDialogue();
                 }
             }
 
@@ -153,6 +159,7 @@ namespace Investigation
 
                 CaseState.Instance.ApplyAll(variant.effects);
                 PhaseController.Instance.SpendAction();
+                UI.HideDialogue();
             }
 
             isBusy = false;
