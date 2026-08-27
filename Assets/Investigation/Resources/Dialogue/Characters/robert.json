@@ -7,7 +7,9 @@
             "id": "robert_intro",
             "displayName": "Pedir una habitación",
             "kind": 0,
-            "unlockConditions": [],
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": true }
+            ],
             "variants": [
                 {
                     "id": "default",
@@ -29,7 +31,7 @@
             "displayName": "Preguntarle por anoche",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
             ],
             "variants": [
                 {
@@ -37,12 +39,14 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Robert", "text": "Un asunto terrible, lo de anoche. Terrible. Ya hablé con la policía, les dije todo lo que sé, que no es mucho." },
-                        { "speaker": "Gabe", "text": "¿Y qué es lo que sabe?" },
-                        { "speaker": "Robert", "text": "Que un huésped murió cerca del motel. Nada más. Yo dormía. Uno de mis empleados me despertó." },
-                        { "speaker": "", "text": "Ni un temblor en la voz. Ni una pausa de más. O es inocente, o practicó esto antes de que yo llegara." }
+                        { "speaker": "Robert", "text": "Un asunto terrible lo de anoche, detective. Terrible. Ya hablé con el sheriff temprano y les di mi declaración." },
+                        { "speaker": "Gabe", "text": "¿Y qué les dijo exactamente?" },
+                        { "speaker": "Robert", "text": "La verdad: que una huésped murió en las inmediaciones. Yo estaba durmiendo profundamente hasta que los gritos me alertaron." },
+                        { "speaker": "", "text": "Ni un temblor en la voz. Ni un gesto fuera de lugar. O es inocente, o tiene esta historia ensayada hasta el cansancio." }
                     ],
-                    "effects": []
+                    "effects": [
+                        { "kind": 0, "a": "robert_d2_talked", "b": "" }
+                    ]
                 }
             ]
         },
@@ -63,7 +67,7 @@
                     "lines": [
                         { "speaker": "Gabe", "text": "Tengo entendido que hay un sótano acá. ¿Qué hay ahí abajo?" },
                         { "speaker": "", "text": "Por primera vez, algo se mueve detrás de sus ojos. Apenas. Y desaparece enseguida." },
-                        { "speaker": "Robert", "text": "Herramientas del generador, nada más. Es un lugar húmedo y feo, no dejo entrar a nadie ahí por seguridad." },
+                        { "speaker": "Robert", "text": "Herramientas del generador, nada más. Es un lugar húmedo y peligroso, no dejo entrar a nadie por seguridad." },
                         { "speaker": "Robert", "text": "¿Por qué la pregunta? ¿Tiene algo que ver con lo de anoche?" },
                         { "speaker": "", "text": "La respuesta le salió demasiado rápido. Demasiado lista. Me la va a repetir igual, palabra por palabra, la próxima vez que pregunte." }
                     ],
@@ -89,7 +93,7 @@
                     ],
                     "lines": [
                         { "speaker": "Gabe", "text": "Volvamos al sótano." },
-                        { "speaker": "Robert", "text": "Herramientas del generador, nada más. Es un lugar húmedo y feo, no dejo entrar a nadie ahí por seguridad." },
+                        { "speaker": "Robert", "text": "Herramientas del generador, nada más. Es un lugar húmedo y peligroso, no dejo entrar a nadie por seguridad." },
                         { "speaker": "", "text": "Exactamente las mismas palabras que la vez pasada. En el mismo orden. Como quien recita algo aprendido, no algo recordado." }
                     ],
                     "effects": []
@@ -110,7 +114,7 @@
         {
             "id": "robert_confront",
             "displayName": "Confrontarlo con todo lo reunido",
-            "kind": 2,
+            "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
             ],

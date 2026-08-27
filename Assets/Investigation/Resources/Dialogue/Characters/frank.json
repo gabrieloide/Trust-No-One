@@ -5,10 +5,10 @@
     "topics": [
         {
             "id": "frank_talk_d2",
-            "displayName": "Saludar y preguntar",
+            "displayName": "Saludar y preguntarle por el pueblo",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
             ],
             "variants": [
                 {
@@ -20,16 +20,18 @@
                         { "speaker": "Frank", "text": "¡Eh, el del auto roto! ¿Ya le vieron el motor? Terrible lo de anoche, ¿no? Robert debe estar destrozado, es un pedazo de pan ese hombre." },
                         { "speaker": "Frank", "text": "Lo conozco hace... uh, quince años, capaz más. Nunca le vi una mala cara a nadie. Ni una." }
                     ],
-                    "effects": []
+                    "effects": [
+                        { "kind": 0, "a": "frank_d2_talked", "b": "" }
+                    ]
                 }
             ]
         },
         {
             "id": "frank_ask_carla",
-            "displayName": "Preguntarle si vio algo raro",
+            "displayName": "Preguntarle si vio algo raro anoche",
             "kind": 1,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
             ],
             "variants": [
                 {
@@ -37,8 +39,8 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "¿Vio algo raro anoche, antes de que pasara?" },
-                        { "speaker": "Frank", "text": "Mmm... ahora que lo dice, sí. Vi a Mark cruzarse con una chica, cerca de la ruta. Discutiendo, o algo así, no sé, estaba lejos." },
+                        { "speaker": "Gabe", "text": "¿Vio algo raro anoche, antes de que pasara lo del motel?" },
+                        { "speaker": "Frank", "text": "Mmm... ahora que lo dice, sí. Vi a Mark cruzarse con una chica cerca de la ruta. Discutiendo, o algo así, no sé, estaba lejos." },
                         { "speaker": "Frank", "text": "No le di importancia, Mark siempre anda hablando solo o con alguien que no está. Pero bueno, ahora que pregunta." }
                     ],
                     "effects": [
@@ -49,7 +51,7 @@
         },
         {
             "id": "frank_maintenance_slip",
-            "displayName": "Charlar de nuevo",
+            "displayName": "Charlar de nuevo sobre Robert",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }

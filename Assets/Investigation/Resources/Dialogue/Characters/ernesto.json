@@ -7,7 +7,9 @@
             "id": "ernesto_intro",
             "displayName": "Presentarse",
             "kind": 0,
-            "unlockConditions": [],
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": true }
+            ],
             "variants": [
                 {
                     "id": "default",
@@ -26,10 +28,10 @@
         },
         {
             "id": "ernesto_shop_talk",
-            "displayName": "Preguntarle por su tienda",
+            "displayName": "Preguntarle por su negocio y anoche",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
             ],
             "variants": [
                 {
@@ -39,10 +41,10 @@
                         { "kind": 3, "a": "carpet_shop_receipt", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Sobre el mostrador todavía está el recibo que encontré. Se lo menciono, casi al pasar." },
-                        { "speaker": "Ernesto", "text": "¿Y eso qué tiene? Un mal mes. Dos. La gente ya no compra alfombras, compran de esas de plástico que se pegan solas." },
+                        { "speaker": "", "text": "Sobre el mostrador todavía está el recibo arrugado. Se lo menciono al pasar." },
+                        { "speaker": "Ernesto", "text": "¿Y eso qué tiene? Un mal mes. Dos. La gente ya no compra alfombras buenas, compran esas porquerías sintéticas." },
                         { "speaker": "Ernesto", "text": "No sé por qué me pregunta por mi negocio. Yo no tengo nada que ver con lo que pasó en el motel." },
-                        { "speaker": "", "text": "Nadie mencionó el motel. Lo dice él solo, sin que se lo pregunten." }
+                        { "speaker": "", "text": "Nadie mencionó el motel. Lo larga él solo, sin que se lo pregunten." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "ernesto_denied_unprompted", "b": "" }
@@ -54,7 +56,7 @@
                     "conditions": [],
                     "lines": [
                         { "speaker": "Ernesto", "text": "La tienda va como va. No es la gran vida, pero es mía." },
-                        { "speaker": "Ernesto", "text": "Antes vendía. Ahora la gente pasa de largo. Así es esto." },
+                        { "speaker": "Ernesto", "text": "Antes vendía bien. Ahora la gente pasa de largo. Y con lo que pasó en el motel, peor todavía." },
                         { "speaker": "", "text": "Habla de la tienda como quien habla de sí mismo. Con la misma resignación." }
                     ],
                     "effects": []
@@ -64,7 +66,7 @@
         {
             "id": "ernesto_confront",
             "displayName": "Confrontarlo sobre esa noche",
-            "kind": 2,
+            "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d3p1_started", "b": "", "negate": false }
             ],

@@ -7,7 +7,9 @@
             "id": "elena_intro",
             "displayName": "Hacer el check-in",
             "kind": 0,
-            "unlockConditions": [],
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": true }
+            ],
             "variants": [
                 {
                     "id": "default",
@@ -25,9 +27,34 @@
             ]
         },
         {
+            "id": "elena_talk_morning",
+            "displayName": "Preguntarle por lo ocurrido anoche",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "¿Cómo está llevando lo de anoche, Elena?" },
+                        { "speaker": "Elena", "text": "Mal. No pude pegar un ojo. Carla... Carla era una chica tranquila. No merecía terminar tirada al lado del sótano." },
+                        { "speaker": "Gabe", "text": "¿Sabe por qué estaba ella cerca del sótano a esa hora?" },
+                        { "speaker": "Elena", "text": "No tengo idea. El sótano siempre está cerrado con candado... solo Robert tiene la llave." },
+                        { "speaker": "", "text": "Se frota los brazos como si tuviera frío. Su miedo parece genuino." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "elena_morning_talked", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
             "id": "elena_confront_calm",
-            "displayName": "Preguntarle con calma por qué corrió",
-            "kind": 2,
+            "displayName": "Preguntarle con calma por qué corrió esa noche",
+            "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
                 { "kind": 2, "a": "elena", "b": "elena_confront_calm", "negate": true },
@@ -39,22 +66,23 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Alguien la vio correr, la noche del grito. En dirección contraria." },
+                        { "speaker": "Gabe", "text": "Alguien la vio correr la noche del grito. En dirección contraria." },
                         { "speaker": "", "text": "Se le corta la respiración medio segundo antes de contestar." },
-                        { "speaker": "Elena", "text": "Me asusté. Salí corriendo, no sé para dónde, solo corrí." },
-                        { "speaker": "Gabe", "text": "Está bien. Nadie dijo que hizo algo malo." },
-                        { "speaker": "", "text": "Se relaja, apenas. Suficiente para que la próxima pregunta no se cierre de entrada." }
+                        { "speaker": "Elena", "text": "Me asusté. Salí corriendo, no sé para dónde, solo corrí a buscar ayuda." },
+                        { "speaker": "Gabe", "text": "Está bien. Nadie dijo que haya hecho algo malo." },
+                        { "speaker": "", "text": "Se relaja, apenas. Suficiente para que no se cierre por completo." }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "elena_trust_intact", "b": "" }
+                        { "kind": 0, "a": "elena_trust_intact", "b": "" },
+                        { "kind": 3, "a": "elena_alibi_gap", "b": "" }
                     ]
                 }
             ]
         },
         {
             "id": "elena_confront_harsh",
-            "displayName": "Presionarla directamente",
-            "kind": 2,
+            "displayName": "Presionarla directamente sobre su huida",
+            "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
                 { "kind": 2, "a": "elena", "b": "elena_confront_calm", "negate": true },
@@ -66,14 +94,39 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Alguien la vio correr esa noche, en dirección contraria al grito. ¿Por qué?" },
-                        { "speaker": "Elena", "text": "¿Y qué querría que hiciera? ¿Quedarme ahí parada?" },
-                        { "speaker": "Gabe", "text": "Quedarse a explicar, para empezar." },
-                        { "speaker": "", "text": "Se cierra de golpe. Cruza los brazos, la mirada se le va al mostrador." },
-                        { "speaker": "Elena", "text": "Terminé mi turno. Con permiso." }
+                        { "speaker": "Gabe", "text": "La vieron correr esa noche en dirección contraria al ruido. ¿De qué escapaba?" },
+                        { "speaker": "Elena", "text": "¿Y qué quería que hiciera? ¿Quedarme ahí parada a ver si me tocaba a mí?" },
+                        { "speaker": "Gabe", "text": "Quedarse a explicar a la policía, para empezar." },
+                        { "speaker": "", "text": "Se cierra de golpe. Cruza los brazos y la mirada se le va al mostrador." },
+                        { "speaker": "Elena", "text": "Terminé mi turno con usted. Con permiso." }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "elena_trust_broken", "b": "" }
+                        { "kind": 0, "a": "elena_trust_broken", "b": "" },
+                        { "kind": 3, "a": "elena_alibi_gap", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "elena_master_keys",
+            "displayName": "Preguntarle por las llaves maestras",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "¿Quién tiene acceso a todas las habitaciones del motel?" },
+                        { "speaker": "Elena", "text": "Solo Robert y yo tenemos llaves maestras. Yo la uso para el servicio de limpieza, y Robert guarda la de repuesto en su escritorio." },
+                        { "speaker": "Gabe", "text": "¿Nadie más pudo haber entrado a un cuarto sin forzar la puerta?" },
+                        { "speaker": "Elena", "text": "Imposible. A menos que Robert le haya dado una llave." }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "elena_master_keys", "b": "" }
                     ]
                 }
             ]
