@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add2fa017e242b645a140c265247b220, type: 3}
+  m_Name: SG_D1_Intro
+  m_EditorClassIdentifier: VisualNovelSystem.Runtime::VisualNovelSystem.StoryGraph
+  graphTitle: SG_D1_Intro_Carretera
+  entryNodeGuid: b0d325dd-653d-407d-9d68-c4ef2db2f27c
+  nodes:
+  - guid: b0d325dd-653d-407d-9d68-c4ef2db2f27c
+    title: Start
+    nodeType: 0
+    position: {x: 100, y: 200}
+    actions: []
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  - guid: 8ecdd9a8-ca19-4986-a1de-b6b13876ddf5
+    title: Secuencia Intro
+    nodeType: 1
+    position: {x: 350, y: 200}
+    actions:
+    - rid: 7508757932014829658
+    - rid: 7508757932014829659
+    - rid: 7508757932014829660
+    - rid: 7508757932014829661
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  - guid: 9934ee11-5161-4306-9d9e-38cb0a6a4281
+    title: End
+    nodeType: 6
+    position: {x: 700, y: 200}
+    actions: []
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  nodeLinks:
+  - baseNodeGuid: b0d325dd-653d-407d-9d68-c4ef2db2f27c
+    portIdentifier: output
+    targetNodeGuid: 8ecdd9a8-ca19-4986-a1de-b6b13876ddf5
+  - baseNodeGuid: 8ecdd9a8-ca19-4986-a1de-b6b13876ddf5
+    portIdentifier: output
+    targetNodeGuid: 9934ee11-5161-4306-9d9e-38cb0a6a4281
+  blackboard:
+    initialVariables: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7508757932014829658
+      type: {class: OverlayTextAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        titleText: "D\xCDA 1"
+        subtitleText: "La carretera de ning\xFAn lugar"
+        displayMode: 0
+        effect: 0
+        duration: 2
+        waitForClick: 1
+        fadeDuration: 0.5
+    - rid: 7508757932014829659
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Gabe
+        dialogueText: "El auto se apaga a diez minutos de cualquier cosa. El \xFAnico
+          cartel en kil\xF3metros dice MOTEL, con una flecha pintada a mano."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829660
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Gabe
+        dialogueText: "No va a venir ninguna gr\xFAa antes de ma\xF1ana. Voy a tener
+          que quedarme."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829661
+      type: {class: TravelLocationAction, ns: Investigation, asm: Investigation.Runtime}
+      data:
+        enabled: 1
+        targetLocationId: road

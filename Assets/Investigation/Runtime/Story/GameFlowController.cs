@@ -4,15 +4,14 @@ using VisualNovelSystem;
 
 namespace Investigation
 {
-    // Beats de "Evento" fijos de la matriz (slots 1, 5-8, 9) que no son conversación con
-    // nadie: la intro del Día 1 y el cierre de la Noche 1 (el crimen), que también es
-    // donde se otorgan automáticamente las dos primeras pistas (elena_seen_running,
-    // robert_quick_arrival). El resto de la matriz son acciones del jugador, ya cubiertas
-    // por ConversationController.
+    // Controla los eventos cinemáticos y transiciones de días usando StoryGraphs.
     public class GameFlowController : MonoBehaviour
     {
-        private int lastSeenDay = 1;
+        [Header("Story Graphs de Transición")]
+        [SerializeField] private StoryGraph introStoryGraph;
+        [SerializeField] private StoryGraph night1StoryGraph;
 
+        private int lastSeenDay = 1;
         private StoryUIController UI => StoryUIController.Instance;
 
         private void Awake()
@@ -27,16 +26,24 @@ namespace Investigation
 
         private void Start()
         {
-            StartCoroutine(IntroRoutine());
+            StartCoroutine(IntroSequence());
         }
 
-        private IEnumerator IntroRoutine()
+        private IEnumerator IntroSequence()
         {
             LocationController.Instance.HideAll();
-            yield return UI.ShowOverlay("DÍA 1", "La carretera de ningún lugar", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2f, true);
-            yield return UI.ShowDialogue("", "El auto se apaga a diez minutos de cualquier cosa. El único cartel en kilómetros dice MOTEL, con una flecha pintada a mano.", null, null, -1f, true);
-            yield return UI.ShowDialogue("", "No va a venir ninguna grúa antes de mañana. Voy a tener que quedarme.", null, null, -1f, true);
-            LocationController.Instance.RevealStartingLocation();
+
+            if (introStoryGraph != null && StoryRunner.ActiveRunner != null)
+            {
+                StoryRunner.ActiveRunner.StartStory(introStoryGraph);
+            }
+            else
+            {
+                yield return UI.ShowOverlay("DÍA 1", "La carretera de ningún lugar", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2f, true);
+                yield return UI.ShowDialogue("", "El auto se apaga a diez minutos de cualquier cosa. El único cartel en kilómetros dice MOTEL, con una flecha pintada a mano.", null, null, -1f, true);
+                yield return UI.ShowDialogue("", "No va a venir ninguna grúa antes de mañana. Voy a tener que quedarme.", null, null, -1f, true);
+                LocationController.Instance.RevealStartingLocation();
+            }
         }
 
         private void CheckDayTransition()
@@ -49,7 +56,7 @@ namespace Investigation
 
             if (fromDay == 1 && day == 2)
             {
-                StartCoroutine(Day1NightRoutine());
+                StartCoroutine(Day1NightSequence());
             }
             else if (day <= 3)
             {
@@ -57,23 +64,30 @@ namespace Investigation
             }
         }
 
-        private IEnumerator Day1NightRoutine()
+        private IEnumerator Day1NightSequence()
         {
             LocationController.Instance.HideAll();
 
-            yield return UI.ShowOverlay("", "Esa noche...", OverlayDisplayMode.TopHeader, OverlayEffect.Fade, 2f, true);
-            yield return UI.ShowDialogue("", "Un grito corto, cortado a la mitad. Después, vidrio rompiéndose.", null, null, -1f, true);
-            yield return UI.ShowDialogue("", "Cuando salgo al pasillo alcanzo a ver a Elena, corriendo en dirección contraria al ruido.", null, null, -1f, true);
-            CaseState.Instance.CollectClue("elena_seen_running");
+            if (night1StoryGraph != null && StoryRunner.ActiveRunner != null)
+            {
+                StoryRunner.ActiveRunner.StartStory(night1StoryGraph);
+            }
+            else
+            {
+                yield return UI.ShowOverlay("", "Esa noche...", OverlayDisplayMode.TopHeader, OverlayEffect.Fade, 2f, true);
+                yield return UI.ShowDialogue("", "Un grito corto, cortado a la mitad. Después, vidrio rompiéndose.", null, null, -1f, true);
+                yield return UI.ShowDialogue("", "Cuando salgo al pasillo alcanzo a ver a Elena, corriendo en dirección contraria al ruido.", null, null, -1f, true);
+                CaseState.Instance.CollectClue("elena_seen_running");
 
-            yield return UI.ShowDialogue("", "Para cuando llego, ya hay gente alrededor del cuerpo. Alguien fue a buscar a Robert.", null, null, -1f, true);
-            yield return UI.ShowDialogue("", "Llega antes de lo que debería tardar cualquiera en despertarse y vestirse. Sin marcas, sin agitación, con la explicación ya lista.", null, null, -1f, true);
-            CaseState.Instance.CollectClue("robert_quick_arrival");
+                yield return UI.ShowDialogue("", "Para cuando llego, ya hay gente alrededor del cuerpo. Alguien fue a buscar a Robert.", null, null, -1f, true);
+                yield return UI.ShowDialogue("", "Llega antes de lo que debería tardar cualquiera en despertarse y vestirse. Sin marcas, sin agitación, con la explicación ya lista.", null, null, -1f, true);
+                CaseState.Instance.CollectClue("robert_quick_arrival");
 
-            yield return UI.ShowOverlay("", "Fin del Día 1", OverlayDisplayMode.BottomTimestamp, OverlayEffect.Fade, 2f, true);
-            yield return UI.ShowOverlay("DÍA 2", "La lista de sospechosos no incluye a Robert Hale", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2.5f, true);
+                yield return UI.ShowOverlay("", "Fin del Día 1", OverlayDisplayMode.BottomTimestamp, OverlayEffect.Fade, 2f, true);
+                yield return UI.ShowOverlay("DÍA 2", "La lista de sospechosos no incluye a Robert Hale", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2.5f, true);
 
-            LocationController.Instance.RevealStartingLocation();
+                LocationController.Instance.RevealStartingLocation();
+            }
         }
 
         private IEnumerator SimpleDayOverlay(int day)

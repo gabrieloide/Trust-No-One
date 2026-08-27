@@ -8,15 +8,15 @@ using VisualNovelSystem;
 
 namespace Investigation.EditorTools
 {
-    // Arma de una sola pasada las 6 locaciones (placeholders de color + hotspots),
-    // la barra de navegación dinámica, el panel de evidencias y el HUD de día/fase/acciones,
-    // dentro del VisualNovel_Canvas. Pensado para poder re-ejecutarse mientras se itera.
+    // Genera la escena de investigación completa, vinculando las locaciones, los StoryGraphs del Día 1
+    // y el sistema dinámico de navegación y HUD.
     public static class WorldBuilder
     {
         private class HotspotDef
         {
             public string id;
             public string label;
+            public StoryGraph storyGraph;
         }
 
         private class LocationDef
@@ -45,14 +45,21 @@ namespace Investigation.EditorTools
 
             var worldRoot = new GameObject("WorldRoot", typeof(RectTransform));
             worldRoot.transform.SetParent(canvas, false);
-            worldRoot.transform.SetSiblingIndex(0); // antes que StoryUIController -> diálogo/choices quedan arriba
+            worldRoot.transform.SetSiblingIndex(0); // antes que StoryUIController
             StretchFull(worldRoot.GetComponent<RectTransform>());
 
             var locationsRoot = new GameObject("LocationsRoot", typeof(RectTransform));
             locationsRoot.transform.SetParent(worldRoot.transform, false);
             StretchFull(locationsRoot.GetComponent<RectTransform>());
 
-            var locations = BuildLocationDefs();
+            // Cargar StoryGraphs de Día 1
+            var introSG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Intro.asset");
+            var ernestoSG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Ernesto_Ruta.asset");
+            var elenaSG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Elena_CheckIn.asset");
+            var robertSG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Robert_Bienvenida.asset");
+            var night1SG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Noche_Crimen.asset");
+
+            var locations = BuildLocationDefs(ernestoSG, elenaSG, robertSG);
 
             var locationEntries = new List<(string id, GameObject panel)>();
             var investigateHotspotEntries = new List<(string id, GameObject go)>();
@@ -69,13 +76,19 @@ namespace Investigation.EditorTools
             var (evidenceBarGO, evidenceContainer) = CreateEvidencePanel(worldRoot.transform);
             var accuseButtonGO = CreateAccuseButton(worldRoot.transform);
 
+            // Controllers Setup
             var convGO = GameObject.Find("ConversationController");
             if (convGO == null) convGO = new GameObject("ConversationController");
             if (convGO.GetComponent<ConversationController>() == null) convGO.AddComponent<ConversationController>();
 
             var flowGO = GameObject.Find("GameFlowController");
             if (flowGO == null) flowGO = new GameObject("GameFlowController");
-            if (flowGO.GetComponent<GameFlowController>() == null) flowGO.AddComponent<GameFlowController>();
+            var flowController = flowGO.GetComponent<GameFlowController>();
+            if (flowController == null) flowController = flowGO.AddComponent<GameFlowController>();
+            var flowSo = new SerializedObject(flowController);
+            flowSo.FindProperty("introStoryGraph").objectReferenceValue = introSG;
+            flowSo.FindProperty("night1StoryGraph").objectReferenceValue = night1SG;
+            flowSo.ApplyModifiedPropertiesWithoutUndo();
 
             var accGO = GameObject.Find("AccusationController");
             if (accGO == null) accGO = new GameObject("AccusationController");
@@ -136,33 +149,47 @@ namespace Investigation.EditorTools
             so.FindProperty("hudText").objectReferenceValue = hudText;
             so.FindProperty("navBarRoot").objectReferenceValue = navBarGO;
             so.FindProperty("accuseButtonRoot").objectReferenceValue = accuseButtonGO;
-            so.FindProperty("startingLocationId").stringValue = locations[0].id;
+            
+            // Inicio en la Carretera (según diseño de Notion)
+            so.FindProperty("startingLocationId").stringValue = "road";
             so.ApplyModifiedPropertiesWithoutUndo();
 
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-            Debug.Log($"[WorldBuilder] Mundo construido: {locations.Count} locaciones, {navButtonEntries.Count} botones de navegación, {investigateHotspotEntries.Count} puntos de investigación.");
+            Debug.Log($"[WorldBuilder] Mundo construido con StoryGraphs: 6 locaciones, inicio en 'road' (Carretera).");
         }
 
-        private static List<LocationDef> BuildLocationDefs()
+        private static List<LocationDef> BuildLocationDefs(StoryGraph ernestoSG, StoryGraph elenaSG, StoryGraph robertSG)
         {
             return new List<LocationDef>
             {
                 new LocationDef
                 {
+                    id = "road", displayName = "Camino / Ruta", color = new Color(0.30f, 0.32f, 0.28f),
+                    characters =
+                    {
+                        new HotspotDef { id = "ernesto", label = "Ernesto Vidal", storyGraph = ernestoSG },
+                        new HotspotDef { id = "gus", label = "Gus Whitlock" }
+                    },
+                    investigateSpots = { new HotspotDef { id = "inv_arbustos", label = "Arbustos" } }
+                },
+                new LocationDef
+                {
                     id = "motel", displayName = "Motel — Recepción", color = new Color(0.36f, 0.30f, 0.20f),
-                    characters = { new HotspotDef { id = "robert", label = "Robert Hale" }, new HotspotDef { id = "elena", label = "Elena Marchetti" } },
+                    characters =
+                    {
+                        new HotspotDef { id = "elena", label = "Elena Marchetti", storyGraph = elenaSG },
+                        new HotspotDef { id = "robert", label = "Robert Hale", storyGraph = robertSG }
+                    },
                     investigateSpots = { new HotspotDef { id = "inv_robert_office", label = "Oficina de Robert" } }
                 },
                 new LocationDef
                 {
                     id = "gas_station", displayName = "Gasolinera", color = new Color(0.45f, 0.38f, 0.18f),
-                    characters = { new HotspotDef { id = "frank", label = "Frank Doyle" }, new HotspotDef { id = "mark", label = "Mark Doss" } }
-                },
-                new LocationDef
-                {
-                    id = "road", displayName = "Camino / Ruta", color = new Color(0.30f, 0.32f, 0.28f),
-                    characters = { new HotspotDef { id = "gus", label = "Gus Whitlock" } },
-                    investigateSpots = { new HotspotDef { id = "inv_arbustos", label = "Arbustos" } }
+                    characters =
+                    {
+                        new HotspotDef { id = "frank", label = "Frank Doyle" },
+                        new HotspotDef { id = "mark", label = "Mark Doss" }
+                    }
                 },
                 new LocationDef
                 {
@@ -199,7 +226,7 @@ namespace Investigation.EditorTools
             var bg = panel.AddComponent<Image>();
             bg.color = loc.color;
 
-            var label = CreateLabel(panel.transform, "FONDO: " + loc.displayName, 28f, TextAlignmentOptions.Top, new Color(1f, 1f, 1f, 0.45f));
+            var label = CreateLabel(panel.transform, loc.displayName.ToUpper(), 28f, TextAlignmentOptions.Top, new Color(1f, 1f, 1f, 0.45f));
             var labelRect = label.GetComponent<RectTransform>();
             labelRect.anchorMin = new Vector2(0.5f, 1f);
             labelRect.anchorMax = new Vector2(0.5f, 1f);
@@ -210,8 +237,9 @@ namespace Investigation.EditorTools
             float x = -300f;
             foreach (var c in loc.characters)
             {
+                var type = c.storyGraph != null ? InteractType.TriggerStoryGraph : InteractType.OpenConversation;
                 var hotspot = CreateHotspot(panel.transform, c.label, new Vector2(x, 40f), new Vector2(220f, 140f),
-                    new Color(0.55f, 0.2f, 0.2f, 0.9f), InteractType.OpenConversation, c.id);
+                    new Color(0.55f, 0.2f, 0.2f, 0.9f), type, c.id, c.storyGraph);
 
                 // Mismo hotspot también acepta que le arrastren una pista encima (Confrontar).
                 var confrontTarget = hotspot.AddComponent<ClueConfrontTarget>();
@@ -235,7 +263,7 @@ namespace Investigation.EditorTools
             return panel;
         }
 
-        private static GameObject CreateHotspot(Transform parent, string label, Vector2 anchoredPos, Vector2 size, Color color, InteractType type, string payload)
+        private static GameObject CreateHotspot(Transform parent, string label, Vector2 anchoredPos, Vector2 size, Color color, InteractType type, string payload, StoryGraph storyGraph = null)
         {
             var go = new GameObject("Hotspot_" + label.Replace("\n", " "), typeof(RectTransform));
             go.transform.SetParent(parent, false);
@@ -259,6 +287,11 @@ namespace Investigation.EditorTools
             var interactable = go.AddComponent<StoryInteractable>();
             var so = new SerializedObject(interactable);
             so.FindProperty("interactType").enumValueIndex = (int)type;
+            if (storyGraph != null)
+            {
+                so.FindProperty("targetStoryGraph").objectReferenceValue = storyGraph;
+            }
+
             switch (type)
             {
                 case InteractType.OpenConversation:
@@ -289,19 +322,19 @@ namespace Investigation.EditorTools
             barRect.anchoredPosition = Vector2.zero;
 
             var bg = bar.AddComponent<Image>();
-            bg.color = new Color(0f, 0f, 0f, 0.6f);
+            bg.color = new Color(0.08f, 0.08f, 0.08f, 0.85f);
 
             var layout = bar.AddComponent<HorizontalLayoutGroup>();
             layout.childAlignment = TextAnchor.MiddleCenter;
-            layout.spacing = 8f;
-            layout.padding = new RectOffset(12, 12, 8, 8);
+            layout.spacing = 10f;
+            layout.padding = new RectOffset(16, 16, 8, 8);
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = true;
 
             foreach (var loc in locations)
             {
-                var btn = CreateHotspot(bar.transform, loc.displayName, Vector2.zero, new Vector2(150f, 54f),
-                    new Color(0.25f, 0.25f, 0.25f, 0.95f), InteractType.GoToLocation, loc.id);
+                var btn = CreateHotspot(bar.transform, "📍 " + loc.displayName, Vector2.zero, new Vector2(150f, 54f),
+                    new Color(0.20f, 0.22f, 0.24f, 0.95f), InteractType.GoToLocation, loc.id);
                 navButtons.Add((loc.id, btn));
             }
 
@@ -317,25 +350,25 @@ namespace Investigation.EditorTools
             barRect.anchorMax = new Vector2(1f, 0f);
             barRect.pivot = new Vector2(0.5f, 0f);
             barRect.sizeDelta = new Vector2(0f, 64f);
-            barRect.anchoredPosition = new Vector2(0f, 70f); // justo arriba de la NavBar
+            barRect.anchoredPosition = new Vector2(0f, 70f); // arriba de la NavBar
 
             var bg = bar.AddComponent<Image>();
-            bg.color = new Color(0.05f, 0.05f, 0.05f, 0.55f);
+            bg.color = new Color(0.05f, 0.05f, 0.05f, 0.75f);
 
             var outerLayout = bar.AddComponent<HorizontalLayoutGroup>();
             outerLayout.childAlignment = TextAnchor.MiddleLeft;
             outerLayout.spacing = 8f;
-            outerLayout.padding = new RectOffset(12, 12, 6, 6);
+            outerLayout.padding = new RectOffset(16, 16, 6, 6);
             outerLayout.childForceExpandWidth = false;
             outerLayout.childForceExpandHeight = true;
 
-            var label = CreateLabel(bar.transform, "Pistas:", 18f, TextAlignmentOptions.MidlineLeft, new Color(1f, 1f, 1f, 0.6f));
-            label.gameObject.AddComponent<LayoutElement>().preferredWidth = 70f;
+            var label = CreateLabel(bar.transform, "💼 Pistas:", 18f, TextAlignmentOptions.MidlineLeft, new Color(0.9f, 0.85f, 0.6f, 0.9f));
+            label.gameObject.AddComponent<LayoutElement>().preferredWidth = 80f;
 
             var chipsContainer = new GameObject("ChipsContainer", typeof(RectTransform));
             chipsContainer.transform.SetParent(bar.transform, false);
             var chipsLayout = chipsContainer.AddComponent<HorizontalLayoutGroup>();
-            chipsLayout.spacing = 6f;
+            chipsLayout.spacing = 8f;
             chipsLayout.childAlignment = TextAnchor.MiddleLeft;
             chipsLayout.childForceExpandWidth = false;
             chipsLayout.childForceExpandHeight = true;
@@ -346,8 +379,8 @@ namespace Investigation.EditorTools
 
         private static GameObject CreateAccuseButton(Transform parent)
         {
-            var go = CreateHotspot(parent, "ACUSAR", Vector2.zero, new Vector2(160f, 54f),
-                new Color(0.5f, 0.1f, 0.1f, 0.95f), InteractType.OpenAccusation, "");
+            var go = CreateHotspot(parent, "⚖️ ACUSAR", Vector2.zero, new Vector2(160f, 54f),
+                new Color(0.6f, 0.12f, 0.12f, 0.95f), InteractType.OpenAccusation, "");
 
             var rect = go.GetComponent<RectTransform>();
             rect.anchorMin = new Vector2(1f, 1f);

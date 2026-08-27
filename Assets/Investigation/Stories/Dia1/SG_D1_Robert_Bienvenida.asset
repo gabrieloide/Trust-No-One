@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add2fa017e242b645a140c265247b220, type: 3}
+  m_Name: SG_D1_Robert_Bienvenida
+  m_EditorClassIdentifier: VisualNovelSystem.Runtime::VisualNovelSystem.StoryGraph
+  graphTitle: SG_D1_Robert_Bienvenida
+  entryNodeGuid: af18650f-1cd1-4d91-96be-bf44b2fee1f1
+  nodes:
+  - guid: af18650f-1cd1-4d91-96be-bf44b2fee1f1
+    title: Start
+    nodeType: 0
+    position: {x: 100, y: 200}
+    actions: []
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  - guid: ecf497d6-e729-48d7-8b57-961596fd927c
+    title: Bienvenida de Robert
+    nodeType: 1
+    position: {x: 350, y: 200}
+    actions:
+    - rid: 7508757932014829676
+    - rid: 7508757932014829677
+    - rid: 7508757932014829678
+    - rid: 7508757932014829679
+    - rid: 7508757932014829680
+    - rid: 7508757932014829681
+    - rid: 7508757932014829682
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  - guid: 9ec5c866-0edc-4ca2-b53f-22da1ac7c090
+    title: End
+    nodeType: 6
+    position: {x: 700, y: 200}
+    actions: []
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  nodeLinks:
+  - baseNodeGuid: af18650f-1cd1-4d91-96be-bf44b2fee1f1
+    portIdentifier: output
+    targetNodeGuid: ecf497d6-e729-48d7-8b57-961596fd927c
+  - baseNodeGuid: ecf497d6-e729-48d7-8b57-961596fd927c
+    portIdentifier: output
+    targetNodeGuid: 9ec5c866-0edc-4ca2-b53f-22da1ac7c090
+  blackboard:
+    initialVariables: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7508757932014829676
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: 
+        dialogueText: "Un hombre de sonrisa f\xE1cil sale a recibirme antes de que
+          termine de acercarme."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829677
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Robert
+        dialogueText: "\xA1Bienvenido, bienvenido! No todos los d\xEDas se le rompe
+          el auto justo frente a un motel. Tiene suerte, en el sentido m\xE1s raro
+          posible."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829678
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Gabe
+        dialogueText: Necesito un cuarto para esta noche.
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829679
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Robert
+        dialogueText: "Por supuesto. Le doy el n\xFAmero 4, es el m\xE1s tranquilo.
+          Si necesita algo, cualquier hora, golpee mi puerta."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829680
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: 
+        dialogueText: "Todo en \xE9l es cortes\xEDa calculada al mil\xEDmetro. El
+          tipo de anfitri\xF3n que uno recuerda por lo perfecto, no por lo c\xE1lido."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829681
+      type: {class: SpendActionAction, ns: Investigation, asm: Investigation.Runtime}
+      data:
+        enabled: 1
+    - rid: 7508757932014829682
+      type: {class: CaseFlagAction, ns: Investigation, asm: Investigation.Runtime}
+      data:
+        enabled: 1
+        operation: 0
+        key: d1_robert_talked
+        amount: 1
