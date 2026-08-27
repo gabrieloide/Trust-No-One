@@ -266,7 +266,7 @@ namespace Investigation.EditorTools
             seqNode.actions.Add(new OverlayTextAction
             {
                 titleText = "DÍA 2",
-                subtitleText = "La lista de sospechosos no incluye a Robert Hale",
+                subtitleText = "08:00 AM — El motel bajo sospecha",
                 displayMode = OverlayDisplayMode.CenterTitleCard,
                 effect = OverlayEffect.Fade,
                 duration = 2.5f,
@@ -281,13 +281,19 @@ namespace Investigation.EditorTools
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Gabe",
-                dialogueText = "A la mañana siguiente, la policía local anota cuatro datos con desgana y descarta al dueño del motel. Tienen tres sospechosos fáciles: el vagabundo, el vendedor de alfombras y la chica de recepción.",
+                dialogueText = "A la mañana siguiente, Frank me avisa desde la gasolinera que el repuesto de mi auto tardará dos días en llegar desde la ciudad.",
                 waitForClick = true
             });
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Gabe",
-                dialogueText = "Pero nadie mira a Robert Hale. El hombre parece intocable para todos en este pueblo... y eso es exactamente lo que no me cierra. Voy a tener que investigar por mi cuenta.",
+                dialogueText = "Tras el crimen de Carla Rossi, Robert me ofreció extender mi estadía en la habitación 4 sin cargo mientras colabore como testigo. Tengo dos días antes de que llegue la grúa y el sheriff cierre el caso.",
+                waitForClick = true
+            });
+            seqNode.actions.Add(new DialogueAction
+            {
+                speakerName = "Gabe",
+                dialogueText = "Todos en el pueblo tienen secretos o motivos. Voy a tener que investigar por mi cuenta.",
                 waitForClick = true
             });
 

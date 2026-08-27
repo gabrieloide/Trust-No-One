@@ -59,10 +59,11 @@ namespace Investigation.EditorTools
 
             var locationEntries = new List<(string id, GameObject panel)>();
             var investigateHotspotEntries = new List<(string id, GameObject go)>();
+            var characterHotspotEntries = new List<(string charId, string locId, GameObject go)>();
 
             foreach (var loc in locations)
             {
-                var panel = CreateLocationPanel(locationsRoot.transform, loc, investigateHotspotEntries);
+                var panel = CreateLocationPanel(locationsRoot.transform, loc, investigateHotspotEntries, characterHotspotEntries);
                 locationEntries.Add((loc.id, panel));
             }
 
@@ -138,6 +139,18 @@ namespace Investigation.EditorTools
                 elem.FindPropertyRelative("hotspotGO").objectReferenceValue = investigateHotspotEntries[i].go;
             }
 
+            // Character Hotspots
+            var charProp = so.FindProperty("characterHotspots");
+            charProp.ClearArray();
+            for (int i = 0; i < characterHotspotEntries.Count; i++)
+            {
+                charProp.InsertArrayElementAtIndex(i);
+                var elem = charProp.GetArrayElementAtIndex(i);
+                elem.FindPropertyRelative("characterId").stringValue = characterHotspotEntries[i].charId;
+                elem.FindPropertyRelative("locationId").stringValue = characterHotspotEntries[i].locId;
+                elem.FindPropertyRelative("hotspotGO").objectReferenceValue = characterHotspotEntries[i].go;
+            }
+
             // UI Elements
             so.FindProperty("worldUIRoot").objectReferenceValue = worldRoot;
             so.FindProperty("hudRoot").objectReferenceValue = hudGO;
@@ -162,9 +175,9 @@ namespace Investigation.EditorTools
                     id = "road", displayName = "Camino / Ruta", color = new Color(0.30f, 0.32f, 0.28f),
                     characters =
                     {
-                        new HotspotDef { id = "gus", label = "Gus Whitlock" }
-                    },
-                    investigateSpots = { new HotspotDef { id = "inv_arbustos", label = "Arbustos" } }
+                        new HotspotDef { id = "gus", label = "Gus Whitlock" },
+                        new HotspotDef { id = "mark", label = "Mark Doss" }
+                    }
                 },
                 new LocationDef
                 {
@@ -194,24 +207,29 @@ namespace Investigation.EditorTools
                 new LocationDef
                 {
                     id = "cafeteria", displayName = "Cafetería", color = new Color(0.42f, 0.34f, 0.24f),
-                    characters = { new HotspotDef { id = "marta", label = "Marta Solís" } }
+                    characters =
+                    {
+                        new HotspotDef { id = "marta", label = "Marta Solís" },
+                        new HotspotDef { id = "gus", label = "Gus Whitlock" }
+                    }
                 },
                 new LocationDef
                 {
-                    id = "crime_scene", displayName = "Zona del Sótano", color = new Color(0.18f, 0.18f, 0.20f),
+                    id = "crime_scene", displayName = "Patio Trasero — Escena", color = new Color(0.22f, 0.22f, 0.24f),
                     investigateSpots =
                     {
-                        new HotspotDef { id = "inv_basement_lock", label = "Puerta del sótano" },
-                        new HotspotDef { id = "inv_scene_glass", label = "Perímetro" },
+                        new HotspotDef { id = "inv_arbustos", label = "Arbustos del cerco" },
+                        new HotspotDef { id = "inv_scene_glass", label = "Perímetro / Suelo" },
+                        new HotspotDef { id = "inv_basement_lock", label = "Puerta de servicio" },
                         new HotspotDef { id = "inv_crime_scene_fiber", label = "Revisión (Día 3)" },
-                        new HotspotDef { id = "inv_basement_revisit", label = "Sótano, revisita" },
-                        new HotspotDef { id = "inv_near_basement_carla", label = "Rincón junto al sótano" }
+                        new HotspotDef { id = "inv_basement_revisit", label = "Cerrojo, revisita" },
+                        new HotspotDef { id = "inv_near_basement_carla", label = "Rincón de cajas" }
                     }
                 }
             };
         }
 
-        private static GameObject CreateLocationPanel(Transform parent, LocationDef loc, List<(string id, GameObject go)> investigateHotspots)
+        private static GameObject CreateLocationPanel(Transform parent, LocationDef loc, List<(string id, GameObject go)> investigateHotspots, List<(string charId, string locId, GameObject go)> characterHotspots)
         {
             var panel = new GameObject("Location_" + loc.id, typeof(RectTransform));
             panel.transform.SetParent(parent, false);
@@ -241,16 +259,19 @@ namespace Investigation.EditorTools
                 ctSo.FindProperty("characterId").stringValue = c.id;
                 ctSo.ApplyModifiedPropertiesWithoutUndo();
 
+                characterHotspots.Add((c.id, loc.id, hotspot));
                 x += 260f;
             }
 
-            x = -300f;
+            int spotIndex = 0;
             foreach (var s in loc.investigateSpots)
             {
-                var hotspot = CreateHotspot(panel.transform, "[Investigar]\n" + s.label, new Vector2(x, -160f), new Vector2(200f, 90f),
+                float spotX = -300f + (spotIndex % 3) * 260f;
+                float spotY = spotIndex < 3 ? -160f : -260f;
+                var hotspot = CreateHotspot(panel.transform, "[Investigar]\n" + s.label, new Vector2(spotX, spotY), new Vector2(240f, 85f),
                     new Color(0.2f, 0.35f, 0.45f, 0.9f), InteractType.InvestigateSpot, s.id);
                 investigateHotspots.Add((s.id, hotspot));
-                x += 220f;
+                spotIndex++;
             }
 
             panel.SetActive(false);

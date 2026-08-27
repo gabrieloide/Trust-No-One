@@ -27,7 +27,15 @@ namespace Investigation
         public GameObject hotspotGO;
     }
 
-    // Controla locaciones, navegación progresiva, visibilidad condicional de hotspots y HUD.
+    [Serializable]
+    public class CharacterHotspotEntry
+    {
+        public string characterId;
+        public string locationId;
+        public GameObject hotspotGO;
+    }
+
+    // Controla locaciones, navegación progresiva, visibilidad condicional de hotspots, presencia de NPCs y HUD.
     public class LocationController : MonoBehaviour
     {
         public static LocationController Instance { get; private set; }
@@ -36,6 +44,7 @@ namespace Investigation
         [SerializeField] private List<LocationEntry> locations = new List<LocationEntry>();
         [SerializeField] private List<NavButtonEntry> navButtons = new List<NavButtonEntry>();
         [SerializeField] private List<InvestigateHotspotEntry> investigateHotspots = new List<InvestigateHotspotEntry>();
+        [SerializeField] private List<CharacterHotspotEntry> characterHotspots = new List<CharacterHotspotEntry>();
         [SerializeField] private string startingLocationId = "";
 
         [Header("Elementos de HUD")]
@@ -109,6 +118,7 @@ namespace Investigation
                 if (entry.panelRoot != null) entry.panelRoot.SetActive(entry.id == locationId);
             }
             RefreshHotspots();
+            RefreshCharacters();
         }
 
         public void RefreshAll()
@@ -117,6 +127,7 @@ namespace Investigation
             RefreshNavBar();
             RefreshAccuseButton();
             RefreshHotspots();
+            RefreshCharacters();
         }
 
         public void RefreshHud()
@@ -124,13 +135,16 @@ namespace Investigation
             if (hudText == null) return;
 
             var cs = CaseState.Instance;
-            hudText.text = PhaseController.Instance.IsCaseOver
+            if (cs == null) return;
+
+            hudText.text = PhaseController.Instance != null && PhaseController.Instance.IsCaseOver
                 ? "Investigación terminada"
                 : $"Día {cs.currentDay} · Fase {cs.currentPhase} · Acciones restantes: {cs.actionsRemainingInPhase}";
         }
 
         public void RefreshNavBar()
         {
+            if (CaseState.Instance == null) return;
             int currentDay = CaseState.Instance.currentDay;
             foreach (var nav in navButtons)
             {
@@ -152,16 +166,16 @@ namespace Investigation
 
         public void RefreshAccuseButton()
         {
-            if (accuseButtonRoot == null) return;
+            if (accuseButtonRoot == null || CaseState.Instance == null) return;
 
             // El botón ACUSAR solo es visible en el Día 3 o cuando la investigación termina
-            bool isDay3OrOver = CaseState.Instance.currentDay >= 3 || PhaseController.Instance.IsCaseOver;
+            bool isDay3OrOver = CaseState.Instance.currentDay >= 3 || (PhaseController.Instance != null && PhaseController.Instance.IsCaseOver);
             accuseButtonRoot.SetActive(isDay3OrOver);
         }
 
         public void RefreshHotspots()
         {
-            if (DialogueDatabase.Instance == null) return;
+            if (DialogueDatabase.Instance == null || CaseState.Instance == null) return;
 
             foreach (var entry in investigateHotspots)
             {
@@ -173,6 +187,20 @@ namespace Investigation
                     bool isUnlocked = CaseState.Instance.EvaluateAll(spotData.unlockConditions);
                     entry.hotspotGO.SetActive(isUnlocked);
                 }
+            }
+        }
+
+        public void RefreshCharacters()
+        {
+            if (CaseState.Instance == null) return;
+            int day = CaseState.Instance.currentDay;
+            int phase = CaseState.Instance.currentPhase;
+
+            foreach (var entry in characterHotspots)
+            {
+                if (entry.hotspotGO == null || string.IsNullOrEmpty(entry.characterId)) continue;
+                bool isPresent = NPCSchedule.IsCharacterPresent(entry.characterId, entry.locationId, day, phase);
+                entry.hotspotGO.SetActive(isPresent);
             }
         }
     }

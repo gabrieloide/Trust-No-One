@@ -71,7 +71,16 @@ namespace VisualNovelSystem
 
         public bool IsInteractable
         {
-            get => interactable && CheckCondition();
+            get
+            {
+                if (!interactable || !CheckCondition()) return false;
+
+                // Bloqueo estricto si hay un diálogo, menú de opciones o cinemática activa
+                if (StoryUIController.Instance != null && StoryUIController.Instance.IsModalActive) return false;
+                if (StoryRunner.ActiveRunner != null && StoryRunner.ActiveRunner.IsRunning) return false;
+
+                return true;
+            }
             set => interactable = value;
         }
 
@@ -221,13 +230,14 @@ namespace VisualNovelSystem
         #region 2D/3D Mouse Events (Physics)
         private void OnMouseDown()
         {
-            // Avoid conflict if clicking UI element over 2D object
+            if (!IsInteractable) return;
             if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
             Interact();
         }
 
         private void OnMouseEnter()
         {
+            if (!IsInteractable) return;
             if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
             OnPointerEnter(null);
         }

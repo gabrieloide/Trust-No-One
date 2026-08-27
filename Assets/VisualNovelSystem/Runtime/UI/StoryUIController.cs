@@ -19,6 +19,7 @@ namespace VisualNovelSystem
         public StoryChoiceUI ChoiceUI => choiceUI;
         public StoryFader Fader => fader;
         public StoryOverlayUI OverlayUI => overlayUI;
+        public bool IsModalActive => (choiceUI != null && choiceUI.IsActive) || (dialogueUI != null && dialogueUI.IsActive) || (overlayUI != null && overlayUI.IsActive);
 
         private void Awake()
         {

@@ -27,6 +27,69 @@
                     ]
                 }
             ]
+        },
+        {
+            "id": "gus_cafeteria_musing",
+            "displayName": "Charlar mientras espera el repuesto",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "shoes_found",
+                    "priority": 1,
+                    "conditions": [
+                        { "kind": 0, "a": "arbustos_formal_shoes_found", "b": "", "negate": false }
+                    ],
+                    "lines": [
+                        { "speaker": "", "text": "Gus revuelve un café que ya se enfrió, mirando por la ventana hacia el motel." },
+                        { "speaker": "Gabe", "text": "Esa pisada que encontré en los arbustos era de zapato de vestir, no de zapatilla." },
+                        { "speaker": "Gus", "text": "¿Zapato de vestir? Ahí ya no es el vagabundo, entonces. Acá el único que anda vestido de punta en blanco a esa hora es el dueño del motel." },
+                        { "speaker": "Gus", "text": "No digo nada más, eh. Yo solo cargo camiones. Pero pensalo." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "gus_points_to_robert", "b": "" }
+                    ]
+                },
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gus", "text": "El repuesto todavía no llega. Un pueblo así, todo tarda el doble." },
+                        { "speaker": "Gus", "text": "¿Sabe lo que más raro me resultó? El silencio. Después del grito, nadie salió corriendo. Como si ya supieran qué hacer." },
+                        { "speaker": "", "text": "Le da otro trago al café y se queda mirando el vapor, como buscando algo más que decir." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "gus_cafeteria_talked", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "gus_farewell",
+            "displayName": "Despedirse antes de que se vaya",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p1_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gus", "text": "Terminando de cargar. En cuanto asegure esta correa, agarro la ruta y no miro para atrás." },
+                        { "speaker": "Gabe", "text": "¿Algo más que se le haya cruzado por la cabeza desde que hablamos?" },
+                        { "speaker": "Gus", "text": "Una sola cosa. Esa figura que vi salir de los arbustos caminaba tranquila. Ni corrió. El que hace algo malo y no corre... o está loco, o sabe que nadie lo va a parar." },
+                        { "speaker": "", "text": "Sube a la cabina antes de que pueda preguntar algo más. El motor arranca con un rugido cansado." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "gus_departed", "b": "" }
+                    ]
+                }
+            ]
         }
     ]
 }
