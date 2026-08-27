@@ -419,11 +419,11 @@ namespace VisualNovelSystem
             }
 
             // Detección contextual sutil por puntuación
-            if (text.EndsWith("!!!") || text.Contains("¡¿") || text.Contains("!?"))
+            if (text.EndsWith("!!!") || text.Contains("?!") || text.Contains("!?"))
             {
                 return PortraitEmotion.Shake;
             }
-            if (text.EndsWith("...") && text.Length > 20 && (text.Contains("miedo") || text.Contains("sangre") || text.Contains("crimen") || text.Contains("cadáver")))
+            if (text.EndsWith("...") && text.Length > 20 && (text.Contains("afraid") || text.Contains("scared") || text.Contains("blood") || text.Contains("crime") || text.Contains("corpse") || text.Contains("dead body")))
             {
                 return PortraitEmotion.Tremble;
             }

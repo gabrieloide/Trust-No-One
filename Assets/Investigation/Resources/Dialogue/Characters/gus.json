@@ -5,7 +5,7 @@
     "topics": [
         {
             "id": "gus_arbustos",
-            "displayName": "Preguntarle qué vio",
+            "displayName": "Ask him what he saw",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
@@ -16,11 +16,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Un camionero fuma apoyado en su acoplado, mirando el motel con curiosidad genuina." },
-                        { "speaker": "Gus", "text": "Anoche vi a alguien saliendo de los arbustos, ahí atrás. Con apuro. No le vi la cara, la verdad." },
-                        { "speaker": "Gabe", "text": "¿Podría haber sido el vagabundo? ¿Mark?" },
-                        { "speaker": "Gus", "text": "Y, podría. Aunque este caminaba distinto, más derecho. Pero qué sé yo, era de noche." },
-                        { "speaker": "", "text": "Anoto el dato. Aunque la mitad de mi cabeza ya decidió, sin pruebas, que fue Mark. Habrá que revisar eso." }
+                        { "speaker": "", "text": "A trucker smokes leaning against his trailer, eyeing the motel with genuine curiosity." },
+                        { "speaker": "Gus", "text": "Last night I saw someone coming out of the bushes back there. In a hurry. Didn't get a look at the face, truth be told." },
+                        { "speaker": "Gabe", "text": "Could it have been the vagrant? Mark?" },
+                        { "speaker": "Gus", "text": "Could be. Though this one walked different, straighter. But what do I know, it was dark." },
+                        { "speaker": "", "text": "I make a note of it. Though half my head's already decided, with no proof, that it was Mark. I'll need to check that." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "arbustos_lead_mentioned", "b": "" }
@@ -30,7 +30,7 @@
         },
         {
             "id": "gus_cafeteria_musing",
-            "displayName": "Charlar mientras espera el repuesto",
+            "displayName": "Chat while waiting for the part",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
@@ -43,10 +43,10 @@
                         { "kind": 0, "a": "arbustos_formal_shoes_found", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Gus revuelve un café que ya se enfrió, mirando por la ventana hacia el motel." },
-                        { "speaker": "Gabe", "text": "Esa pisada que encontré en los arbustos era de zapato de vestir, no de zapatilla." },
-                        { "speaker": "Gus", "text": "¿Zapato de vestir? Ahí ya no es el vagabundo, entonces. Acá el único que anda vestido de punta en blanco a esa hora es el dueño del motel." },
-                        { "speaker": "Gus", "text": "No digo nada más, eh. Yo solo cargo camiones. Pero pensalo." }
+                        { "speaker": "", "text": "Gus stirs a coffee that's gone cold, looking out the window toward the motel." },
+                        { "speaker": "Gabe", "text": "That footprint I found in the bushes was a dress shoe, not a sneaker." },
+                        { "speaker": "Gus", "text": "Dress shoe? Then it's not the vagrant. Around here, the only one dressed to the nines at that hour is the motel owner." },
+                        { "speaker": "Gus", "text": "I'm not saying anything else, mind you. I just load trucks. But think about it." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "gus_points_to_robert", "b": "" }
@@ -57,9 +57,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gus", "text": "El repuesto todavía no llega. Un pueblo así, todo tarda el doble." },
-                        { "speaker": "Gus", "text": "¿Sabe lo que más raro me resultó? El silencio. Después del grito, nadie salió corriendo. Como si ya supieran qué hacer." },
-                        { "speaker": "", "text": "Le da otro trago al café y se queda mirando el vapor, como buscando algo más que decir." }
+                        { "speaker": "Gus", "text": "The part still hasn't come in. A town like this, everything takes twice as long." },
+                        { "speaker": "Gus", "text": "You know what struck me as strangest? The silence. After the scream, nobody came running. Like they already knew what to do." },
+                        { "speaker": "", "text": "He takes another sip of coffee and stares at the steam, like he's looking for something more to say." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "gus_cafeteria_talked", "b": "" }
@@ -69,7 +69,7 @@
         },
         {
             "id": "gus_farewell",
-            "displayName": "Despedirse antes de que se vaya",
+            "displayName": "Say goodbye before he leaves",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d3p1_started", "b": "", "negate": false }
@@ -80,10 +80,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gus", "text": "Terminando de cargar. En cuanto asegure esta correa, agarro la ruta y no miro para atrás." },
-                        { "speaker": "Gabe", "text": "¿Algo más que se le haya cruzado por la cabeza desde que hablamos?" },
-                        { "speaker": "Gus", "text": "Una sola cosa. Esa figura que vi salir de los arbustos caminaba tranquila. Ni corrió. El que hace algo malo y no corre... o está loco, o sabe que nadie lo va a parar." },
-                        { "speaker": "", "text": "Sube a la cabina antes de que pueda preguntar algo más. El motor arranca con un rugido cansado." }
+                        { "speaker": "Gus", "text": "Just about done loading. Soon as I strap this down, I'm hitting the highway and not looking back." },
+                        { "speaker": "Gabe", "text": "Anything else cross your mind since we talked?" },
+                        { "speaker": "Gus", "text": "Just one thing. That figure I saw coming out of the bushes was walking calm. Didn't even run. A man who does something wrong and doesn't run... he's either crazy, or he knows nobody's gonna stop him." },
+                        { "speaker": "", "text": "He climbs into the cab before I can ask anything else. The engine starts up with a tired roar." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "gus_departed", "b": "" }

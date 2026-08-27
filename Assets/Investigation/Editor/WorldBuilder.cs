@@ -70,7 +70,8 @@ namespace Investigation.EditorTools
             var navButtonEntries = new List<(string id, GameObject go)>();
             var navBarGO = CreateNavBar(worldRoot.transform, locations, navButtonEntries);
             var (hudGO, hudText) = CreateHud(worldRoot.transform);
-            var (evidenceBarGO, evidenceContainer) = CreateEvidencePanel(worldRoot.transform);
+            var (boardPanelGO, pinArea, detailText) = CreateClueBoardPanel(worldRoot.transform);
+            CreateClueBoardButton(worldRoot.transform);
             var accuseButtonGO = CreateAccuseButton(worldRoot.transform);
 
             // Controllers Setup
@@ -90,14 +91,15 @@ namespace Investigation.EditorTools
             if (accGO == null) accGO = new GameObject("AccusationController");
             if (accGO.GetComponent<AccusationController>() == null) accGO.AddComponent<AccusationController>();
 
-            var evGO = GameObject.Find("EvidencePanelController");
-            if (evGO == null) evGO = new GameObject("EvidencePanelController");
-            var evController = evGO.GetComponent<EvidencePanelController>();
-            if (evController == null) evController = evGO.AddComponent<EvidencePanelController>();
-            var evSo = new SerializedObject(evController);
-            evSo.FindProperty("panelRoot").objectReferenceValue = evidenceBarGO;
-            evSo.FindProperty("container").objectReferenceValue = evidenceContainer;
-            evSo.ApplyModifiedPropertiesWithoutUndo();
+            var boardControllerGO = GameObject.Find("ClueBoardController");
+            if (boardControllerGO == null) boardControllerGO = new GameObject("ClueBoardController");
+            var boardController = boardControllerGO.GetComponent<ClueBoardController>();
+            if (boardController == null) boardController = boardControllerGO.AddComponent<ClueBoardController>();
+            var boardSo = new SerializedObject(boardController);
+            boardSo.FindProperty("boardPanel").objectReferenceValue = boardPanelGO;
+            boardSo.FindProperty("pinArea").objectReferenceValue = pinArea;
+            boardSo.FindProperty("detailText").objectReferenceValue = detailText;
+            boardSo.ApplyModifiedPropertiesWithoutUndo();
 
             var locGO = GameObject.Find("LocationController");
             if (locGO == null) locGO = new GameObject("LocationController");
@@ -178,7 +180,7 @@ namespace Investigation.EditorTools
             {
                 new LocationDef
                 {
-                    id = "road", displayName = "Camino / Ruta", color = new Color(0.30f, 0.32f, 0.28f),
+                    id = "road", displayName = "Road / Highway", color = new Color(0.30f, 0.32f, 0.28f),
                     characters =
                     {
                         new HotspotDef { id = "gus", label = "Gus Whitlock" },
@@ -187,17 +189,17 @@ namespace Investigation.EditorTools
                 },
                 new LocationDef
                 {
-                    id = "motel", displayName = "Motel — Recepción", color = new Color(0.36f, 0.30f, 0.20f),
+                    id = "motel", displayName = "Motel — Front Desk", color = new Color(0.36f, 0.30f, 0.20f),
                     characters =
                     {
                         new HotspotDef { id = "elena", label = "Elena Marchetti", storyGraph = elenaSG },
                         new HotspotDef { id = "robert", label = "Robert Hale", storyGraph = robertSG }
                     },
-                    investigateSpots = { new HotspotDef { id = "inv_robert_office", label = "Oficina de Robert" } }
+                    investigateSpots = { new HotspotDef { id = "inv_robert_office", label = "Robert's Office" } }
                 },
                 new LocationDef
                 {
-                    id = "gas_station", displayName = "Gasolinera", color = new Color(0.45f, 0.38f, 0.18f),
+                    id = "gas_station", displayName = "Gas Station", color = new Color(0.45f, 0.38f, 0.18f),
                     characters =
                     {
                         new HotspotDef { id = "frank", label = "Frank Doyle" },
@@ -206,13 +208,13 @@ namespace Investigation.EditorTools
                 },
                 new LocationDef
                 {
-                    id = "ernesto_shop", displayName = "Tienda de Alfombras", color = new Color(0.40f, 0.24f, 0.20f),
+                    id = "ernesto_shop", displayName = "Carpet Shop", color = new Color(0.40f, 0.24f, 0.20f),
                     characters = { new HotspotDef { id = "ernesto", label = "Ernesto Vidal" } },
-                    investigateSpots = { new HotspotDef { id = "inv_carpet_shop_receipt", label = "Mostrador" } }
+                    investigateSpots = { new HotspotDef { id = "inv_carpet_shop_receipt", label = "Counter" } }
                 },
                 new LocationDef
                 {
-                    id = "cafeteria", displayName = "Cafetería", color = new Color(0.42f, 0.34f, 0.24f),
+                    id = "cafeteria", displayName = "Diner", color = new Color(0.42f, 0.34f, 0.24f),
                     characters =
                     {
                         new HotspotDef { id = "marta", label = "Marta Solís" },
@@ -221,15 +223,15 @@ namespace Investigation.EditorTools
                 },
                 new LocationDef
                 {
-                    id = "crime_scene", displayName = "Patio Trasero — Escena", color = new Color(0.22f, 0.22f, 0.24f),
+                    id = "crime_scene", displayName = "Backyard — Crime Scene", color = new Color(0.22f, 0.22f, 0.24f),
                     investigateSpots =
                     {
-                        new HotspotDef { id = "inv_arbustos", label = "Arbustos del cerco" },
-                        new HotspotDef { id = "inv_scene_glass", label = "Perímetro / Suelo" },
-                        new HotspotDef { id = "inv_basement_lock", label = "Puerta de servicio" },
-                        new HotspotDef { id = "inv_crime_scene_fiber", label = "Revisión (Día 3)" },
-                        new HotspotDef { id = "inv_basement_revisit", label = "Cerrojo, revisita" },
-                        new HotspotDef { id = "inv_near_basement_carla", label = "Rincón de cajas" }
+                        new HotspotDef { id = "inv_arbustos", label = "Bushes by the Fence" },
+                        new HotspotDef { id = "inv_scene_glass", label = "Perimeter / Ground" },
+                        new HotspotDef { id = "inv_basement_lock", label = "Service Door" },
+                        new HotspotDef { id = "inv_crime_scene_fiber", label = "Re-examination (Day 3)" },
+                        new HotspotDef { id = "inv_basement_revisit", label = "Padlock, Second Look" },
+                        new HotspotDef { id = "inv_near_basement_carla", label = "Corner of Crates" }
                     }
                 }
             };
@@ -259,12 +261,6 @@ namespace Investigation.EditorTools
                 var hotspot = CreateHotspot(panel.transform, c.label, new Vector2(x, 40f), new Vector2(220f, 140f),
                     new Color(0.55f, 0.2f, 0.2f, 0.9f), type, c.id, c.storyGraph);
 
-                // Mismo hotspot también acepta que le arrastren una pista encima (Confrontar).
-                var confrontTarget = hotspot.AddComponent<ClueConfrontTarget>();
-                var ctSo = new SerializedObject(confrontTarget);
-                ctSo.FindProperty("characterId").stringValue = c.id;
-                ctSo.ApplyModifiedPropertiesWithoutUndo();
-
                 characterHotspots.Add((c.id, loc.id, hotspot));
                 x += 260f;
             }
@@ -274,7 +270,7 @@ namespace Investigation.EditorTools
             {
                 float spotX = -300f + (spotIndex % 3) * 260f;
                 float spotY = spotIndex < 3 ? -160f : -260f;
-                var hotspot = CreateHotspot(panel.transform, "[Investigar]\n" + s.label, new Vector2(spotX, spotY), new Vector2(240f, 85f),
+                var hotspot = CreateHotspot(panel.transform, "[Investigate]\n" + s.label, new Vector2(spotX, spotY), new Vector2(240f, 85f),
                     new Color(0.2f, 0.35f, 0.45f, 0.9f), InteractType.InvestigateSpot, s.id);
                 investigateHotspots.Add((s.id, hotspot));
                 spotIndex++;
@@ -362,45 +358,90 @@ namespace Investigation.EditorTools
             return bar;
         }
 
-        private static (GameObject bar, Transform container) CreateEvidencePanel(Transform parent)
+        private static GameObject CreateClueBoardButton(Transform parent)
         {
-            var bar = new GameObject("EvidencePanel", typeof(RectTransform));
-            bar.transform.SetParent(parent, false);
-            var barRect = bar.GetComponent<RectTransform>();
-            barRect.anchorMin = new Vector2(0f, 0f);
-            barRect.anchorMax = new Vector2(1f, 0f);
-            barRect.pivot = new Vector2(0.5f, 0f);
-            barRect.sizeDelta = new Vector2(0f, 64f);
-            barRect.anchoredPosition = new Vector2(0f, 70f); // arriba de la NavBar
+            var go = CreateHotspot(parent, "🗂 Clue Board", Vector2.zero, new Vector2(170f, 54f),
+                new Color(0.35f, 0.3f, 0.15f, 0.95f), InteractType.OpenClueBoard, "");
 
-            var bg = bar.AddComponent<Image>();
-            bg.color = new Color(0.05f, 0.05f, 0.05f, 0.75f);
+            var rect = go.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0f, 0f);
+            rect.anchorMax = new Vector2(0f, 0f);
+            rect.pivot = new Vector2(0f, 0f);
+            rect.anchoredPosition = new Vector2(16f, 86f); // arriba de la NavBar
 
-            var outerLayout = bar.AddComponent<HorizontalLayoutGroup>();
-            outerLayout.childAlignment = TextAnchor.MiddleLeft;
-            outerLayout.spacing = 8f;
-            outerLayout.padding = new RectOffset(16, 16, 6, 6);
-            outerLayout.childForceExpandWidth = false;
-            outerLayout.childForceExpandHeight = true;
+            return go;
+        }
 
-            var label = CreateLabel(bar.transform, "💼 Pistas:", 18f, TextAlignmentOptions.MidlineLeft, new Color(0.9f, 0.85f, 0.6f, 0.9f));
-            label.gameObject.AddComponent<LayoutElement>().preferredWidth = 80f;
+        private static (GameObject root, RectTransform pinArea, TextMeshProUGUI detailText) CreateClueBoardPanel(Transform parent)
+        {
+            var root = new GameObject("ClueBoardOverlay", typeof(RectTransform));
+            root.transform.SetParent(parent, false);
+            StretchFull(root.GetComponent<RectTransform>());
 
-            var chipsContainer = new GameObject("ChipsContainer", typeof(RectTransform));
-            chipsContainer.transform.SetParent(bar.transform, false);
-            var chipsLayout = chipsContainer.AddComponent<HorizontalLayoutGroup>();
-            chipsLayout.spacing = 8f;
-            chipsLayout.childAlignment = TextAnchor.MiddleLeft;
-            chipsLayout.childForceExpandWidth = false;
-            chipsLayout.childForceExpandHeight = true;
-            chipsContainer.AddComponent<LayoutElement>().flexibleWidth = 1f;
+            // Scrim de fondo: oscurece la escena y cierra la pizarra al clickearlo (afuera del panel).
+            var scrimGO = CreateHotspot(root.transform, "", Vector2.zero, Vector2.zero,
+                new Color(0f, 0f, 0f, 0.6f), InteractType.OpenClueBoard, "");
+            StretchFull(scrimGO.GetComponent<RectTransform>());
+            foreach (Transform child in scrimGO.transform) Object.DestroyImmediate(child.gameObject); // sin label
 
-            return (bar, chipsContainer.transform);
+            var boardGO = new GameObject("BoardPanel", typeof(RectTransform));
+            boardGO.transform.SetParent(root.transform, false);
+            var boardRect = boardGO.GetComponent<RectTransform>();
+            boardRect.anchorMin = new Vector2(0.08f, 0.12f);
+            boardRect.anchorMax = new Vector2(0.92f, 0.88f);
+            boardRect.offsetMin = Vector2.zero;
+            boardRect.offsetMax = Vector2.zero;
+
+            var boardBg = boardGO.AddComponent<Image>();
+            boardBg.color = new Color(0.32f, 0.22f, 0.15f, 0.97f); // placeholder "corcho"
+
+            var title = CreateLabel(boardGO.transform, "PISTAS", 26f, TextAlignmentOptions.Center, new Color(0.95f, 0.9f, 0.75f, 0.9f));
+            var titleRect = title.GetComponent<RectTransform>();
+            titleRect.anchorMin = new Vector2(0f, 1f);
+            titleRect.anchorMax = new Vector2(1f, 1f);
+            titleRect.pivot = new Vector2(0.5f, 1f);
+            titleRect.sizeDelta = new Vector2(0f, 48f);
+            titleRect.anchoredPosition = new Vector2(0f, -8f);
+
+            var closeGO = CreateHotspot(boardGO.transform, "✕", Vector2.zero, new Vector2(44f, 44f),
+                new Color(0.5f, 0.15f, 0.15f, 0.95f), InteractType.OpenClueBoard, "");
+            var closeRect = closeGO.GetComponent<RectTransform>();
+            closeRect.anchorMin = new Vector2(1f, 1f);
+            closeRect.anchorMax = new Vector2(1f, 1f);
+            closeRect.pivot = new Vector2(1f, 1f);
+            closeRect.anchoredPosition = new Vector2(-10f, -10f);
+
+            var pinAreaGO = new GameObject("PinArea", typeof(RectTransform));
+            pinAreaGO.transform.SetParent(boardGO.transform, false);
+            var pinAreaRect = pinAreaGO.GetComponent<RectTransform>();
+            pinAreaRect.anchorMin = new Vector2(0.03f, 0.2f);
+            pinAreaRect.anchorMax = new Vector2(0.97f, 0.88f);
+            pinAreaRect.offsetMin = Vector2.zero;
+            pinAreaRect.offsetMax = Vector2.zero;
+
+            var detailBarGO = new GameObject("DetailBar", typeof(RectTransform));
+            detailBarGO.transform.SetParent(boardGO.transform, false);
+            var detailBarRect = detailBarGO.GetComponent<RectTransform>();
+            detailBarRect.anchorMin = new Vector2(0f, 0f);
+            detailBarRect.anchorMax = new Vector2(1f, 0.18f);
+            detailBarRect.offsetMin = Vector2.zero;
+            detailBarRect.offsetMax = Vector2.zero;
+            var detailBg = detailBarGO.AddComponent<Image>();
+            detailBg.color = new Color(0f, 0f, 0f, 0.35f);
+
+            var detailText = CreateLabel(detailBarGO.transform, "Click a pinned clue to read it.", 16f, TextAlignmentOptions.TopLeft, Color.white);
+            var detailRect = detailText.GetComponent<RectTransform>();
+            detailRect.anchorMin = Vector2.zero;
+            detailRect.anchorMax = Vector2.one;
+            detailRect.offsetMin = new Vector2(14f, 8f);
+            detailRect.offsetMax = new Vector2(-14f, -8f);
+
+            return (root, pinAreaRect, detailText);
         }
 
         private static GameObject CreateAccuseButton(Transform parent)
         {
-            var go = CreateHotspot(parent, "⚖️ ACUSAR", Vector2.zero, new Vector2(160f, 54f),
+            var go = CreateHotspot(parent, "⚖️ ACCUSE", Vector2.zero, new Vector2(160f, 54f),
                 new Color(0.6f, 0.12f, 0.12f, 0.95f), InteractType.OpenAccusation, "");
 
             var rect = go.GetComponent<RectTransform>();
@@ -423,7 +464,7 @@ namespace Investigation.EditorTools
             rect.sizeDelta = new Vector2(500f, 40f);
             rect.anchoredPosition = new Vector2(16f, -16f);
 
-            var text = CreateLabel(go.transform, "Día 1 · Fase 1 · Acciones restantes: 4", 22f, TextAlignmentOptions.MidlineLeft, Color.white);
+            var text = CreateLabel(go.transform, "Day 1 · Phase 1 · Actions left: 4", 22f, TextAlignmentOptions.MidlineLeft, Color.white);
             text.transform.SetParent(go.transform, false);
             var textRect = text.GetComponent<RectTransform>();
             textRect.anchorMin = Vector2.zero;

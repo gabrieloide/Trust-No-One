@@ -5,7 +5,7 @@
     "topics": [
         {
             "id": "frank_talk_d2",
-            "displayName": "Saludar y preguntarle por el pueblo",
+            "displayName": "Say hello and ask about town",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
@@ -16,9 +16,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Frank limpia el mostrador de la gasolinera aunque no haga falta." },
-                        { "speaker": "Frank", "text": "¡Eh, el del auto roto! ¿Ya le vieron el motor? Terrible lo de anoche, ¿no? Robert debe estar destrozado, es un pedazo de pan ese hombre." },
-                        { "speaker": "Frank", "text": "Lo conozco hace... uh, quince años, capaz más. Nunca le vi una mala cara a nadie. Ni una." }
+                        { "speaker": "", "text": "Frank wipes down the gas station counter even though it doesn't need it." },
+                        { "speaker": "Frank", "text": "Hey, the broken-down-car guy! Anybody looked at your engine yet? Terrible business last night, huh? Robert must be wrecked, that man's a saint." },
+                        { "speaker": "Frank", "text": "Known him for... uh, fifteen years, maybe more. Never once seen him give anyone a hard time. Not once." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "frank_d2_talked", "b": "" }
@@ -28,7 +28,7 @@
         },
         {
             "id": "frank_ask_carla",
-            "displayName": "Preguntarle si vio algo raro anoche",
+            "displayName": "Ask if he saw anything odd last night",
             "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
@@ -39,9 +39,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "¿Vio algo raro anoche, antes de que pasara lo del motel?" },
-                        { "speaker": "Frank", "text": "Mmm... ahora que lo dice, sí. Vi a Mark cruzarse con una chica cerca de la ruta. Discutiendo, o algo así, no sé, estaba lejos." },
-                        { "speaker": "Frank", "text": "No le di importancia, Mark siempre anda hablando solo o con alguien que no está. Pero bueno, ahora que pregunta." }
+                        { "speaker": "Gabe", "text": "Did you see anything odd last night, before what happened at the motel?" },
+                        { "speaker": "Frank", "text": "Mmm... now that you mention it, yeah. Saw Mark run into a girl near the highway. Arguing or something, I don't know, I was far off." },
+                        { "speaker": "Frank", "text": "Didn't think much of it, Mark's always talking to himself or to someone who isn't there. But now that you ask." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "frank_saw_mark_and_carla", "b": "" }
@@ -51,7 +51,7 @@
         },
         {
             "id": "frank_maintenance_slip",
-            "displayName": "Charlar de nuevo sobre Robert",
+            "displayName": "Chat with him about Robert again",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
@@ -62,9 +62,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Frank", "text": "Robert siempre anda con cosas para el generador ese del sótano. Cajas, bolsas. Yo le digo, ché, contratá a alguien, y se ríe." },
-                        { "speaker": "", "text": "Lo dice al pasar, sin darle peso. Para él es solo una anécdota más de un amigo trabajador." },
-                        { "speaker": "Frank", "text": "Buen tipo. De los pocos acá que de verdad se hace cargo de todo solo." }
+                        { "speaker": "Frank", "text": "Robert's always hauling stuff for that generator in the basement. Boxes, bags. I tell him, hey, hire somebody, and he just laughs." },
+                        { "speaker": "", "text": "He says it in passing, no weight to it. To him it's just another story about a hardworking friend." },
+                        { "speaker": "Frank", "text": "Good guy. One of the few around here who really handles everything himself." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "basement_noises_match", "b": "" }

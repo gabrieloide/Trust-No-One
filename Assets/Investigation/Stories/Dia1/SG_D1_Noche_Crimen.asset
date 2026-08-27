@@ -39,10 +39,8 @@ MonoBehaviour:
     - rid: 7508757932014829683
     - rid: 7508757932014829684
     - rid: 7508757932014829685
-    - rid: 7508757932014829686
     - rid: 7508757932014829687
     - rid: 7508757932014829688
-    - rid: 7508757932014829689
     - rid: 7508757932014829690
     - rid: 7508757932014829691
     - rid: 7508757932014829692
@@ -119,11 +117,6 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829686
-      type: {class: CollectClueAction, ns: Investigation, asm: Investigation.Runtime}
-      data:
-        enabled: 1
-        clueId: elena_seen_running
     - rid: 7508757932014829687
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
@@ -148,11 +141,6 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829689
-      type: {class: CollectClueAction, ns: Investigation, asm: Investigation.Runtime}
-      data:
-        enabled: 1
-        clueId: robert_quick_arrival
     - rid: 7508757932014829690
       type: {class: OverlayTextAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:

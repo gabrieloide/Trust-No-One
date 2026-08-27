@@ -94,15 +94,15 @@ namespace Investigation
         {
             if (locationId == "ernesto_shop" && phase == 3)
             {
-                return "[La tienda de alfombras está cerrada con persiana metálica por la noche.]";
+                return "[The carpet shop is closed for the night, roll-down shutter locked.]";
             }
             if (locationId == "motel" && phase == 3)
             {
-                return "[Elena finalizó su turno de recepción. Solo Robert está presente.]";
+                return "[Elena's shift at the front desk has ended. Only Robert is around.]";
             }
             if (locationId == "road" && day == 3 && phase >= 2)
             {
-                return "[El camión de Gus ya no está. Partió por la carretera.]";
+                return "[Gus's truck is gone. He left down the highway.]";
             }
             return "";
         }
