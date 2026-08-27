@@ -21,6 +21,11 @@ namespace VisualNovelSystem
 
         public override IEnumerator Execute(StoryRunner runner)
         {
+            if (runner != null && runner.UIController != null)
+            {
+                runner.UIController.HideDialogue();
+            }
+
             var overlayUI = runner != null && runner.UIController != null ? runner.UIController.OverlayUI : null;
 
             if (overlayUI != null)

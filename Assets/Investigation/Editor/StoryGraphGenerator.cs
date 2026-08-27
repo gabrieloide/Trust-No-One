@@ -37,8 +37,11 @@ namespace Investigation.EditorTools
                 title = "Prólogo Día 1 (Completo)"
             };
 
-            // 1. Ocultar HUD y comenzar en la carretera
+            // ==========================================
+            // 1. APERTURA: CARRETERA (DÍA 1)
+            // ==========================================
             seqNode.actions.Add(new SetWorldUIAction { active = false });
+            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeOut, duration = 0.1f, waitForCompletion = true });
             seqNode.actions.Add(new TravelLocationAction { targetLocationId = "road" });
             seqNode.actions.Add(new OverlayTextAction
             {
@@ -49,8 +52,8 @@ namespace Investigation.EditorTools
                 duration = 2.0f,
                 waitForClick = true
             });
+            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeIn, duration = 0.6f, waitForCompletion = true });
 
-            // 2. Pensamientos de Gabe sobre el auto
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Gabe",
@@ -64,7 +67,7 @@ namespace Investigation.EditorTools
                 waitForClick = true
             });
 
-            // 3. Encuentro automático con Ernesto en la ruta
+            // Encuentro con Ernesto en la ruta
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
@@ -97,8 +100,13 @@ namespace Investigation.EditorTools
             });
             seqNode.actions.Add(new CaseFlagAction { operation = CaseFlagAction.Operation.SetFlag, key = "d1_ernesto_talked" });
 
-            // 4. Llegada a la recepción del Motel con Elena
+            // ==========================================
+            // 2. RECEPCIÓN DEL MOTEL (CHECK-IN)
+            // ==========================================
+            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeOut, duration = 0.4f, waitForCompletion = true });
             seqNode.actions.Add(new TravelLocationAction { targetLocationId = "motel" });
+            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeIn, duration = 0.4f, waitForCompletion = true });
+
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
@@ -131,7 +139,7 @@ namespace Investigation.EditorTools
             });
             seqNode.actions.Add(new CaseFlagAction { operation = CaseFlagAction.Operation.SetFlag, key = "d1_elena_talked" });
 
-            // 5. Bienvenida de Robert
+            // Bienvenida de Robert
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
@@ -164,22 +172,36 @@ namespace Investigation.EditorTools
             });
             seqNode.actions.Add(new CaseFlagAction { operation = CaseFlagAction.Operation.SetFlag, key = "d1_robert_talked" });
 
-            // 6. Noche del crimen
+            seqNode.actions.Add(new DialogueAction
+            {
+                speakerName = "Gabe",
+                dialogueText = "Entro a la habitación 4 y cierro la puerta. Me tiro sobre la cama a esperar que pase la noche.",
+                waitForClick = true
+            });
+
+            // ==========================================
+            // 3. LA NOCHE DEL CRIMEN (02:15 AM)
+            // ==========================================
+            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeOut, duration = 0.8f, waitForCompletion = true });
             seqNode.actions.Add(new OverlayTextAction
             {
                 titleText = "",
-                subtitleText = "Esa noche...",
-                displayMode = OverlayDisplayMode.TopHeader,
+                subtitleText = "Esa misma noche... 02:15 AM",
+                displayMode = OverlayDisplayMode.CenterTitleCard,
                 effect = OverlayEffect.Fade,
                 duration = 2.0f,
                 waitForClick = true
             });
+
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
-                dialogueText = "Un grito corto, cortado a la mitad. Después, el sonido seco de vidrio rompiéndose contra el suelo.",
+                dialogueText = "Un grito desgarrador corta la madrugada. Después, el sonido seco de vidrio rompiéndose contra el suelo.",
                 waitForClick = true
             });
+
+            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeIn, duration = 0.5f, waitForCompletion = true });
+
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
@@ -230,17 +252,17 @@ namespace Investigation.EditorTools
                 dialogueText = "Le sugiero volver a su habitación y cerrar con llave. Esto no es algo que un huésped deba presenciar.",
                 waitForClick = true
             });
-
-            // 7. Transición al Día 2 (Apertura de la investigación)
-            seqNode.actions.Add(new OverlayTextAction
+            seqNode.actions.Add(new DialogueAction
             {
-                titleText = "",
-                subtitleText = "Fin del Día 1",
-                displayMode = OverlayDisplayMode.BottomTimestamp,
-                effect = OverlayEffect.Fade,
-                duration = 2.0f,
+                speakerName = "Gabe",
+                dialogueText = "Vuelvo a mi habitación. Pero en este motel, ya nadie va a poder dormir.",
                 waitForClick = true
             });
+
+            // ==========================================
+            // 4. AMANECER DEL DÍA 2 (INVESTIGACIÓN LIBRE)
+            // ==========================================
+            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeOut, duration = 0.8f, waitForCompletion = true });
             seqNode.actions.Add(new OverlayTextAction
             {
                 titleText = "DÍA 2",
@@ -250,23 +272,24 @@ namespace Investigation.EditorTools
                 duration = 2.5f,
                 waitForClick = true
             });
-            seqNode.actions.Add(new DialogueAction
-            {
-                speakerName = "Gabe",
-                dialogueText = "A la mañana siguiente, la policía local anota cuatro datos con desgano. Tienen tres sospechosos fáciles: el borracho de la gasolinera, el comerciante nuevo y la chica de recepción.",
-                waitForClick = true
-            });
-            seqNode.actions.Add(new DialogueAction
-            {
-                speakerName = "Gabe",
-                dialogueText = "Pero nadie mira a Robert Hale. El dueño del motel parece intocable para todos en este pueblo... y eso es exactamente lo que me huele mal.",
-                waitForClick = true
-            });
 
-            // 8. Activar Día 2, desbloquear HUD y mundo
             seqNode.actions.Add(new SetDayPhaseAction { targetDay = 2, targetPhase = 1, actionsRemaining = 4 });
             seqNode.actions.Add(new SetWorldUIAction { active = true });
             seqNode.actions.Add(new TravelLocationAction { targetLocationId = "motel" });
+            seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeIn, duration = 0.6f, waitForCompletion = true });
+
+            seqNode.actions.Add(new DialogueAction
+            {
+                speakerName = "Gabe",
+                dialogueText = "A la mañana siguiente, la policía local anota cuatro datos con desgana y descarta al dueño del motel. Tienen tres sospechosos fáciles: el vagabundo, el vendedor de alfombras y la chica de recepción.",
+                waitForClick = true
+            });
+            seqNode.actions.Add(new DialogueAction
+            {
+                speakerName = "Gabe",
+                dialogueText = "Pero nadie mira a Robert Hale. El hombre parece intocable para todos en este pueblo... y eso es exactamente lo que no me cierra. Voy a tener que investigar por mi cuenta.",
+                waitForClick = true
+            });
 
             var endNode = new StoryNodeData(StoryNodeType.End, new Vector2(700, 200));
 
