@@ -5,14 +5,13 @@ using VisualNovelSystem;
 
 namespace Investigation
 {
-    // Tira de pistas recolectadas, siempre visible (no vive dentro de un panel de
-    // locación) para poder arrastrar una pista sobre el hotspot de un personaje en
-    // cualquier locación y disparar ConversationController.Confront a través de
-    // ClueConfrontTarget. Se repuebla cada vez que CaseState.OnClueCollected dispara.
+    // Tira de pistas recolectadas. Permite arrastrar una pista sobre el hotspot de un personaje
+    // para confrontarlo. Se oculta automáticamente si no hay pistas recolectadas.
     public class EvidencePanelController : MonoBehaviour
     {
         public static EvidencePanelController Instance { get; private set; }
 
+        [SerializeField] private GameObject panelRoot;
         [SerializeField] private Transform container;
 
         private void Awake()
@@ -40,9 +39,26 @@ namespace Investigation
             Refresh();
         }
 
+        public void SetVisible(bool visible)
+        {
+            var target = panelRoot != null ? panelRoot : (container != null && container.parent != null ? container.parent.gameObject : null);
+            if (target != null)
+            {
+                target.SetActive(visible && CaseState.Instance.CollectedClues.Count > 0);
+            }
+        }
+
         public void Refresh()
         {
-            if (container == null) return;
+            int clueCount = CaseState.Instance != null ? CaseState.Instance.CollectedClues.Count : 0;
+            var target = panelRoot != null ? panelRoot : (container != null && container.parent != null ? container.parent.gameObject : null);
+
+            if (target != null)
+            {
+                target.SetActive(clueCount > 0);
+            }
+
+            if (container == null || clueCount == 0) return;
 
             foreach (Transform child in container)
             {
