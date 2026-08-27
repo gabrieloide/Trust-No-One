@@ -2,7 +2,7 @@
     "spots": [
         {
             "id": "inv_arbustos",
-            "displayName": "Arbustos junto a la escena",
+            "displayName": "Bushes near the crime scene",
             "unlockConditions": [
                 { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
             ],
@@ -14,9 +14,9 @@
                         { "kind": 0, "a": "arbustos_lead_mentioned", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Sabiendo lo que me dijo Gus, me agacho a revisar el fango detrás del cerco de arbustos." },
-                        { "speaker": "", "text": "Las ramas quebradas están a la altura de los hombros. Hay una pisada profunda en el barro: suela de cuero rígido, taco fino." },
-                        { "speaker": "", "text": "No son las zapatillas deshechas de Mark. Quien escapó por acá llevaba zapatos de vestir." }
+                        { "speaker": "", "text": "Knowing what Gus told me, I crouch down to check the mud behind the hedge." },
+                        { "speaker": "", "text": "The broken branches are at shoulder height. There's a deep print in the mud: stiff leather sole, thin heel." },
+                        { "speaker": "", "text": "Those aren't Mark's worn-out sneakers. Whoever ran through here was wearing dress shoes." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "arbustos_examined", "b": "" },
@@ -28,8 +28,8 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Ramas rotas en la banquina, tierra removida. Alguien pasó por acá con apuro hacia la parte trasera del motel." },
-                        { "speaker": "", "text": "No hay una huella clara sin saber qué buscar, pero confirma que hubo movimiento antes del amanecer." }
+                        { "speaker": "", "text": "Broken branches by the roadside, disturbed dirt. Someone came through here in a hurry, heading for the back of the motel." },
+                        { "speaker": "", "text": "There's no clear print without knowing what to look for, but it confirms there was movement before dawn." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "arbustos_examined", "b": "" }
@@ -39,7 +39,7 @@
         },
         {
             "id": "inv_carpet_shop_receipt",
-            "displayName": "Mostrador de la tienda de alfombras",
+            "displayName": "Carpet shop counter",
             "unlockConditions": [
                 { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
             ],
@@ -51,9 +51,9 @@
                         { "kind": 0, "a": "ernesto_denied_unprompted", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Vuelvo a mirar los papeles en el mostrador tras la reacción nerviosa de Ernesto." },
-                        { "speaker": "", "text": "No solo no vende alfombras: al dorso de un remito hay una anotación a mano con la caligrafía de Robert: 'Pago mensual postergado a cambio de fletes nocturnos'." },
-                        { "speaker": "", "text": "Ernesto no solo está quebrado; está endeudado hasta el cuello con el dueño del motel." }
+                        { "speaker": "", "text": "I take another look at the papers on the counter after Ernesto's nervous reaction." },
+                        { "speaker": "", "text": "He's not just failing to sell carpet: on the back of an invoice there's a note in Robert's handwriting: 'Monthly payment deferred in exchange for night hauls.'" },
+                        { "speaker": "", "text": "Ernesto isn't just broke; he's in deep with the motel owner." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carpet_shop_receipt", "b": "" },
@@ -65,8 +65,8 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Un recibo arrugado sobre el mostrador, tirado como quien no espera que nadie lo lea." },
-                        { "speaker": "", "text": "Tres ventas menores en dos meses. Un negocio comercial no se sostiene con estos números. ¿Qué más se paga acá?" }
+                        { "speaker": "", "text": "A crumpled receipt on the counter, tossed aside like nobody was ever meant to read it." },
+                        { "speaker": "", "text": "Three small sales in two months. A business can't survive on these numbers. What else is getting paid for here?" }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carpet_shop_receipt", "b": "" }
@@ -76,7 +76,7 @@
         },
         {
             "id": "inv_scene_glass",
-            "displayName": "Perímetro de la escena",
+            "displayName": "Crime scene perimeter",
             "unlockConditions": [
                 { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
             ],
@@ -88,9 +88,9 @@
                         { "kind": 3, "a": "frank_saw_mark_and_carla", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Teniendo en mente el testimonio de Frank, examino los fragmentos bajo el farol." },
-                        { "speaker": "", "text": "El gollete conserva parte de la etiqueta: 'Old Crow Gin'. Es exactamente la botella que Frank le vendió a Mark antes de la discusión." },
-                        { "speaker": "", "text": "El impacto fue contra el cordón de la vereda, no contra el cuerpo de la víctima. La botella cayó durante un forcejeo." }
+                        { "speaker": "", "text": "Keeping Frank's testimony in mind, I examine the fragments under the streetlamp." },
+                        { "speaker": "", "text": "The neck still has part of the label: 'Old Crow Gin.' It's exactly the bottle Frank sold Mark before the argument." },
+                        { "speaker": "", "text": "The impact was against the curb, not the victim's body. The bottle fell during a struggle." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "glass_matches_bottle", "b": "" },
@@ -102,8 +102,8 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Vidrio verde, grueso. Los bordes coinciden con las botellas baratas que se consiguen en la gasolinera." },
-                        { "speaker": "", "text": "Las mismas que suele cargar Mark. Eso sugiere su presencia, pero todavía no prueba agresión directa." }
+                        { "speaker": "", "text": "Thick green glass. The edges match the cheap bottles sold at the gas station." },
+                        { "speaker": "", "text": "The same kind Mark usually carries. That suggests his presence, but it still doesn't prove direct assault." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "glass_matches_bottle", "b": "" }
@@ -113,7 +113,7 @@
         },
         {
             "id": "inv_basement_lock",
-            "displayName": "Puerta del sótano",
+            "displayName": "Basement door",
             "unlockConditions": [
                 { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
             ],
@@ -125,9 +125,9 @@
                         { "kind": 3, "a": "basement_exclusive_access", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Elena me confirmó que solo Robert tiene la llave de esta puerta." },
-                        { "speaker": "", "text": "Miro el cerrojo de cerca: los remaches saltaron hacia afuera por un golpe seco desde el interior de la habitación subterránea." },
-                        { "speaker": "", "text": "Robert cerró con llave a alguien ahí abajo, y esa persona intentó escapar desesperadamente antes de morir." }
+                        { "speaker": "", "text": "Elena confirmed that only Robert has the key to this door." },
+                        { "speaker": "", "text": "I look closely at the lock: the rivets popped outward from a hard blow from inside the underground room." },
+                        { "speaker": "", "text": "Robert locked someone down there, and that person tried desperately to escape before dying." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "basement_lock", "b": "" },
@@ -139,8 +139,8 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "La cadena cuelga suelta. El candado no está forzado desde afuera: está reventado desde adentro." },
-                        { "speaker": "", "text": "Alguien quiso salir de ahí. No entrar." }
+                        { "speaker": "", "text": "The chain hangs loose. The padlock isn't forced from outside: it's busted from the inside." },
+                        { "speaker": "", "text": "Someone wanted out of there. Not in." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "basement_lock", "b": "" }
@@ -150,7 +150,7 @@
         },
         {
             "id": "inv_crime_scene_fiber",
-            "displayName": "Revisión de la escena (Día 3)",
+            "displayName": "Scene re-examination (Day 3)",
             "unlockConditions": [
                 { "kind": 0, "a": "d3p1_started", "b": "", "negate": false }
             ],
@@ -162,9 +162,9 @@
                         { "kind": 3, "a": "carpet_shop_receipt", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Con el catálogo de la tienda de Ernesto en mente, reviso las astillas del marco inferior." },
-                        { "speaker": "", "text": "Una fibra verde oliva sintética. El hilado y el tinte coinciden exactamente con el rollo de fletes de Ernesto Vidal." },
-                        { "speaker": "", "text": "El cuerpo fue transportado envuelto en un retazo de esa alfombra antes de ser depositado junto al sótano." }
+                        { "speaker": "", "text": "With Ernesto's shop catalog in mind, I check the splinters on the lower frame." },
+                        { "speaker": "", "text": "A synthetic olive-green fiber. The weave and the dye match exactly the roll from Ernesto Vidal's shop." },
+                        { "speaker": "", "text": "The body was carried wrapped in a scrap of that carpet before being left by the basement." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carpet_fiber", "b": "" },
@@ -176,9 +176,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "En la segunda pasada uno ve lo que se le escapó en la primera." },
-                        { "speaker": "", "text": "Una fibra verde oliva, enganchada en una astilla. No es de nada que haya en este motel." },
-                        { "speaker": "", "text": "Alfombra sintética. Conozco un solo lugar en el pueblo que vende de esa." }
+                        { "speaker": "", "text": "On the second pass, you see what you missed the first time." },
+                        { "speaker": "", "text": "An olive-green fiber, snagged on a splinter. It's not from anything in this motel." },
+                        { "speaker": "", "text": "Synthetic carpet. I know exactly one place in town that sells it." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carpet_fiber", "b": "" }
@@ -188,7 +188,7 @@
         },
         {
             "id": "inv_basement_revisit",
-            "displayName": "Sótano, segunda revisión",
+            "displayName": "Basement, second look",
             "unlockConditions": [
                 { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
             ],
@@ -201,8 +201,8 @@
                         { "kind": 3, "a": "basement_exclusive_access", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Candado reventado desde adentro. Una sola llave en todo el motel en manos de Robert Hale." },
-                        { "speaker": "", "text": "Dos hechos sueltos que, juntos, destruyen cualquier intento de coartada accidental." }
+                        { "speaker": "", "text": "Padlock busted from the inside. One single key in the whole motel, and it's in Robert Hale's hands." },
+                        { "speaker": "", "text": "Two loose facts that, together, destroy any attempt at an innocent explanation." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "basement_combo_confirmed", "b": "" }
@@ -213,7 +213,7 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Vuelvo a mirar la puerta del sótano. Todavía me falta una pieza para que esto cierre de manera irrefutable." }
+                        { "speaker": "", "text": "I take another look at the basement door. I still need one more piece to close this case for good." }
                     ],
                     "effects": []
                 }
@@ -221,7 +221,7 @@
         },
         {
             "id": "inv_robert_office",
-            "displayName": "Oficina de Robert",
+            "displayName": "Robert's office",
             "unlockConditions": [
                 { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
             ],
@@ -231,8 +231,8 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Un cuaderno de mantenimiento sobre el escritorio. Entradas ordenadas y prolijas: 'revisión de válvulas', 'combustible para generador', 'compra de insumos'." },
-                        { "speaker": "", "text": "Todo parece estar en regla. La bitácora detallada de un administrador meticuloso." }
+                        { "speaker": "", "text": "A maintenance logbook on the desk. Neat, orderly entries: 'valve inspection,' 'generator fuel,' 'supply purchase.'" },
+                        { "speaker": "", "text": "Everything looks in order. The detailed log of a meticulous manager." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "maintenance_log_seen", "b": "" }
@@ -242,7 +242,7 @@
         },
         {
             "id": "inv_near_basement_carla",
-            "displayName": "Rincón junto al sótano",
+            "displayName": "Corner by the basement",
             "unlockConditions": [
                 { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
             ],
@@ -254,9 +254,9 @@
                         { "kind": 0, "a": "elena_trust_intact", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Siguiendo las indicaciones entrecortadas que me dio Elena, busco detrás del apilamiento de cajones de madera." },
-                        { "speaker": "", "text": "Un bolso de viaje femenino con las iniciales 'C.R.'. Adentro hay un pasaje de ómnibus a Seattle para esa misma madrugada." },
-                        { "speaker": "", "text": "Carla no iba a quedarse en el motel. Iba a huir. Robert lo descubrió y no la dejó llegar a la parada." }
+                        { "speaker": "", "text": "Following the halting directions Elena gave me, I search behind the stack of wooden crates." },
+                        { "speaker": "", "text": "A woman's travel bag with the initials 'C.R.' Inside is a bus ticket to Seattle for that very same dawn." },
+                        { "speaker": "", "text": "Carla wasn't planning to stay at the motel. She was planning to run. Robert found out, and he never let her reach that bus stop." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carla_belongings", "b": "" },
@@ -268,9 +268,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Detrás de unas cajas de herramientas, escondidas más que guardadas: pertenencias que no son del motel." },
-                        { "speaker": "", "text": "Ropa doblada con prisa, un cepillo, documentos personales de Carla Rossi." },
-                        { "speaker": "", "text": "¿Quién las escondió acá en vez de dejarlas en su habitación? El asesino intentó borrar su paso por el Starlight." }
+                        { "speaker": "", "text": "Behind some toolboxes, hidden more than stored: belongings that don't belong to the motel." },
+                        { "speaker": "", "text": "Hastily folded clothes, a hairbrush, Carla Rossi's personal documents." },
+                        { "speaker": "", "text": "Who hid these here instead of leaving them in her room? The killer tried to erase her time at the Starlight." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carla_belongings", "b": "" }

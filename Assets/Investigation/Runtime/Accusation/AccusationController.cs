@@ -53,7 +53,7 @@ namespace Investigation
 
             if (!PhaseController.Instance.IsCaseOver)
             {
-                yield return UI.ShowDialogue("", "Todavía no terminé de investigar. Puedo esperar un poco más antes de acusar a alguien.", null, null, -1f, true);
+                yield return UI.ShowDialogue("", "I'm not done investigating yet. I can wait a little longer before accusing anyone.", null, null, -1f, true);
                 isBusy = false;
                 yield break;
             }
@@ -63,7 +63,7 @@ namespace Investigation
                 .ToList();
 
             int suspectIndex = -1;
-            yield return UI.ShowChoices("¿A quién acuso?", suspectOptions, idx => suspectIndex = idx);
+            yield return UI.ShowChoices("Who do I accuse?", suspectOptions, idx => suspectIndex = idx);
             if (suspectIndex < 0 || suspectIndex >= suspectOptions.Count)
             {
                 isBusy = false;
@@ -84,7 +84,7 @@ namespace Investigation
                     .ToList();
 
                 int evidenceIndex = -1;
-                yield return UI.ShowChoices("¿Qué presento como evidencia?", evidenceOptions, idx => evidenceIndex = idx);
+                yield return UI.ShowChoices("What do I present as evidence?", evidenceOptions, idx => evidenceIndex = idx);
                 if (evidenceIndex >= 0 && evidenceIndex < evidenceOptions.Count)
                 {
                     evidenceClueId = evidenceOptions[evidenceIndex].id;
@@ -94,12 +94,12 @@ namespace Investigation
             string suspectDisplayName = DialogueDatabase.Instance.GetCharacter(suspectId)?.displayName ?? suspectId;
             var confirmOptions = new List<StoryChoiceOption>
             {
-                new StoryChoiceOption { id = "confirm", text = $"Sí, formular acusación contra {suspectDisplayName}" },
-                new StoryChoiceOption { id = "cancel", text = "Volver atrás" }
+                new StoryChoiceOption { id = "confirm", text = $"Yes, formally accuse {suspectDisplayName}" },
+                new StoryChoiceOption { id = "cancel", text = "Go back" }
             };
 
             int confirmIndex = -1;
-            yield return UI.ShowChoices($"¿Cerrar el caso y acusar a {suspectDisplayName}?", confirmOptions, idx => confirmIndex = idx);
+            yield return UI.ShowChoices($"Close the case and accuse {suspectDisplayName}?", confirmOptions, idx => confirmIndex = idx);
             if (confirmIndex != 0)
             {
                 UI.HideDialogue();
@@ -124,77 +124,77 @@ namespace Investigation
             string suspectName = DialogueDatabase.Instance.GetCharacter(suspectId)?.displayName ?? suspectId;
 
             // ACTO 1: Acusación directa de Gabe
-            yield return UI.ShowDialogue("Gabe", $"Fuiste vos, {suspectName}. Todo este tiempo estuviste armando la escena y jugando a que no tenías nada que ver.", null, null, -1f, true);
+            yield return UI.ShowDialogue("Gabe", $"It was you, {suspectName}. This whole time you've been staging the scene and playing innocent.", null, null, -1f, true);
 
             // ACTO 2: Réplica del sospechoso
             switch (suspectId)
             {
                 case "robert":
-                    yield return UI.ShowDialogue("Robert", "¿Y con qué pruebas piensa sostener semejante disparate, detective? Porque hasta ahora todo lo que tiene son conjeturas y sospechas de pasillo.", null, null, -1f, true);
+                    yield return UI.ShowDialogue("Robert", "And what evidence do you plan to back up such an outrageous claim with, detective? Because so far all you have are guesses and hallway gossip.", null, null, -1f, true);
                     break;
                 case "ernesto":
-                    yield return UI.ShowDialogue("Ernesto", "¡Estás loco! ¡Yo no le hice nada a esa mujer! ¡No podés probar una sola palabra de lo que estás diciendo!", null, null, -1f, true);
+                    yield return UI.ShowDialogue("Ernesto", "You're crazy! I didn't do anything to that woman! You can't prove a single word of what you're saying!", null, null, -1f, true);
                     break;
                 case "mark":
-                    yield return UI.ShowDialogue("Mark", "¡No, no, no! ¡Yo no fui! ¡Había ruidos abajo, se lo juro, pero yo no la toqué a Carla! ¡No me encierren de nuevo!", null, null, -1f, true);
+                    yield return UI.ShowDialogue("Mark", "No, no, no! It wasn't me! There were noises downstairs, I swear, but I never touched Carla! Don't lock me up again!", null, null, -1f, true);
                     break;
                 case "elena":
-                    yield return UI.ShowDialogue("Elena", "¿Yo? ¿Por qué me mira a mí? Todo lo que hice fue correr del miedo cuando escuché el golpe... esto es una locura.", null, null, -1f, true);
+                    yield return UI.ShowDialogue("Elena", "Me? Why are you looking at me? All I did was run out of fear when I heard the crash... this is insane.", null, null, -1f, true);
                     break;
             }
 
             // ACTO 3: Presentación de la Evidencia y Reacción
             if (evidence != null)
             {
-                yield return UI.ShowOverlay("EVIDENCIA PRESENTADA", evidence.displayName, OverlayDisplayMode.TopHeader, OverlayEffect.Fade, 1.8f, false);
+                yield return UI.ShowOverlay("EVIDENCE PRESENTED", evidence.displayName, OverlayDisplayMode.TopHeader, OverlayEffect.Fade, 1.8f, false);
 
                 if (accusedRobert && hasStrongRelevant)
                 {
-                    yield return UI.ShowDialogue("Gabe", $"Tengo esto: {evidence.displayName}. {evidence.description}. El candado forzado desde adentro y tu acceso exclusivo al sótano. Ya no hay más versiones que inventar, Robert.", null, null, -1f, true);
+                    yield return UI.ShowDialogue("Gabe", $"I have this: {evidence.displayName}. {evidence.description}. The padlock forced from the inside, and your exclusive access to the basement. There's no more stories left to invent, Robert.", null, null, -1f, true);
                     yield return UI.ShowDialogue("Robert", "...", null, null, -1f, true);
                 }
                 else if (accusedRobert)
                 {
-                    yield return UI.ShowDialogue("Gabe", $"Tengo esto: {evidence.displayName}. {evidence.description}.", null, null, -1f, true);
-                    yield return UI.ShowDialogue("Robert", "¿Eso es todo lo que tiene? Un indicio suelto. Me temo que va a necesitar mucho más que eso ante un juez, señor Miller.", null, null, -1f, true);
+                    yield return UI.ShowDialogue("Gabe", $"I have this: {evidence.displayName}. {evidence.description}.", null, null, -1f, true);
+                    yield return UI.ShowDialogue("Robert", "Is that all you have? A loose thread. I'm afraid you'll need a lot more than that in front of a judge, Mr. Miller.", null, null, -1f, true);
                 }
                 else if (hasStrongRelevant)
                 {
-                    yield return UI.ShowDialogue("Gabe", $"Tengo esto: {evidence.displayName}. {evidence.description}. Cada pieza encaja directamente con vos.", null, null, -1f, true);
-                    yield return UI.ShowDialogue(suspectName, "No... no puede ser... no fue así...", null, null, -1f, true);
+                    yield return UI.ShowDialogue("Gabe", $"I have this: {evidence.displayName}. {evidence.description}. Every piece fits you directly.", null, null, -1f, true);
+                    yield return UI.ShowDialogue(suspectName, "No... it can't be... that's not how it happened...", null, null, -1f, true);
                 }
                 else
                 {
-                    yield return UI.ShowDialogue("Gabe", $"Tengo esto: {evidence.displayName}. {evidence.description}.", null, null, -1f, true);
-                    yield return UI.ShowDialogue(suspectName, "Eso no prueba absolutamente nada contra mí. Está buscando un culpable a ciegas.", null, null, -1f, true);
+                    yield return UI.ShowDialogue("Gabe", $"I have this: {evidence.displayName}. {evidence.description}.", null, null, -1f, true);
+                    yield return UI.ShowDialogue(suspectName, "That doesn't prove a single thing against me. You're grasping at a culprit in the dark.", null, null, -1f, true);
                 }
             }
             else
             {
-                yield return UI.ShowDialogue("Gabe", "No tengo una prueba física contundente... pero los hechos hablan por sí solos.", null, null, -1f, true);
-                yield return UI.ShowDialogue(suspectName, "Sin pruebas, sus palabras no valen nada.", null, null, -1f, true);
+                yield return UI.ShowDialogue("Gabe", "I don't have hard physical proof... but the facts speak for themselves.", null, null, -1f, true);
+                yield return UI.ShowDialogue(suspectName, "Without proof, your words are worth nothing.", null, null, -1f, true);
             }
 
             // EPÍLOGO / DESENLACE
             string ending;
             if (accusedRobert && hasStrongRelevant)
             {
-                ending = "No confiesa. Nunca lo hace. Pero cuando se llevan las pruebas, no protesta, no llama a un abogado, no dice una palabra de más. Se queda mirando el sótano como quien mira algo que por fin dejó de ser suyo. A veces alcanza con eso.";
+                ending = "He doesn't confess. He never does. But when they take the evidence away, he doesn't protest, doesn't call a lawyer, doesn't say a word too many. He just stands there staring at the basement like a man looking at something that finally stopped being his. Sometimes that's enough.";
             }
             else if (accusedRobert)
             {
-                ending = "Tengo razón. Lo sé con la misma certeza con la que sé mi propio nombre. Pero certeza no es prueba, y lo que llevo es demasiado suelto para sostener un cargo. Robert Hale sigue del otro lado del mostrador, sonriendo, dándole la habitación 4 a otro que se quedó varado en la ruta. Algunas noches, eso es lo único que me despierta.";
+                ending = "I'm right. I know it with the same certainty I know my own name. But certainty isn't proof, and what I'm carrying is too loose to hold up a charge. Robert Hale stays behind the counter, smiling, handing room 4 to some other stranded traveler. Some nights, that's the only thing that keeps me up.";
             }
             else if (hasStrongRelevant)
             {
-                ending = $"El caso cierra. Cada pieza encaja donde debería, prolija, convincente. {suspectName} no tiene cómo defenderse, y en el fondo, tampoco parece sorprendido. Es un buen trabajo policial. Es también, sin que yo lo sepa todavía, la respuesta equivocada.";
+                ending = $"The case closes. Every piece fits where it should, neat, convincing. {suspectName} has no way to defend against it, and deep down, doesn't even look surprised. It's good police work. It's also, without me knowing it yet, the wrong answer.";
             }
             else
             {
-                ending = $"Acuso con lo que tengo, que no es mucho. {suspectName} lo niega, y por una vez, tiene toda la razón para hacerlo. El expediente se cierra mal, con más preguntas que las que tenía al llegar. En algún lugar de este pueblo, alguien sigue sin pagar por lo que hizo.";
+                ending = $"I accuse with what I have, which isn't much. {suspectName} denies it, and for once, has every right to. The file closes badly, with more questions than I arrived with. Somewhere in this town, someone still hasn't paid for what they did.";
             }
 
-            yield return UI.ShowOverlay("", "EXPEDIENTE FINAL", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2f, true);
+            yield return UI.ShowOverlay("", "CASE CLOSED", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2f, true);
             yield return UI.ShowDialogue("", ending, null, null, -1f, true);
             UI.HideDialogue();
         }

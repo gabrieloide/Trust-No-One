@@ -15,7 +15,8 @@ namespace VisualNovelSystem
         OpenConversation,
         InvestigateSpot,
         GoToLocation,
-        OpenAccusation
+        OpenAccusation,
+        OpenClueBoard
     }
 
     public class StoryInteractable : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
@@ -26,6 +27,7 @@ namespace VisualNovelSystem
         public static event Action<string> OnInvestigateRequested;
         public static event Action<string> OnGoToLocationRequested;
         public static event Action OnOpenAccusationRequested;
+        public static event Action OnOpenClueBoardRequested;
         public static event Action OnAnyInteractClicked;
         public static event Action OnAnyInteractHovered;
 
@@ -182,6 +184,10 @@ namespace VisualNovelSystem
 
                 case InteractType.OpenAccusation:
                     OnOpenAccusationRequested?.Invoke();
+                    break;
+
+                case InteractType.OpenClueBoard:
+                    OnOpenClueBoardRequested?.Invoke();
                     break;
             }
 

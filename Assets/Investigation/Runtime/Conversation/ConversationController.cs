@@ -13,7 +13,8 @@ namespace Investigation
         public static ConversationController Instance { get; private set; }
 
         private const string LeaveOptionId = "__leave__";
-        private const string PresentEvidenceOptionId = "__present_evidence__";
+        private const string TalkOptionId = "__talk__";
+        private const string ConfrontOptionId = "__confront__";
         private bool isBusy = false;
         public bool IsBusy => isBusy;
 
@@ -66,7 +67,7 @@ namespace Investigation
             var character = DialogueDatabase.Instance != null ? DialogueDatabase.Instance.GetCharacter(characterId) : null;
             if (character == null)
             {
-                Debug.LogWarning($"[ConversationController] No hay datos de diálogo para '{characterId}'.");
+                Debug.LogWarning($"[ConversationController] No dialogue data for '{characterId}'.");
                 isBusy = false;
                 yield break;
             }
@@ -81,38 +82,34 @@ namespace Investigation
                 yield return UI.ShowDialogue(character.displayName, greeting, null, null, -1f, true);
             }
 
-            // 2. Obtener temas disponibles para la fase actual
+            // 2. Menú principal: Hablar / Confrontar (si hay pistas) / Salir
             var visibleTopics = GetVisibleTopics(character);
 
-            var options = visibleTopics.Select(t =>
+            var mainOptions = new List<StoryChoiceOption>
             {
-                bool seen = CaseState.Instance != null && CaseState.Instance.HasSeenTopic(character.id, t.id);
-                string label = seen ? $"{t.displayName} [✓]" : t.displayName;
-                return new StoryChoiceOption { id = t.id, text = label };
-            }).ToList();
+                new StoryChoiceOption { id = TalkOptionId, text = "Talk" }
+            };
 
-            // Opción de presentar evidencia si el jugador tiene pistas
             if (CaseState.Instance != null && CaseState.Instance.CollectedClues.Count > 0)
             {
-                options.Add(new StoryChoiceOption { id = PresentEvidenceOptionId, text = "🔍 Presentar Evidencia..." });
+                mainOptions.Add(new StoryChoiceOption { id = ConfrontOptionId, text = "🔍 Confront..." });
             }
 
-            options.Add(new StoryChoiceOption { id = LeaveOptionId, text = "Dejar de hablar por ahora" });
+            mainOptions.Add(new StoryChoiceOption { id = LeaveOptionId, text = "Stop talking for now" });
 
-            int selected = -1;
-            yield return UI.ShowChoices($"¿De qué hablar con {character.displayName}?", options, idx => selected = idx);
+            int selectedMain = -1;
+            yield return UI.ShowChoices($"What do you want to do with {character.displayName}?", mainOptions, idx => selectedMain = idx);
 
-            if (selected >= 0 && selected < options.Count)
+            if (selectedMain >= 0 && selectedMain < mainOptions.Count)
             {
-                string chosenId = options[selected].id;
-                if (chosenId == PresentEvidenceOptionId)
+                string chosenId = mainOptions[selectedMain].id;
+                if (chosenId == TalkOptionId)
+                {
+                    yield return TalkTopicsRoutine(character, visibleTopics);
+                }
+                else if (chosenId == ConfrontOptionId)
                 {
                     yield return PresentEvidenceRoutine(character);
-                }
-                else if (chosenId != LeaveOptionId)
-                {
-                    var topic = visibleTopics.First(t => t.id == chosenId);
-                    yield return PlayTopic(character, topic);
                 }
                 else
                 {
@@ -127,6 +124,31 @@ namespace Investigation
             isBusy = false;
         }
 
+        private IEnumerator TalkTopicsRoutine(CharacterData character, List<TopicData> visibleTopics)
+        {
+            var options = visibleTopics.Select(t =>
+            {
+                bool seen = CaseState.Instance != null && CaseState.Instance.HasSeenTopic(character.id, t.id);
+                string label = seen ? $"{t.displayName} [✓]" : t.displayName;
+                return new StoryChoiceOption { id = t.id, text = label };
+            }).ToList();
+
+            options.Add(new StoryChoiceOption { id = LeaveOptionId, text = "Never mind" });
+
+            int selected = -1;
+            yield return UI.ShowChoices($"What to talk about with {character.displayName}?", options, idx => selected = idx);
+
+            if (selected >= 0 && selected < options.Count && options[selected].id != LeaveOptionId)
+            {
+                var topic = visibleTopics.First(t => t.id == options[selected].id);
+                yield return PlayTopic(character, topic);
+            }
+            else
+            {
+                UI.HideDialogue();
+            }
+        }
+
         private IEnumerator PresentEvidenceRoutine(CharacterData character)
         {
             var clues = CaseState.Instance.CollectedClues
@@ -136,16 +158,21 @@ namespace Investigation
 
             if (clues.Count == 0)
             {
-                yield return UI.ShowDialogue(character.displayName, "No tienes ninguna pista para mostrarme.", null, null, -1f, true);
+                yield return UI.ShowDialogue(character.displayName, "You don't have any clues to show me.", null, null, -1f, true);
                 UI.HideDialogue();
                 yield break;
             }
 
-            var clueOptions = clues.Select(c => new StoryChoiceOption { id = c.id, text = c.displayName }).ToList();
-            clueOptions.Add(new StoryChoiceOption { id = "__cancel__", text = "Volver a las preguntas" });
+            var clueOptions = clues.Select(c =>
+            {
+                bool tried = CaseState.Instance != null && CaseState.Instance.WasConfrontedWith(character.id, c.id);
+                string label = tried ? $"{c.displayName} [✓]" : c.displayName;
+                return new StoryChoiceOption { id = c.id, text = label };
+            }).ToList();
+            clueOptions.Add(new StoryChoiceOption { id = "__cancel__", text = "Back to the questions" });
 
             int clueIndex = -1;
-            yield return UI.ShowChoices($"¿Qué evidencia presentar a {character.displayName}?", clueOptions, idx => clueIndex = idx);
+            yield return UI.ShowChoices($"What evidence to present to {character.displayName}?", clueOptions, idx => clueIndex = idx);
 
             if (clueIndex >= 0 && clueIndex < clueOptions.Count && clueOptions[clueIndex].id != "__cancel__")
             {
@@ -167,10 +194,11 @@ namespace Investigation
 
             if (character != null && clue != null)
             {
-                CaseState.Instance.RecordConfrontation(characterId, clueId);
+                // Cuesta 1 acción la primera vez que se prueba este par (personaje, pista),
+                // acierte o no — repetir el mismo par ya intentado no vuelve a cobrar.
+                bool firstAttempt = CaseState.Instance != null && !CaseState.Instance.WasConfrontedWith(characterId, clueId);
 
-                // Banner de confrontación
-                yield return UI.ShowOverlay("EVIDENCIA PRESENTADA", clue.displayName, OverlayDisplayMode.TopHeader, OverlayEffect.Instant, 1.8f, true);
+                CaseState.Instance.RecordConfrontation(characterId, clueId);
 
                 bool isRelevant = ExecuteConfrontationReaction(characterId, clueId, out List<(string speaker, string text)> lines, out Action onFinish);
 
@@ -179,18 +207,13 @@ namespace Investigation
                     yield return UI.ShowDialogue(line.speaker, line.text, null, null, -1f, true);
                 }
 
+                if (firstAttempt && PhaseController.Instance != null)
+                {
+                    PhaseController.Instance.SpendAction();
+                }
+
                 if (isRelevant)
                 {
-                    // Solo consume acción si es la primera vez que se descubre esta contradicción
-                    string confrontKey = $"confront_{characterId}_{clueId}";
-                    if (CaseState.Instance != null && !CaseState.Instance.HasFlag(confrontKey))
-                    {
-                        CaseState.Instance.SetFlag(confrontKey);
-                        if (PhaseController.Instance != null)
-                        {
-                            PhaseController.Instance.SpendAction();
-                        }
-                    }
                     onFinish?.Invoke();
                 }
 
@@ -210,9 +233,9 @@ namespace Investigation
                 case "ernesto":
                     if (clueId == "carpet_fiber")
                     {
-                        lines.Add(("Gabe", "Encontré esta fibra sintética verde oliva cerca de donde murió Carla. Es idéntica al rollo que tiene en su mostrador."));
-                        lines.Add(("Ernesto", "¡Medio pueblo tiene esa alfombra, detective! No prueba nada... ¡nada!"));
-                        lines.Add(("Gabe", "¿Y por qué le tiemblan las manos, Ernesto? ¿De dónde es ese corte en la muñeca?"));
+                        lines.Add(("Gabe", "I found this synthetic olive-green fiber near where Carla died. It's identical to the roll on your counter."));
+                        lines.Add(("Ernesto", "Half the town has that carpet, detective! It proves nothing... nothing!"));
+                        lines.Add(("Gabe", "Then why are your hands shaking, Ernesto? Where's that cut on your wrist from?"));
                         onFinish = () =>
                         {
                             CaseState.Instance.SetFlag("ernesto_fiber_trapped");
@@ -223,10 +246,10 @@ namespace Investigation
                     }
                     if (clueId == "carpet_shop_receipt")
                     {
-                        lines.Add(("Gabe", "Tres ventas en dos meses, Ernesto. Este negocio se cae a pedazos. ¿De dónde saca la plata para pagar el alquiler?"));
-                        lines.Add(("Ernesto", "¿Ahora revisa mi basura? Robert me dio una prórroga... solo le hago unos favores de mantenimiento, nada más."));
-                        lines.Add(("Gabe", "¿Favores nocturnos en el sótano del motel?"));
-                        lines.Add(("Ernesto", "¡Yo no dije eso! ¡Cállese!"));
+                        lines.Add(("Gabe", "Three sales in two months, Ernesto. This place is falling apart. Where's the money for rent coming from?"));
+                        lines.Add(("Ernesto", "Now you're going through my trash? Robert gave me an extension... I just do him some maintenance favors, that's all."));
+                        lines.Add(("Gabe", "Night favors in the motel basement?"));
+                        lines.Add(("Ernesto", "I didn't say that! Shut up!"));
                         onFinish = () =>
                         {
                             CaseState.Instance.SetFlag("ernesto_debt_revealed");
@@ -234,15 +257,15 @@ namespace Investigation
                         };
                         return true;
                     }
-                    lines.Add(("Ernesto", "¿Y qué quiere que haga con eso? No tengo tiempo para jugar a los detectives. Compre algo o váyase."));
+                    lines.Add(("Ernesto", "And what do you want me to do with that? I don't have time to play detective. Buy something or leave."));
                     return false;
 
                 case "robert":
                     if (clueId == "basement_lock")
                     {
-                        lines.Add(("Gabe", "El candado del sótano no fue forzado desde afuera: cedió por un fuerte impacto desde adentro."));
-                        lines.Add(("Robert", "Es un edificio antiguo, detective. La humedad hincha las vigas y los cerrojos ceden. O quizá algún intruso intentó refugiarse de la tormenta."));
-                        lines.Add(("Gabe", "Usted tiene la única llave. Y la puerta estaba cerrada por fuera. No tiene sentido que un intruso se encierre a sí mismo."));
+                        lines.Add(("Gabe", "The basement padlock wasn't forced from outside: it gave way from a hard impact from inside."));
+                        lines.Add(("Robert", "It's an old building, detective. Damp swells the beams and the locks give. Or maybe some intruder tried to take shelter from the storm."));
+                        lines.Add(("Gabe", "You have the only key. And the door was locked from the outside. Makes no sense for an intruder to lock himself in."));
                         onFinish = () =>
                         {
                             CaseState.Instance.SetFlag("robert_cornered_basement");
@@ -252,33 +275,33 @@ namespace Investigation
                     }
                     if (clueId == "robert_quick_arrival")
                     {
-                        lines.Add(("Gabe", "Los primeros testigos tardaron en acercarse tras el grito. Usted llegó en menos de noventa segundos, vestido y peinado."));
-                        lines.Add(("Robert", "Es mi motel, Miller. Tengo el sueño liviano y duermo con la ropa de trabajo a mano por si hay emergencias. Velar por mis huéspedes es mi deber."));
+                        lines.Add(("Gabe", "The first witnesses took a while to come over after the scream. You got there in under ninety seconds, dressed and groomed."));
+                        lines.Add(("Robert", "It's my motel, Miller. I'm a light sleeper when it comes to my guests' safety, and I keep my work clothes handy in case of emergencies. Looking after my guests is my duty."));
                         onFinish = () => CaseState.Instance.SetFlag("robert_timing_doubt");
                         return true;
                     }
                     if (clueId == "carla_belongings")
                     {
-                        lines.Add(("Gabe", "Encontré la cartera y documentos de Carla escondidos detrás de unas cajas cerca del sótano. No estaban en su habitación."));
-                        lines.Add(("Robert", "Alguien debió moverlos... algún empleado deshonesto o el mismo atacante. Voy a revisar esto con el sheriff."));
+                        lines.Add(("Gabe", "I found Carla's purse and papers hidden behind some crates near the basement. They weren't in her room."));
+                        lines.Add(("Robert", "Someone must have moved them... some dishonest employee, or the attacker himself. I'll look into this with the sheriff."));
                         onFinish = () => CaseState.Instance.SetFlag("robert_belongings_exposed");
                         return true;
                     }
                     if (clueId == "basement_noises_match")
                     {
-                        lines.Add(("Gabe", "Hubo ruidos en el sótano a deshoras de la noche."));
-                        lines.Add(("Robert", "Hago el mantenimiento pesado de madrugada para no molestar a los clientes con las bombas de agua. Si busca sospechosos, pregúntele al vagabundo que merodea por la estación."));
+                        lines.Add(("Gabe", "There were noises coming from the basement at odd hours of the night."));
+                        lines.Add(("Robert", "I do the heavy maintenance work in the early hours so I don't bother guests with the water pumps. If you're looking for suspects, ask the vagrant who hangs around the gas station."));
                         onFinish = () => CaseState.Instance.SetFlag("robert_excuse_locked");
                         return true;
                     }
-                    lines.Add(("Robert", "Un objeto curioso, detective. Pero no veo qué relación guarda con la administración del Starlight."));
+                    lines.Add(("Robert", "A curious object, detective. But I don't see what it has to do with running the Starlight."));
                     return false;
 
                 case "elena":
                     if (clueId == "elena_master_keys")
                     {
-                        lines.Add(("Gabe", "Solo hay dos llaves maestras en todo el complejo: la de Robert y la suya. Nadie puede entrar a los cuartos sin ellas."));
-                        lines.Add(("Elena", "Yo no abrí la puerta de Carla esa noche... se lo juro. Pero vi a Robert salir de la oficina con su manojo de llaves cerca de la medianoche."));
+                        lines.Add(("Gabe", "There are only two master keys in the whole complex: Robert's and yours. Nobody can get into the rooms without them."));
+                        lines.Add(("Elena", "I didn't open Carla's door that night... I swear it. But I saw Robert leaving the office with his set of keys close to midnight."));
                         onFinish = () =>
                         {
                             CaseState.Instance.SetFlag("elena_implicates_robert");
@@ -288,8 +311,8 @@ namespace Investigation
                     }
                     if (clueId == "elena_seen_running")
                     {
-                        lines.Add(("Gabe", "Un testigo la vio salir disparada por el pasillo trasero justo después del grito."));
-                        lines.Add(("Elena", "¡Tenía terror! Escuché a Robert discutir con ella... escuché un golpe seco y salí corriendo a encerrarme en mi cuarto. No quería ser la siguiente."));
+                        lines.Add(("Gabe", "A witness saw you bolt down the back hallway right after the scream."));
+                        lines.Add(("Elena", "I was terrified! I heard Robert arguing with her... heard a hard thud, and I ran to lock myself in my room. I didn't want to be next."));
                         onFinish = () =>
                         {
                             CaseState.Instance.SetFlag("elena_confession_full");
@@ -299,20 +322,20 @@ namespace Investigation
                     }
                     if (clueId == "carla_belongings")
                     {
-                        lines.Add(("Elena", "Ese es el bolso que Carla dejó en recepción... Dios mío. Robert me prohibió terminantemente entrar al sótano o tocar nada."));
+                        lines.Add(("Elena", "That's the bag Carla left at the front desk... my God. Robert flat-out forbade me from going into the basement or touching anything."));
                         onFinish = () => CaseState.Instance.SetFlag("elena_confirmed_coverup");
                         return true;
                     }
-                    lines.Add(("Elena", "No sé qué es eso, señor Miller... por favor, no me meta en más problemas de los que ya tengo."));
+                    lines.Add(("Elena", "I don't know what that is, Mr. Miller... please, don't put me in any more trouble than I already have."));
                     return false;
 
                 case "mark":
                     if (clueId == "bottle_was_marks" || clueId == "glass_matches_bottle")
                     {
-                        lines.Add(("Gabe", "Los vidrios rotos junto al cuerpo coinciden con la ginebra que compraste anoche en la gasolinera."));
-                        lines.Add(("Mark", "¡No... no, yo no le hice nada! Tropecé en la banquina... la botella se me escapó de las manos y se reventó contra el cordón. Carla me gritó asustada y corrió hacia el fondo del motel."));
-                        lines.Add(("Gabe", "¿Viste a alguien más cerca de ella?"));
-                        lines.Add(("Mark", "Vi una silueta alta... alguien que salió desde las sombras del pasillo. Me asusté y me escondí detrás del letrero."));
+                        lines.Add(("Gabe", "The broken glass next to the body matches the gin you bought at the gas station last night."));
+                        lines.Add(("Mark", "No... no, I didn't do anything to her! I tripped on the curb... the bottle slipped out of my hands and shattered against the edge. Carla screamed and ran off toward the back of the motel."));
+                        lines.Add(("Gabe", "Did you see anyone else near her?"));
+                        lines.Add(("Mark", "Saw a tall shape... someone stepped out of the shadows in the hallway. I got scared and hid behind the sign."));
                         onFinish = () =>
                         {
                             CaseState.Instance.SetFlag("mark_cleared_murder");
@@ -322,19 +345,19 @@ namespace Investigation
                     }
                     if (clueId == "frank_saw_mark_and_carla")
                     {
-                        lines.Add(("Gabe", "Frank los vio cruzarse cerca de la ruta antes de la medianoche."));
-                        lines.Add(("Mark", "Le pedí unas monedas... ella me dio un billete arrugado y me dijo que tenía que irse del pueblo antes del amanecer. ¡Eso fue todo!"));
+                        lines.Add(("Gabe", "Frank saw you two cross paths near the highway before midnight."));
+                        lines.Add(("Mark", "I asked her for some change... she gave me a crumpled bill and said she had to leave town before sunrise. That's all it was!"));
                         onFinish = () => CaseState.Instance.SetFlag("mark_carla_warning_revealed");
                         return true;
                     }
-                    lines.Add(("Mark", "Luces y sombras... eso no me dice nada a mí. Los ruidos vienen de la noche..."));
+                    lines.Add(("Mark", "Lights and shadows... that doesn't tell me anything. The noises come from the night..."));
                     return false;
 
                 case "frank":
                     if (clueId == "frank_saw_mark_and_carla")
                     {
-                        lines.Add(("Gabe", "Frank, cuando vio a Mark con Carla, ¿había alguien más mirando desde las sombras?"));
-                        lines.Add(("Frank", "Bueno... ahora que hace memoria... la camioneta de Ernesto pasó despacio por la banquina con las luces apagadas dos minutos después."));
+                        lines.Add(("Gabe", "Frank, when you saw Mark with Carla, was anyone else watching from the shadows?"));
+                        lines.Add(("Frank", "Well... now that I think back... Ernesto's truck rolled by slow on the shoulder with the lights off, two minutes later."));
                         onFinish = () =>
                         {
                             CaseState.Instance.SetFlag("frank_saw_ernesto_truck");
@@ -344,26 +367,26 @@ namespace Investigation
                     }
                     if (clueId == "glass_matches_bottle")
                     {
-                        lines.Add(("Gabe", "Este cuello de botella roto coincide con la ginebra que vende en su estación."));
-                        lines.Add(("Frank", "Exacto. Se la vendí a Mark a las ocho de la noche. Se fue tambaleando hacia la banquina del motel."));
+                        lines.Add(("Gabe", "This broken bottle neck matches the gin you sell at your station."));
+                        lines.Add(("Frank", "That's right. Sold it to Mark at eight at night. He staggered off toward the shoulder by the motel."));
                         onFinish = () => CaseState.Instance.CollectClue("bottle_was_marks");
                         return true;
                     }
-                    lines.Add(("Frank", "Ni idea de qué es eso, amigo. Yo de nafta entiendo todo; de chismes de pueblo, lo justo y necesario."));
+                    lines.Add(("Frank", "No idea what that is, friend. Gasoline, I know all about; town gossip, just enough to get by."));
                     return false;
 
                 case "marta":
                     if (clueId == "carla_belongings")
                     {
-                        lines.Add(("Marta", "Pobre Carla... me contó que estaba reuniendo plata para irse en el autobús a Seattle. Me dijo que Robert no la dejaba en paz y que le tenía miedo."));
+                        lines.Add(("Marta", "Poor Carla... she told me she was saving up money to leave on the bus to Seattle. Said Robert wouldn't leave her alone and that she was scared of him."));
                         onFinish = () => CaseState.Instance.SetFlag("marta_carla_seattle_confirmed");
                         return true;
                     }
-                    lines.Add(("Marta", "No sé qué es eso, señor. Acá la gente viene a tomar café y callarse la boca."));
+                    lines.Add(("Marta", "I don't know what that is, sir. Around here people come in for coffee and to keep their mouths shut."));
                     return false;
 
                 default:
-                    lines.Add((characterId, "No tengo nada que decir sobre ese objeto."));
+                    lines.Add((characterId, "I have nothing to say about that object."));
                     return false;
             }
         }
@@ -375,65 +398,65 @@ namespace Investigation
                 case "elena":
                     if (day == 2)
                     {
-                        if (phase == 1) return "¿Qué... qué necesita, señor Miller? No pude pegar un ojo con todo lo que pasó anoche.";
-                        if (phase == 2) return "Dígame rápido, por favor... no quiero tener problemas con Robert.";
-                        return "La noche se pone tensa acá... ¿qué busca ahora?";
+                        if (phase == 1) return "What... what do you need, Mr. Miller? I couldn't sleep a wink after everything that happened last night.";
+                        if (phase == 2) return "Tell me quickly, please... I don't want trouble with Robert.";
+                        return "Things get tense around here at night... what are you after now?";
                     }
-                    return "Sigue dando vueltas por acá... ¿averiguó algo sobre Carla?";
+                    return "Still poking around here... find out anything about Carla?";
 
                 case "robert":
                     if (day == 2)
                     {
-                        if (phase == 1) return "Buen día, detective. Intento mantener la calma en el motel tras la tragedia. ¿En qué lo puedo ayudar?";
-                        if (phase == 2) return "Señor Miller. ¿Encontró algo de utilidad para esclarecer el asunto?";
-                        return "Se hace tarde, detective. ¿Necesita algo antes de que cierre la recepción?";
+                        if (phase == 1) return "Good morning, detective. Trying to keep things calm at the motel after the tragedy. How can I help you?";
+                        if (phase == 2) return "Mr. Miller. Find anything useful to clear this up?";
+                        return "It's getting late, detective. Need anything before I close up the front desk?";
                     }
-                    return "Último día por acá, entiendo. Espero que sus conclusiones sean justas y profesionales.";
+                    return "Last day around here, I understand. I hope your conclusions are fair and professional.";
 
                 case "gus":
                     if (day == 2)
                     {
-                        if (phase == 1) return "Lindo lío se armó en el motel anoche, ¿no? Qué nochecita.";
-                        if (phase == 2) return "El motor de mi camión ya casi está a punto. ¿Qué cuenta el detective?";
-                        return "Por acá de noche no se ve nada. Salvo lo que uno preferiría no ver.";
+                        if (phase == 1) return "Quite a mess at the motel last night, huh? Some night.";
+                        if (phase == 2) return "My truck's engine is almost good to go. What's the detective got?";
+                        return "Can't see a thing out here at night. Except what a man would rather not see.";
                     }
-                    return "Apenas cargue el acoplado me voy de este pueblo. Me da mala espina.";
+                    return "Soon as I load the trailer I'm leaving this town. Gives me a bad feeling.";
 
                 case "ernesto":
                     if (day == 2)
                     {
-                        if (phase == 1) return "¿Usted otra vez? Estoy ocupado acomodando pedidos, sea breve.";
-                        if (phase == 2) return "Las alfombras no se van a vender solas. ¿Qué quiere ahora?";
-                        return "Ya es hora de cerrar. Si no va a comprar nada, no moleste.";
+                        if (phase == 1) return "You again? I'm busy stocking orders, make it quick.";
+                        if (phase == 2) return "Carpets don't sell themselves. What do you want now?";
+                        return "About to close up. If you're not buying, don't bother me.";
                     }
-                    return "¿Todavía dando vueltas? Ya le dije a la policía todo lo que tenía para decir.";
+                    return "Still hanging around? Already told the police everything I had to say.";
 
                 case "marta":
                     if (day == 2)
                     {
-                        if (phase == 1) return "Día frío para estar investigando crímenes, señor. ¿Le sirvo un café o busca respuestas?";
-                        if (phase == 2) return "Carla solía venir a esta hora a sentarse junto al ventanal. Qué pena de chica...";
-                        return "Cierro en un rato. Tenga cuidado si anda dando vueltas afuera de noche.";
+                        if (phase == 1) return "Cold day to be investigating crimes, sir. Coffee, or are you after answers?";
+                        if (phase == 2) return "Carla used to come sit by the window around this hour. Such a shame about that girl...";
+                        return "Closing up soon. Be careful if you're out wandering at night.";
                     }
-                    return "Espero que encuentre al culpable de lo de Carla. Este pueblo necesita cerrar esa herida.";
+                    return "I hope you find whoever did this to Carla. This town needs that wound closed.";
 
                 case "frank":
                     if (day == 2)
                     {
-                        if (phase <= 2) return "¡Eh, el del auto roto! Terrible lo del motel. Menos mal que Robert tiene la cabeza fría.";
-                        return "La noche trae de todo por la estación de servicio. ¿Qué se le ofrece?";
+                        if (phase <= 2) return "Hey, the broken-down-car guy! Terrible business at the motel. Good thing Robert's keeping a level head.";
+                        return "The station sees all sorts at night. What can I do for you?";
                     }
-                    return "No me gusta el clima que hay en el pueblo hoy. Ojalá todo se aclare pronto.";
+                    return "Don't like the mood in this town today. Hope it all gets sorted out soon.";
 
                 case "mark":
                     if (day == 2)
                     {
-                        return "Ruidos... pasos en la noche... no me miren a mí, yo no hice nada...";
+                        return "Noises... footsteps in the night... don't look at me, I didn't do anything...";
                     }
-                    return "El sótano... nadie me cree, pero ellos saben lo que hay ahí abajo...";
+                    return "The basement... nobody believes me, but they know what's down there...";
 
                 default:
-                    return "¿Sí? ¿En qué puedo ayudarlo?";
+                    return "Yes? How can I help you?";
             }
         }
 
@@ -444,7 +467,7 @@ namespace Investigation
             var spot = DialogueDatabase.Instance != null ? DialogueDatabase.Instance.GetInvestigateSpot(spotId) : null;
             if (spot == null)
             {
-                Debug.LogWarning($"[ConversationController] No hay datos de punto de investigación para '{spotId}'.");
+                Debug.LogWarning($"[ConversationController] No investigate-spot data for '{spotId}'.");
                 isBusy = false;
                 yield break;
             }

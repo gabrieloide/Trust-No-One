@@ -5,7 +5,7 @@
     "topics": [
         {
             "id": "marta_no_see",
-            "displayName": "Preguntarle si vio algo",
+            "displayName": "Ask if she saw anything",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
@@ -16,10 +16,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Marta", "text": "No vi nada. Cierro tarde, abro temprano, no tengo tiempo de mirar para los costados." },
-                        { "speaker": "Gabe", "text": "¿Conoce a Mark, el que anda por la zona?" },
-                        { "speaker": "Marta", "text": "¿El loco? Lo conozco. No le creería ni la hora si me la dijera él." },
-                        { "speaker": "", "text": "Lo dice sin maldad, con el cansancio de quien ya decidió hace rato qué palabras vale la pena escuchar." }
+                        { "speaker": "Marta", "text": "Didn't see a thing. I close late, open early, no time to look sideways." },
+                        { "speaker": "Gabe", "text": "You know Mark, the one who hangs around here?" },
+                        { "speaker": "Marta", "text": "The crazy one? I know him. Wouldn't trust him to tell me the time of day." },
+                        { "speaker": "", "text": "She says it without malice, with the tiredness of someone who decided long ago which words are worth listening to." }
                     ],
                     "effects": []
                 }
@@ -27,7 +27,7 @@
         },
         {
             "id": "marta_about_carla",
-            "displayName": "Preguntarle por Carla Rossi",
+            "displayName": "Ask her about Carla Rossi",
             "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
@@ -38,10 +38,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Marta", "text": "Carla venía a tomar café sola. Siempre sentada contra el ventanal, como esperando a alguien que nunca llegaba." },
-                        { "speaker": "Gabe", "text": "¿Mencionó tener problemas con alguien del motel?" },
-                        { "speaker": "Marta", "text": "Acá nadie habla mal de Robert Hale, detective. Y cuando en un pueblo nadie se anima a criticar a un hombre... es cuando más hay que desconfiar." },
-                        { "speaker": "", "text": "Limpia la taza con un trapo seco y no agrega una sola palabra más." }
+                        { "speaker": "Marta", "text": "Carla used to come in for coffee alone. Always sitting by the window, like she was waiting for someone who never showed." },
+                        { "speaker": "Gabe", "text": "Did she mention having trouble with anyone at the motel?" },
+                        { "speaker": "Marta", "text": "Nobody around here speaks ill of Robert Hale, detective. And when a whole town won't dare criticize a man... that's exactly when you should be most suspicious." },
+                        { "speaker": "", "text": "She wipes the cup with a dry rag and doesn't add another word." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "marta_hint_heard", "b": "" }
@@ -51,7 +51,7 @@
         },
         {
             "id": "marta_evening_close",
-            "displayName": "Charlar mientras cierra el local",
+            "displayName": "Chat while she closes up",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p3_started", "b": "", "negate": false },
@@ -63,11 +63,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Marta da vuelta el cartel de la puerta, pero no me echa." },
-                        { "speaker": "Marta", "text": "Carla venía tarde, a veces. Cuando ya no había nadie más. Decía que acá se sentía segura." },
-                        { "speaker": "Gabe", "text": "¿Segura de qué, exactamente?" },
-                        { "speaker": "Marta", "text": "Nunca lo dijo con esas palabras. Pero una aprende a leer cuando alguien mira la puerta cada dos minutos." },
-                        { "speaker": "", "text": "Apaga la cafetera. La conversación, por hoy, se terminó." }
+                        { "speaker": "", "text": "Marta flips the sign on the door, but doesn't kick me out." },
+                        { "speaker": "Marta", "text": "Carla would come by late, sometimes. When there was nobody else left. She said she felt safe here." },
+                        { "speaker": "Gabe", "text": "Safe from what, exactly?" },
+                        { "speaker": "Marta", "text": "She never said it in so many words. But you learn to read it, when someone checks the door every two minutes." },
+                        { "speaker": "", "text": "She switches off the coffee maker. The conversation, for today, is over." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "marta_evening_reflection", "b": "" }
@@ -77,7 +77,7 @@
         },
         {
             "id": "marta_press_robert",
-            "displayName": "Preguntarle qué quiso decir sobre Robert",
+            "displayName": "Ask her what she meant about Robert",
             "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d3p1_started", "b": "", "negate": false },
@@ -89,10 +89,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Dijo que hay que desconfiar cuando nadie critica a un hombre. ¿Eso iba por Robert?" },
-                        { "speaker": "", "text": "Se toma un segundo largo antes de contestar, mirando hacia la puerta como quien calcula quién podría estar escuchando." },
-                        { "speaker": "Marta", "text": "Yo no dije ningún nombre, detective. Pero Carla dejó de venir sonriendo un mes antes de morir. Y empezó a venir con el bolso siempre encima, como si no quisiera soltarlo." },
-                        { "speaker": "Marta", "text": "Eso es todo lo que le puedo decir sin que me tiemble la voz." }
+                        { "speaker": "Gabe", "text": "You said to be suspicious when nobody criticizes a man. Was that about Robert?" },
+                        { "speaker": "", "text": "She takes a long moment before answering, glancing at the door like she's calculating who might be listening." },
+                        { "speaker": "Marta", "text": "I didn't say any names, detective. But Carla stopped coming in smiling about a month before she died. And she started carrying that bag everywhere, like she couldn't bear to put it down." },
+                        { "speaker": "Marta", "text": "That's all I can tell you without my voice shaking." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "marta_suspicion_confirmed", "b": "" }

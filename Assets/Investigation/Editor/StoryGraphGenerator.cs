@@ -208,7 +208,6 @@ namespace Investigation.EditorTools
                 dialogueText = "Salgo al pasillo alertado por el estruendo. Apenas alcanzo a ver la silueta de Elena corriendo despavorida hacia la salida trasera.",
                 waitForClick = true
             });
-            seqNode.actions.Add(new CollectClueAction { clueId = "elena_seen_running" });
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
@@ -245,7 +244,6 @@ namespace Investigation.EditorTools
                 dialogueText = "Tengo el sueño ligero cuando se trata de la seguridad de mi motel, señor Miller. Ya avisé al sheriff del condado, estarán aquí a primera hora.",
                 waitForClick = true
             });
-            seqNode.actions.Add(new CollectClueAction { clueId = "robert_quick_arrival" });
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Robert",
@@ -274,7 +272,6 @@ namespace Investigation.EditorTools
             });
 
             seqNode.actions.Add(new SetDayPhaseAction { targetDay = 2, targetPhase = 1, actionsRemaining = 4 });
-            seqNode.actions.Add(new SetWorldUIAction { active = true });
             seqNode.actions.Add(new TravelLocationAction { targetLocationId = "motel" });
             seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeIn, duration = 0.6f, waitForCompletion = true });
 
@@ -296,6 +293,9 @@ namespace Investigation.EditorTools
                 dialogueText = "Todos en el pueblo tienen secretos o motivos. Voy a tener que investigar por mi cuenta.",
                 waitForClick = true
             });
+            seqNode.actions.Add(new CollectClueAction { clueId = "elena_seen_running", playSound = false });
+            seqNode.actions.Add(new CollectClueAction { clueId = "robert_quick_arrival", playSound = false });
+            seqNode.actions.Add(new SetWorldUIAction { active = true });
 
             var endNode = new StoryNodeData(StoryNodeType.End, new Vector2(700, 200));
 

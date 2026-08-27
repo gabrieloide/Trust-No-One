@@ -5,8 +5,9 @@ namespace Investigation
 {
     // "Topic": aparece en el menú de temas cuando se cumplen unlockConditions.
     // "Presionar": igual que Topic, pero normalmente exige TopicSeen del tema base como condición.
-    // "Confrontar": no aparece en el menú — se dispara al soltar una pista sobre el personaje
-    // (ver ClueConfrontTarget); unlockConditions se ignora para este kind.
+    // "Confrontar": no aparece en el menú de temas — se dispara desde la opción "Confront..."
+    // del menú principal (ver ConversationController.PresentEvidenceRoutine); unlockConditions
+    // se ignora para este kind.
     public enum TopicKind
     {
         Topic,

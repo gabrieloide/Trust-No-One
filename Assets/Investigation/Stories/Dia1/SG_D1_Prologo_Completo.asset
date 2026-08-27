@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: add2fa017e242b645a140c265247b220, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: VisualNovelSystem.Runtime::VisualNovelSystem.StoryGraph
   graphTitle: SG_D1_Prologo_Completo
   entryNodeGuid: b0685c3f-9048-4def-afaf-e015b30e5d42
@@ -20,19 +20,19 @@ MonoBehaviour:
     nodeType: 0
     position: {x: 100, y: 200}
     actions: []
-    promptText: "\xBFQu\xE9 deseas hacer?"
+    promptText: "What do you want to do?"
     choices: []
-    conditionVariableName: 
+    conditionVariableName:
     conditionComparison: 0
     conditionCompareValue: true
     waitDuration: 1
-    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
-      del mapa."
-    exitConditionVariable: 
+    explorationPrompt: "Exploration Mode: Click or interact with objects on the
+      map."
+    exitConditionVariable:
     explorationTimeout: -1
-    comment: 
+    comment:
   - guid: 67f3f360-4ee8-468e-938a-41433fecf3f4
-    title: "Pr\xF3logo D\xEDa 1 (Completo)"
+    title: "Day 1 Prologue (Full)"
     nodeType: 1
     position: {x: 350, y: 200}
     actions:
@@ -71,52 +71,52 @@ MonoBehaviour:
     - rid: 7508757932014830085
     - rid: 7508757932014830086
     - rid: 7508757932014830087
-    - rid: 7508757932014830088
     - rid: 7508757932014830089
     - rid: 7508757932014830090
     - rid: 7508757932014830091
     - rid: 7508757932014830092
     - rid: 7508757932014830093
     - rid: 7508757932014830094
-    - rid: 7508757932014830095
     - rid: 7508757932014830096
     - rid: 7508757932014830097
     - rid: 7508757932014830098
     - rid: 7508757932014830099
     - rid: 7508757932014830100
-    - rid: 7508757932014830101
     - rid: 7508757932014830102
     - rid: 7508757932014830103
     - rid: 7508757932014830104
     - rid: 7508757932014830105
     - rid: 7508757932014830106
-    promptText: "\xBFQu\xE9 deseas hacer?"
+    - rid: 7508757932014830088
+    - rid: 7508757932014830095
+    - rid: 7508757932014830101
+    promptText: "What do you want to do?"
     choices: []
-    conditionVariableName: 
+    conditionVariableName:
     conditionComparison: 0
     conditionCompareValue: true
     waitDuration: 1
-    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
-      del mapa."
-    exitConditionVariable: 
+    explorationPrompt: "Exploration Mode: Click or interact with objects on the
+      map."
+    exitConditionVariable:
     explorationTimeout: -1
-    comment: 
+    comment:
   - guid: a33942d6-63a9-44d8-8c2e-b2a92b487d1f
     title: End
     nodeType: 6
     position: {x: 700, y: 200}
     actions: []
-    promptText: "\xBFQu\xE9 deseas hacer?"
+    promptText: "What do you want to do?"
     choices: []
-    conditionVariableName: 
+    conditionVariableName:
     conditionComparison: 0
     conditionCompareValue: true
     waitDuration: 1
-    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
-      del mapa."
-    exitConditionVariable: 
+    explorationPrompt: "Exploration Mode: Click or interact with objects on the
+      map."
+    exitConditionVariable:
     explorationTimeout: -1
-    comment: 
+    comment:
   nodeLinks:
   - baseNodeGuid: b0685c3f-9048-4def-afaf-e015b30e5d42
     portIdentifier: output
@@ -176,7 +176,7 @@ MonoBehaviour:
       data:
         enabled: 1
         titleText: NO ONE IS INNOCENT
-        subtitleText: "D\xEDa 1 \u2014 La carretera de ning\xFAn lugar"
+        subtitleText: "Day 1 — The road to nowhere"
         displayMode: 0
         effect: 0
         duration: 2.5
@@ -219,8 +219,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "El auto se apaga a diez minutos de cualquier cosa. El \xFAnico
-          cartel en kil\xF3metros dice MOTEL, con una flecha pintada a mano."
+        dialogueText: "The car dies ten minutes from anything. The only sign for
+          miles says MOTEL, with a hand-painted arrow."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -231,8 +231,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "No va a venir ninguna gr\xFAa antes de ma\xF1ana. Voy a tener
-          que quedarme."
+        dialogueText: "No tow truck's coming before morning. I'm going to have to
+          stay."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -242,10 +242,10 @@ MonoBehaviour:
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName: 
-        dialogueText: "A unos metros, un hombre carga cajas hacia una camioneta.
-          Se frena en seco al verme, como si hubiera memorizado cada cara del pueblo
-          y la m\xEDa no encajara."
+        speakerName:
+        dialogueText: "A few yards off, a man is loading boxes into a pickup truck.
+          He stops dead at the sight of me, like he'd memorized every face in town
+          and mine doesn't fit."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -256,8 +256,7 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Ernesto
-        dialogueText: "\xBFUsted es nuevo por ac\xE1? No... no suelo ver caras nuevas
-          seguido."
+        dialogueText: "You new around here? No... I don't see new faces too often."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -268,8 +267,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "Se me rompi\xF3 el auto en la ruta. Voy a quedarme una noche
-          en el motel."
+        dialogueText: "My car broke down on the highway. I'm staying a night at
+          the motel."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -280,7 +279,7 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Ernesto
-        dialogueText: El motel. Claro. Buena suerte con eso.
+        dialogueText: "The motel. Sure. Good luck with that."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -290,9 +289,9 @@ MonoBehaviour:
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName: 
-        dialogueText: Lo dice como quien repite un chiste privado que no piensa explicar.
-          Sigue cargando cajas sin volver a mirarme.
+        speakerName:
+        dialogueText: "He says it like a private joke he's got no plans to explain.
+          He goes back to loading boxes without looking at me again."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -378,9 +377,9 @@ MonoBehaviour:
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName: 
-        dialogueText: "Camino hasta la recepci\xF3n del motel. Una mujer joven atiende
-          el mostrador sin levantar mucho la vista."
+        speakerName:
+        dialogueText: "I walk up to the motel's front desk. A young woman works
+          the counter without looking up much."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -391,7 +390,7 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Elena
-        dialogueText: "\xBFCu\xE1ntas noches?"
+        dialogueText: "How many nights?"
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -402,7 +401,7 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: Una, con suerte.
+        dialogueText: "One, hopefully."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -413,7 +412,7 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Elena
-        dialogueText: "Ac\xE1 nadie se queda una sola noche por suerte."
+        dialogueText: "Nobody here stays just one night out of luck."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -423,9 +422,9 @@ MonoBehaviour:
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName: 
-        dialogueText: Me entrega una llave de bronce y vuelve a sus papeles antes
-          de que pueda agregar una sola palabra.
+        speakerName:
+        dialogueText: "She hands me a brass key and goes back to her papers before
+          I can add another word."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -442,9 +441,9 @@ MonoBehaviour:
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName: 
-        dialogueText: Desde el pasillo sale un hombre de mediana edad, impecable
-          y con una sonrisa amplia que contrasta con la recepcionista.
+        speakerName:
+        dialogueText: "A middle-aged man steps out from the hallway, impeccably
+          dressed, with a wide smile that contrasts with the receptionist."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -455,9 +454,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Robert
-        dialogueText: "\xA1Bienvenido, bienvenido! No todos los d\xEDas se le rompe
-          el auto a alguien justo frente a nuestro motel. Tiene suerte, en el sentido
-          m\xE1s raro posible."
+        dialogueText: "Welcome, welcome! Not every day someone's car breaks down
+          right in front of our motel. Lucky, in the strangest possible way."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -468,7 +466,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "Solo necesito pasar la noche hasta que llegue el auxilio ma\xF1ana."
+        dialogueText: "I just need to get through the night until the tow truck
+          gets here tomorrow."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -479,9 +478,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Robert
-        dialogueText: "Por supuesto. Le toca la habitaci\xF3n 4, es la m\xE1s tranquila
-          de todas. Si necesita cualquier cosa, a cualquier hora, golpee mi puerta
-          sin dudar."
+        dialogueText: "Of course. I'll put you in room 4, the quietest one we have.
+          If you need anything at all, any hour, don't hesitate to knock on my door."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -491,9 +489,10 @@ MonoBehaviour:
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName: 
-        dialogueText: "Todo en \xE9l es cortes\xEDa calculada al mil\xEDmetro. El
-          tipo de anfitri\xF3n que uno recuerda por lo perfecto, no por lo c\xE1lido."
+        speakerName:
+        dialogueText: "Everything about him is courtesy, calculated down to the
+          millimeter. The kind of host you remember for how perfect he was, not
+          how warm."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -511,8 +510,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "Entro a la habitaci\xF3n 4 y cierro la puerta. Me tiro sobre
-          la cama a esperar que pase la noche."
+        dialogueText: "I step into room 4 and shut the door. I collapse on the bed
+          to wait out the night."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -554,8 +553,8 @@ MonoBehaviour:
       type: {class: OverlayTextAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        titleText: 
-        subtitleText: Esa misma noche... 02:15 AM
+        titleText:
+        subtitleText: That same night... 02:15 AM
         displayMode: 0
         effect: 0
         duration: 2
@@ -602,9 +601,9 @@ MonoBehaviour:
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName: 
-        dialogueText: "Un grito desgarrador corta la madrugada. Despu\xE9s, el sonido
-          seco de vidrio rompi\xE9ndose contra el suelo."
+        speakerName:
+        dialogueText: "A tearing scream cuts through the early morning. Then, the
+          dry sound of glass shattering on the ground."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -614,27 +613,22 @@ MonoBehaviour:
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName: 
-        dialogueText: Salgo al pasillo alertado por el estruendo. Apenas alcanzo
-          a ver la silueta de Elena corriendo despavorida hacia la salida trasera.
+        speakerName:
+        dialogueText: "I run out to the hallway, startled by the noise. I just
+          catch sight of Elena's silhouette fleeing toward the back exit."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014830088
-      type: {class: CollectClueAction, ns: Investigation, asm: Investigation.Runtime}
-      data:
-        enabled: 1
-        clueId: elena_seen_running
     - rid: 7508757932014830089
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName: 
-        dialogueText: "Sigo el ruido hasta la parte trasera del motel, cerca del
-          acceso al s\xF3tano. Hay una mujer inm\xF3vil en el suelo, rodeada de vidrios
-          rotos."
+        speakerName:
+        dialogueText: "I follow the noise to the back of the motel, near the basement
+          entrance. There's a woman lying motionless on the ground, surrounded
+          by broken glass."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -644,9 +638,9 @@ MonoBehaviour:
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName: 
-        dialogueText: "En cuesti\xF3n de segundos aparece Robert, perfectamente peinado
-          y vestido, como si nunca se hubiera acostado."
+        speakerName:
+        dialogueText: "Within seconds Robert appears, perfectly combed and dressed,
+          as if he'd never gone to bed."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -657,7 +651,7 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "\xBFQu\xE9 fue ese grito? \xBFQui\xE9n es la mujer del suelo?"
+        dialogueText: "What was that scream? Who's the woman on the ground?"
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -668,8 +662,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Robert
-        dialogueText: "Es Carla... Carla Rossi. Pobrecita, Dios m\xEDo... parece
-          que tropez\xF3 con una botella o alguien la atac\xF3 en la oscuridad."
+        dialogueText: "It's Carla... Carla Rossi. Poor thing, my God... looks like
+          she tripped on a bottle, or someone attacked her in the dark."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -680,8 +674,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "\xBFLleg\xF3 usted muy r\xE1pido, no? Apenas se escuch\xF3
-          el golpe."
+        dialogueText: "You got here awfully fast, didn't you? The crash barely
+          made a sound."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -692,26 +686,21 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Robert
-        dialogueText: "Tengo el sue\xF1o ligero cuando se trata de la seguridad de
-          mi motel, se\xF1or Miller. Ya avis\xE9 al sheriff del condado, estar\xE1n
-          aqu\xED a primera hora."
+        dialogueText: "I'm a light sleeper when my motel's safety is at stake,
+          Mr. Miller. I've already notified the county sheriff, they'll be here
+          first thing."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014830095
-      type: {class: CollectClueAction, ns: Investigation, asm: Investigation.Runtime}
-      data:
-        enabled: 1
-        clueId: robert_quick_arrival
     - rid: 7508757932014830096
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
         speakerName: Robert
-        dialogueText: "Le sugiero volver a su habitaci\xF3n y cerrar con llave. Esto
-          no es algo que un hu\xE9sped deba presenciar."
+        dialogueText: "I'd suggest you go back to your room and lock the door.
+          This isn't something a guest should have to see."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -722,8 +711,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "Vuelvo a mi habitaci\xF3n. Pero en este motel, ya nadie va
-          a poder dormir."
+        dialogueText: "I go back to my room. But nobody in this motel is getting
+          any sleep tonight."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -765,8 +754,8 @@ MonoBehaviour:
       type: {class: OverlayTextAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        titleText: "D\xCDA 2"
-        subtitleText: "08:00 AM \u2014 El motel bajo sospecha"
+        titleText: "DAY 2"
+        subtitleText: "08:00 AM — The motel under suspicion"
         displayMode: 0
         effect: 0
         duration: 2.5
@@ -779,11 +768,6 @@ MonoBehaviour:
         targetDay: 2
         targetPhase: 1
         actionsRemaining: 4
-    - rid: 7508757932014830101
-      type: {class: SetWorldUIAction, ns: Investigation, asm: Investigation.Runtime}
-      data:
-        enabled: 1
-        active: 1
     - rid: 7508757932014830102
       type: {class: TravelLocationAction, ns: Investigation, asm: Investigation.Runtime}
       data:
@@ -826,8 +810,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "A la ma\xF1ana siguiente, Frank me avisa desde la gasolinera
-          que el repuesto de mi auto tardar\xE1 dos d\xEDas en llegar desde la ciudad."
+        dialogueText: "The next morning, Frank tells me from the gas station that
+          the part for my car will take two days to arrive from the city."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -838,10 +822,9 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "Tras el crimen de Carla Rossi, Robert me ofreci\xF3 extender
-          mi estad\xEDa en la habitaci\xF3n 4 sin cargo mientras colabore como testigo.
-          Tengo dos d\xEDas antes de que llegue la gr\xFAa y el sheriff cierre el
-          caso."
+        dialogueText: "After Carla Rossi's murder, Robert offered to extend my
+          stay in room 4 free of charge while I cooperate as a witness. I've got
+          two days before the tow truck arrives and the sheriff closes the case."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -852,10 +835,27 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: Todos en el pueblo tienen secretos o motivos. Voy a tener que
-          investigar por mi cuenta.
+        dialogueText: Everyone in this town has secrets or motives. I'm going to
+          have to investigate on my own.
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
+    - rid: 7508757932014830088
+      type: {class: CollectClueAction, ns: Investigation, asm: Investigation.Runtime}
+      data:
+        enabled: 1
+        clueId: elena_seen_running
+        playSound: 0
+    - rid: 7508757932014830095
+      type: {class: CollectClueAction, ns: Investigation, asm: Investigation.Runtime}
+      data:
+        enabled: 1
+        clueId: robert_quick_arrival
+        playSound: 0
+    - rid: 7508757932014830101
+      type: {class: SetWorldUIAction, ns: Investigation, asm: Investigation.Runtime}
+      data:
+        enabled: 1
+        active: 1

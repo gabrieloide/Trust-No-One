@@ -2,113 +2,113 @@
     "clues": [
         {
             "id": "carpet_fiber",
-            "displayName": "Fibra de alfombra",
-            "description": "Una fibra sintética, verde oliva, enganchada en una astilla cerca de la escena. No es del motel.",
+            "displayName": "Carpet fiber",
+            "description": "A synthetic, olive-green fiber, snagged on a splinter near the scene. It's not from the motel.",
             "hiddenWeight": 1,
             "pointsTo": ["ernesto"]
         },
         {
             "id": "carpet_shop_receipt",
-            "displayName": "Recibo de la tienda de alfombras",
-            "description": "Un recibo arrugado. Casi no hay ventas en meses. Alguien necesita plata.",
+            "displayName": "Carpet shop receipt",
+            "description": "A crumpled receipt. Barely any sales in months. Somebody needs money.",
             "hiddenWeight": 0,
             "pointsTo": ["ernesto"]
         },
         {
             "id": "ernesto_false_alibi",
-            "displayName": "Coartada falsa de Ernesto",
-            "description": "Dijo que estaba cerrando la tienda. Los horarios no cierran.",
+            "displayName": "Ernesto's false alibi",
+            "description": "He said he was closing up the shop. The hours don't add up.",
             "hiddenWeight": 1,
             "pointsTo": ["ernesto"]
         },
         {
             "id": "ernesto_hand_cut",
-            "displayName": "Corte reciente en la mano de Ernesto",
-            "description": "Un corte fresco, mal vendado. Dice que fue con una lata.",
+            "displayName": "Fresh cut on Ernesto's hand",
+            "description": "A fresh cut, poorly bandaged. He says it was from a can.",
             "hiddenWeight": 1,
             "pointsTo": ["ernesto"]
         },
         {
             "id": "basement_lock",
-            "displayName": "Candado del sótano",
-            "description": "La cadena está tirada, el candado forzado desde adentro. Alguien salió, no entró.",
+            "displayName": "Basement padlock",
+            "description": "The chain lies on the ground, the padlock forced from the inside. Someone got out, not in.",
             "hiddenWeight": 1,
             "pointsTo": ["robert"]
         },
         {
             "id": "basement_exclusive_access",
-            "displayName": "Acceso exclusivo al sótano",
-            "description": "Según Elena, solo Robert tiene la llave. Nadie más baja ahí.",
+            "displayName": "Exclusive basement access",
+            "description": "According to Elena, only Robert has the key. Nobody else goes down there.",
             "hiddenWeight": 1,
             "pointsTo": ["robert"]
         },
         {
             "id": "basement_noises_match",
-            "displayName": "Coincidencia sobre ruidos en el sótano",
-            "description": "Mark habla de ruidos y gente encerrada. Frank, sin saberlo, menciona lo mismo.",
+            "displayName": "Matching basement noise reports",
+            "description": "Mark talks about noises and people locked up. Frank, without realizing it, mentions the same thing.",
             "hiddenWeight": 0,
             "pointsTo": ["robert"]
         },
         {
             "id": "robert_quick_arrival",
-            "displayName": "Llegada rápida de Robert",
-            "description": "Llegó a la escena antes de que nadie lo llamara dos veces.",
+            "displayName": "Robert's suspiciously quick arrival",
+            "description": "He reached the scene before anyone had to call him twice.",
             "hiddenWeight": 0,
             "pointsTo": ["robert"]
         },
         {
             "id": "bottle_was_marks",
-            "displayName": "La botella era de Mark",
-            "description": "La marca de la etiqueta coincide con lo que Mark siempre carga encima.",
+            "displayName": "The bottle was Mark's",
+            "description": "The label matches what Mark always carries on him.",
             "hiddenWeight": 1,
             "pointsTo": ["mark"]
         },
         {
             "id": "glass_matches_bottle",
-            "displayName": "El vidrio coincide con la botella",
-            "description": "Los bordes del vidrio roto encajan con una botella de esa marca.",
+            "displayName": "The glass matches the bottle",
+            "description": "The edges of the broken glass match a bottle of that brand.",
             "hiddenWeight": 1,
             "pointsTo": ["mark"]
         },
         {
             "id": "frank_saw_mark_and_carla",
-            "displayName": "Frank vio a Mark cruzarse con Carla",
-            "description": "Frank los vio discutir de lejos esa noche. No supo bien qué pasaba.",
+            "displayName": "Frank saw Mark cross paths with Carla",
+            "description": "Frank saw them arguing from a distance that night. He wasn't sure what was going on.",
             "hiddenWeight": 0,
             "pointsTo": ["mark"]
         },
         {
             "id": "mark_no_memory",
-            "displayName": "Mark no recuerda esa noche",
-            "description": "Se le corta el relato justo en esa parte. Puede ser la bebida. Puede ser otra cosa.",
+            "displayName": "Mark doesn't remember that night",
+            "description": "His story cuts off right at that part. Could be the drink. Could be something else.",
             "hiddenWeight": 0,
             "pointsTo": ["mark"]
         },
         {
             "id": "elena_seen_running",
-            "displayName": "Elena vista corriendo esa noche",
-            "description": "Alguien la vio correr en dirección contraria al grito.",
+            "displayName": "Elena seen running that night",
+            "description": "Someone saw her running in the opposite direction from the scream.",
             "hiddenWeight": 0,
             "pointsTo": ["elena"]
         },
         {
             "id": "elena_master_keys",
-            "displayName": "Acceso total de Elena",
-            "description": "Tiene llave maestra de todo el motel. Cualquier puerta, cualquier hora.",
+            "displayName": "Elena's full access",
+            "description": "She has a master key to the whole motel. Any door, any hour.",
             "hiddenWeight": 1,
             "pointsTo": ["elena"]
         },
         {
             "id": "carla_belongings",
-            "displayName": "Pertenencias de Carla",
-            "description": "Objetos de Carla, escondidos cerca del sótano. Alguien los guardó ahí.",
+            "displayName": "Carla's belongings",
+            "description": "Carla's things, hidden near the basement. Someone stashed them there.",
             "hiddenWeight": 1,
             "pointsTo": ["robert", "elena"]
         },
         {
             "id": "elena_alibi_gap",
-            "displayName": "Coartada de Elena no cierra",
-            "description": "Dice que estaba en el cuarto de blancos. Los tiempos no dan.",
+            "displayName": "Elena's alibi doesn't add up",
+            "description": "She says she was in the linen room. The timing doesn't work.",
             "hiddenWeight": 0,
             "pointsTo": ["elena"]
         }

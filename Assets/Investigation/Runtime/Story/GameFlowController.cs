@@ -41,9 +41,9 @@ namespace Investigation
             }
             else
             {
-                yield return UI.ShowOverlay("DÍA 1", "La carretera de ningún lugar", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2f, true);
-                yield return UI.ShowDialogue("", "El auto se apaga a diez minutos de cualquier cosa. El único cartel en kilómetros dice MOTEL, con una flecha pintada a mano.", null, null, -1f, true);
-                yield return UI.ShowDialogue("", "No va a venir ninguna grúa antes de mañana. Voy a tener que quedarme.", null, null, -1f, true);
+                yield return UI.ShowOverlay("DAY 1", "The road to nowhere", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2f, true);
+                yield return UI.ShowDialogue("", "The car dies ten minutes from anything. The only sign for miles says MOTEL, with a hand-painted arrow.", null, null, -1f, true);
+                yield return UI.ShowDialogue("", "No tow truck's coming before morning. I'm going to have to stay.", null, null, -1f, true);
                 
                 if (LocationController.Instance != null)
                 {
@@ -85,8 +85,8 @@ namespace Investigation
             }
 
             // 1. Monólogo reflexivo de Gabe al terminar el Día 2
-            yield return UI.ShowDialogue("", "La noche se puso demasiado fría y oscura para seguir afuera. El pueblo entero parece haberse apagado.", null, null, -1f, true);
-            yield return UI.ShowDialogue("", "Es hora de volver a mi habitación en el Starlight Motel a repasar en mi libreta todo lo que descubrí hoy.", null, null, -1f, true);
+            yield return UI.ShowDialogue("", "The night's gotten too cold and dark to stay out any longer. The whole town seems to have shut down.", null, null, -1f, true);
+            yield return UI.ShowDialogue("", "Time to head back to my room at the Starlight Motel and go over everything I found out today in my notebook.", null, null, -1f, true);
 
             UI.HideDialogue();
 
@@ -100,20 +100,20 @@ namespace Investigation
             }
 
             // 4. Cartel de Título de Día 3 limpio
-            yield return UI.ShowOverlay("DÍA 3", "08:00 AM — Última oportunidad para investigar", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Instant, 2.5f, true);
+            yield return UI.ShowOverlay("DAY 3", "08:00 AM — Last chance to investigate", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Instant, 2.5f, true);
 
             // 5. Fundido de entrada (Fade In)
             yield return UI.FadeScreen(0f, Color.black, 0.8f);
+
+            // 6. Monólogo de Gabe al amanecer del Día 3
+            yield return UI.ShowDialogue("", "Dawn breaks over the motel. The sheriff will arrive at nightfall to close the case. Whatever I don't find out today stays buried.", null, null, -1f, true);
+            UI.HideDialogue();
 
             if (LocationController.Instance != null)
             {
                 LocationController.Instance.SetWorldUIActive(true);
                 LocationController.Instance.RefreshAll();
             }
-
-            // 6. Monólogo de Gabe al amanecer del Día 3
-            yield return UI.ShowDialogue("", "Amanece sobre el motel. El sheriff llegará al caer la noche para cerrar el caso. Todo lo que no averigüe hoy, quedará enterrado.", null, null, -1f, true);
-            UI.HideDialogue();
         }
 
         private IEnumerator EndInvestigationOverlay()
@@ -123,7 +123,7 @@ namespace Investigation
                 LocationController.Instance.SetWorldUIActive(false);
             }
 
-            yield return UI.ShowOverlay("PLAZO AGOTADO", "El tiempo de investigación ha terminado. Es hora de formular la acusación.", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 3f, true);
+            yield return UI.ShowOverlay("TIME'S UP", "The investigation is over. Time to make an accusation.", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 3f, true);
             
             if (AccusationController.Instance != null)
             {

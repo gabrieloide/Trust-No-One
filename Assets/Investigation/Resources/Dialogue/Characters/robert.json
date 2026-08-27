@@ -5,7 +5,7 @@
     "topics": [
         {
             "id": "robert_intro",
-            "displayName": "Pedir una habitación",
+            "displayName": "Ask for a room",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p1_started", "b": "", "negate": true }
@@ -16,11 +16,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Un hombre de aspecto ordenado y ademanes tranquilos sale a recibirme antes de que termine de estacionar." },
-                        { "speaker": "Robert", "text": "¡Bienvenido, bienvenido! No todos los días se le rompe el auto justo frente a un motel. Tiene suerte dentro de la mala fortuna." },
-                        { "speaker": "Gabe", "text": "Necesito un cuarto para esta noche." },
-                        { "speaker": "Robert", "text": "Por supuesto. Le doy el número 4, es el más tranquilo. Si necesita algo a cualquier hora, mi puerta es la primera junto al vestíbulo." },
-                        { "speaker": "", "text": "Es el tipo de administrador eficiente que uno espera encontrar en la ruta. Se nota que cuida el negocio." }
+                        { "speaker": "", "text": "A neatly dressed man with an easy manner comes out to greet me before I've even finished parking." },
+                        { "speaker": "Robert", "text": "Welcome, welcome! Not every day a man's car breaks down right in front of a motel. Lucky, in the unluckiest way possible." },
+                        { "speaker": "Gabe", "text": "I need a room for the night." },
+                        { "speaker": "Robert", "text": "Of course. I'll give you room 4, it's the quietest one. If you need anything, any hour, my door's the first one by the lobby." },
+                        { "speaker": "", "text": "The kind of efficient manager you'd hope to find out on the highway. He clearly takes care of the place." }
                     ],
                     "effects": []
                 }
@@ -28,7 +28,7 @@
         },
         {
             "id": "robert_talk_d2",
-            "displayName": "Preguntarle por lo ocurrido",
+            "displayName": "Ask him about what happened",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
@@ -39,10 +39,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Robert", "text": "Un asunto terrible lo de anoche, detective. El Starlight siempre ha sido un lugar pacífico. Ya colaboré con el sheriff a primera hora." },
-                        { "speaker": "Gabe", "text": "¿Notó algo fuera de lo común antes del crimen?" },
-                        { "speaker": "Robert", "text": "Últimamente hay mucha gente errante rondando la ruta. Ese vagabundo, Mark, suele merodear por la estación y ponerse agresivo cuando bebe. Y también hay camioneros de paso." },
-                        { "speaker": "", "text": "Tiene sentido. Un crimen en sus instalaciones es un golpe fatal para el motel; es lógico que intente cooperar para que esto se esclarezca rápido." }
+                        { "speaker": "Robert", "text": "A terrible business, last night, detective. The Starlight has always been a peaceful place. I already spoke with the sheriff first thing this morning." },
+                        { "speaker": "Gabe", "text": "Did you notice anything unusual before the crime?" },
+                        { "speaker": "Robert", "text": "There's been a lot of drifters wandering the highway lately. That vagrant, Mark, hangs around the gas station and gets aggressive when he's been drinking. And there's truckers passing through too." },
+                        { "speaker": "", "text": "Makes sense. A crime on his property is a death blow for the motel; it's logical he'd want this cleared up fast." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "robert_d2_talked", "b": "" }
@@ -52,7 +52,7 @@
         },
         {
             "id": "robert_press_early",
-            "displayName": "Consultar sobre las instalaciones",
+            "displayName": "Ask about the facilities",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
@@ -65,10 +65,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Tengo entendido que el edificio cuenta con un sótano. ¿Qué guardan ahí abajo?" },
-                        { "speaker": "Robert", "text": "El cuarto de máquinas: generador auxiliar, calderas y herramientas pesadas. Es un lugar húmedo y poco ventilado, por eso lo mantengo cerrado." },
-                        { "speaker": "Robert", "text": "¿Por qué la pregunta, detective? Si necesita inspeccionar las instalaciones del motel, con gusto lo acompaño más tarde." },
-                        { "speaker": "", "text": "Una respuesta práctica y profesional. Si está ocultando algo, lo disimula con la calma de quien está acostumbrado a la rutina del mantenimiento." }
+                        { "speaker": "Gabe", "text": "I understand the building has a basement. What do you keep down there?" },
+                        { "speaker": "Robert", "text": "The machine room: backup generator, boilers, heavy tools. It's damp and poorly ventilated, that's why I keep it locked." },
+                        { "speaker": "Robert", "text": "Why do you ask, detective? If you need to inspect the motel's facilities, I'll gladly walk you through later." },
+                        { "speaker": "", "text": "A practical, professional answer. If he's hiding something, he covers it with the calm of a man used to the routine of upkeep." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "robert_excuse_locked", "b": "" }
@@ -78,7 +78,7 @@
         },
         {
             "id": "robert_basement_excuse",
-            "displayName": "Revisar el acceso al sótano",
+            "displayName": "Press him on basement access",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d3p1_started", "b": "", "negate": false }
@@ -91,9 +91,9 @@
                         { "kind": 0, "a": "robert_excuse_locked", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Volviendo al sótano: Elena me comentó que usted conserva la única llave de esa entrada." },
-                        { "speaker": "Robert", "text": "Por supuesto. Las calderas son viejas y los seguros de responsabilidad civil son muy estrictos. No puedo permitir que empleados inexpertos bajen a tocar válvulas." },
-                        { "speaker": "", "text": "El argumento es intachable desde la gestión de un negocio. Tendré que reunir pruebas físicas sólidas si quiero demostrar que ese sótano esconde algo más." }
+                        { "speaker": "Gabe", "text": "Back to the basement: Elena told me you keep the only key to that door." },
+                        { "speaker": "Robert", "text": "Of course. The boilers are old and the liability insurance is very strict. I can't have inexperienced staff going down there fiddling with valves." },
+                        { "speaker": "", "text": "Impeccable, from a business-management standpoint. I'll need hard physical evidence if I want to prove that basement is hiding something more." }
                     ],
                     "effects": []
                 },
@@ -102,9 +102,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Elena me contó que usted es el único con llave del sótano." },
-                        { "speaker": "Robert", "text": "Así es. Manejo las calderas y los repuestos personalmente para evitar accidentes. Protocolo básico de seguridad." },
-                        { "speaker": "", "text": "La explicación suena razonable y medida." }
+                        { "speaker": "Gabe", "text": "Elena told me you're the only one with a key to the basement." },
+                        { "speaker": "Robert", "text": "That's right. I handle the boilers and the parts myself to avoid accidents. Basic safety protocol." },
+                        { "speaker": "", "text": "The explanation sounds reasonable and measured." }
                     ],
                     "effects": []
                 }
@@ -112,7 +112,7 @@
         },
         {
             "id": "robert_confront",
-            "displayName": "Confrontarlo con las evidencias del motel",
+            "displayName": "Confront him with the motel evidence",
             "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
@@ -125,10 +125,10 @@
                         { "kind": 0, "a": "robert_excuse_locked", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Candado reventado desde adentro. Acceso exclusivo suyo. Y las pertenencias de Carla ocultas tras las cajas del generador." },
-                        { "speaker": "Robert", "text": "Son inferencias muy graves, detective. Alguien pudo haber forzado la cerradura o dejado esas cosas allí para incriminar a la administración." },
-                        { "speaker": "", "text": "Por primera vez su sonrisa desaparece. Mantiene la compostura, pero sus ojos evalúan cada palabra mía con frío cálculo." },
-                        { "speaker": "Robert", "text": "Si tiene una acusación formal, le sugiero que la presente ante el sheriff con el rigor que la ley exige." }
+                        { "speaker": "Gabe", "text": "The padlock busted from the inside. Exclusive access, yours alone. And Carla's belongings hidden behind the generator crates." },
+                        { "speaker": "Robert", "text": "Those are very serious inferences, detective. Someone could have forced the lock, or planted those things there to incriminate management." },
+                        { "speaker": "", "text": "For the first time, his smile disappears. He keeps his composure, but his eyes weigh every word of mine with cold calculation." },
+                        { "speaker": "Robert", "text": "If you have a formal accusation, I suggest you bring it to the sheriff with all the rigor the law demands." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "robert_confronted_final", "b": "" }
@@ -139,9 +139,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "El candado fue reventado desde adentro, y usted es el único con llave." },
-                        { "speaker": "Robert", "text": "Coincidencias desafortunadas, detective. Pero en una investigación seria, las coincidencias no constituyen un veredicto." },
-                        { "speaker": "", "text": "Se toma un segundo medido antes de responder. Sus defensas son sólidas, pero los hechos físicos no mienten." }
+                        { "speaker": "Gabe", "text": "The padlock was busted from the inside, and you're the only one with a key." },
+                        { "speaker": "Robert", "text": "Unfortunate coincidences, detective. But in a serious investigation, coincidences don't add up to a verdict." },
+                        { "speaker": "", "text": "He takes a measured second before answering. His defenses are solid, but the physical facts don't lie." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "robert_confronted_final", "b": "" }

@@ -138,8 +138,8 @@ namespace Investigation
             if (cs == null) return;
 
             hudText.text = PhaseController.Instance != null && PhaseController.Instance.IsCaseOver
-                ? "Investigación terminada"
-                : $"Día {cs.currentDay} · Fase {cs.currentPhase} · Acciones restantes: {cs.actionsRemainingInPhase}";
+                ? "Investigation over"
+                : $"Day {cs.currentDay} · Phase {cs.currentPhase} · Actions left: {cs.actionsRemainingInPhase}";
         }
 
         public void RefreshNavBar()

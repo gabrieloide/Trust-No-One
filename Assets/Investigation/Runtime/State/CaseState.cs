@@ -65,11 +65,14 @@ namespace Investigation
 
         public static event Action OnClueCollected;
 
-        public void CollectClue(string clueId)
+        public void CollectClue(string clueId, bool playSound = true)
         {
             if (collectedClues.Add(clueId))
             {
-                AudioManager.Play(SFXType.ClueFound);
+                if (playSound)
+                {
+                    AudioManager.Play(SFXType.ClueFound);
+                }
                 OnClueCollected?.Invoke();
             }
         }

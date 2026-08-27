@@ -5,7 +5,7 @@
     "topics": [
         {
             "id": "elena_intro",
-            "displayName": "Hacer el check-in",
+            "displayName": "Check in",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p1_started", "b": "", "negate": true }
@@ -16,11 +16,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Una mujer joven atiende el mostrador sin levantar mucho la vista." },
-                        { "speaker": "Elena", "text": "¿Cuántas noches?" },
-                        { "speaker": "Gabe", "text": "Una, con suerte." },
-                        { "speaker": "Elena", "text": "Acá nadie se queda una sola noche por suerte." },
-                        { "speaker": "", "text": "Lo dice sin ánimo de broma. Me da la llave y vuelve a lo suyo antes de que pueda preguntar algo más." }
+                        { "speaker": "", "text": "A young woman works the front desk without looking up much." },
+                        { "speaker": "Elena", "text": "How many nights?" },
+                        { "speaker": "Gabe", "text": "One, hopefully." },
+                        { "speaker": "Elena", "text": "Nobody here stays just one night out of luck." },
+                        { "speaker": "", "text": "She says it with no hint of a joke. She hands me the key and goes back to her own business before I can ask anything else." }
                     ],
                     "effects": []
                 }
@@ -28,7 +28,7 @@
         },
         {
             "id": "elena_talk_morning",
-            "displayName": "Preguntarle por lo ocurrido anoche",
+            "displayName": "Ask her about last night",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
@@ -39,11 +39,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "¿Cómo está llevando lo de anoche, Elena?" },
-                        { "speaker": "Elena", "text": "Mal. No pude pegar un ojo. Carla... Carla era una chica tranquila. No merecía terminar tirada al lado del sótano." },
-                        { "speaker": "Gabe", "text": "¿Sabe por qué estaba ella cerca del sótano a esa hora?" },
-                        { "speaker": "Elena", "text": "No tengo idea. El sótano siempre está cerrado con candado... solo Robert tiene la llave." },
-                        { "speaker": "", "text": "Se frota los brazos como si tuviera frío. Su miedo parece genuino." }
+                        { "speaker": "Gabe", "text": "How are you holding up after last night, Elena?" },
+                        { "speaker": "Elena", "text": "Bad. Couldn't sleep a wink. Carla... Carla was a quiet girl. She didn't deserve to end up lying next to that basement." },
+                        { "speaker": "Gabe", "text": "Any idea why she was near the basement at that hour?" },
+                        { "speaker": "Elena", "text": "No idea. The basement's always padlocked... only Robert has the key." },
+                        { "speaker": "", "text": "She rubs her arms like she's cold. Her fear seems genuine." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "elena_morning_talked", "b": "" }
@@ -53,7 +53,7 @@
         },
         {
             "id": "elena_confront_calm",
-            "displayName": "Preguntarle con calma por qué corrió esa noche",
+            "displayName": "Calmly ask her why she ran that night",
             "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
@@ -66,11 +66,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Alguien la vio correr la noche del grito. En dirección contraria." },
-                        { "speaker": "", "text": "Se le corta la respiración medio segundo antes de contestar." },
-                        { "speaker": "Elena", "text": "Me asusté. Salí corriendo, no sé para dónde, solo corrí a buscar ayuda." },
-                        { "speaker": "Gabe", "text": "Está bien. Nadie dijo que haya hecho algo malo." },
-                        { "speaker": "", "text": "Se relaja, apenas. Suficiente para que no se cierre por completo." }
+                        { "speaker": "Gabe", "text": "Someone saw you running the night of the scream. The wrong direction." },
+                        { "speaker": "", "text": "Her breath catches half a second before she answers." },
+                        { "speaker": "Elena", "text": "I got scared. I just ran, I don't know where, I just ran to get help." },
+                        { "speaker": "Gabe", "text": "It's alright. Nobody said you did anything wrong." },
+                        { "speaker": "", "text": "She relaxes, barely. Enough that she doesn't shut down completely." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "elena_trust_intact", "b": "" },
@@ -81,7 +81,7 @@
         },
         {
             "id": "elena_confront_harsh",
-            "displayName": "Presionarla directamente sobre su huida",
+            "displayName": "Press her directly about her running",
             "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
@@ -94,11 +94,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "La vieron correr esa noche en dirección contraria al ruido. ¿De qué escapaba?" },
-                        { "speaker": "Elena", "text": "¿Y qué quería que hiciera? ¿Quedarme ahí parada a ver si me tocaba a mí?" },
-                        { "speaker": "Gabe", "text": "Quedarse a explicar a la policía, para empezar." },
-                        { "speaker": "", "text": "Se cierra de golpe. Cruza los brazos y la mirada se le va al mostrador." },
-                        { "speaker": "Elena", "text": "Terminé mi turno con usted. Con permiso." }
+                        { "speaker": "Gabe", "text": "You were seen running the wrong way from the noise that night. What were you running from?" },
+                        { "speaker": "Elena", "text": "What did you want me to do? Just stand there and see if I was next?" },
+                        { "speaker": "Gabe", "text": "Staying to explain it to the police, for starters." },
+                        { "speaker": "", "text": "She shuts down instantly. Crosses her arms and her eyes drop to the counter." },
+                        { "speaker": "Elena", "text": "We're done here. Excuse me." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "elena_trust_broken", "b": "" },
@@ -109,7 +109,7 @@
         },
         {
             "id": "elena_master_keys",
-            "displayName": "Preguntarle por las llaves maestras",
+            "displayName": "Ask her about the master keys",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
@@ -120,10 +120,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "¿Quién tiene acceso a todas las habitaciones del motel?" },
-                        { "speaker": "Elena", "text": "Solo Robert y yo tenemos llaves maestras. Yo la uso para el servicio de limpieza, y Robert guarda la de repuesto en su escritorio." },
-                        { "speaker": "Gabe", "text": "¿Nadie más pudo haber entrado a un cuarto sin forzar la puerta?" },
-                        { "speaker": "Elena", "text": "Imposible. A menos que Robert le haya dado una llave." }
+                        { "speaker": "Gabe", "text": "Who has access to every room in the motel?" },
+                        { "speaker": "Elena", "text": "Only Robert and I have master keys. I use mine for housekeeping, and Robert keeps the spare in his desk." },
+                        { "speaker": "Gabe", "text": "Could anyone else have gotten into a room without forcing the door?" },
+                        { "speaker": "Elena", "text": "Impossible. Unless Robert gave someone a key." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "elena_master_keys", "b": "" }
@@ -133,7 +133,7 @@
         },
         {
             "id": "elena_basement_access",
-            "displayName": "Preguntarle por el sótano",
+            "displayName": "Ask her about the basement",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d3p1_started", "b": "", "negate": false }
@@ -146,9 +146,9 @@
                         { "kind": 0, "a": "elena_trust_broken", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "Gabe", "text": "¿Quién más tiene llave del sótano?" },
-                        { "speaker": "Elena", "text": "Nadie. Solo él. Dice que es por el generador." },
-                        { "speaker": "", "text": "Contesta sin mirarme, cortante, como quien paga una deuda que no quería tener." }
+                        { "speaker": "Gabe", "text": "Who else has a key to the basement?" },
+                        { "speaker": "Elena", "text": "Nobody. Just him. Says it's about the generator." },
+                        { "speaker": "", "text": "She answers without looking at me, clipped, like someone paying off a debt she never wanted." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "basement_exclusive_access", "b": "" },
@@ -160,10 +160,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "¿Alguna vez bajó al sótano?" },
-                        { "speaker": "Elena", "text": "Nunca. Solo Robert. Dice que ahí está el generador, que es peligroso, que prefiere manejarlo él." },
-                        { "speaker": "Elena", "text": "La verdad, ni sé bien qué hay ahí. Y ya llevo dos años trabajando acá." },
-                        { "speaker": "", "text": "Lo dice con un dejo raro. No es sospecha todavía. Es algo más viejo, más cansado, que recién ahora se pregunta por qué nunca preguntó." }
+                        { "speaker": "Gabe", "text": "Have you ever been down to the basement?" },
+                        { "speaker": "Elena", "text": "Never. Only Robert. He says the generator's down there, that it's dangerous, that he'd rather handle it himself." },
+                        { "speaker": "Elena", "text": "Honestly, I don't even really know what's down there. And I've worked here two years already." },
+                        { "speaker": "", "text": "There's something odd in how she says it. Not suspicion yet. Something older, more tired — like she's only now asking herself why she never asked." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "basement_exclusive_access", "b": "" },
@@ -174,7 +174,7 @@
         },
         {
             "id": "elena_revisit",
-            "displayName": "Volver a hablar con ella",
+            "displayName": "Talk to her again",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d3p2_started", "b": "", "negate": false },
@@ -186,11 +186,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Elena", "text": "¿De nuevo usted?" },
-                        { "speaker": "", "text": "Lo dice sin filo esta vez. Casi con alivio de tener con quién hablar." },
-                        { "speaker": "Elena", "text": "A veces Robert dice cosas. Medio en broma, medio no. Que acá una nunca sabe si va a terminar como... como otras que pasaron." },
-                        { "speaker": "", "text": "Se frena antes de terminar la frase. Como si ya hubiera dicho más de lo que quería." },
-                        { "speaker": "Elena", "text": "Olvídelo. Estoy cansada, nada más." }
+                        { "speaker": "Elena", "text": "You again?" },
+                        { "speaker": "", "text": "She says it without any edge this time. Almost relieved to have someone to talk to." },
+                        { "speaker": "Elena", "text": "Sometimes Robert says things. Half joking, half not. That around here you never know if you'll end up like... like others who passed through." },
+                        { "speaker": "", "text": "She stops before finishing the sentence. Like she's already said more than she meant to." },
+                        { "speaker": "Elena", "text": "Forget it. I'm just tired, that's all." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "elena_fear_hint", "b": "" }
