@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: add2fa017e242b645a140c265247b220, type: 3}
-  m_Name: SG_D1_Prologo_Completo
+  m_Name: 
   m_EditorClassIdentifier: VisualNovelSystem.Runtime::VisualNovelSystem.StoryGraph
   graphTitle: SG_D1_Prologo_Completo
-  entryNodeGuid: ce79b802-6d6f-4fcd-a3c4-be00c91a1ea1
+  entryNodeGuid: a0e8ba60-9a17-4d4d-a460-5085b5526c50
   nodes:
-  - guid: ce79b802-6d6f-4fcd-a3c4-be00c91a1ea1
+  - guid: a0e8ba60-9a17-4d4d-a460-5085b5526c50
     title: Start
     nodeType: 0
     position: {x: 100, y: 200}
@@ -31,47 +31,54 @@ MonoBehaviour:
     exitConditionVariable: 
     explorationTimeout: -1
     comment: 
-  - guid: 6e1aef18-3463-4b27-ac9e-3ccc96fd4d28
+  - guid: cde9ec33-2568-4848-924b-2e0b27f891bb
     title: "Pr\xF3logo D\xEDa 1 (Completo)"
     nodeType: 1
     position: {x: 350, y: 200}
     actions:
-    - rid: 7508757932014829695
-    - rid: 7508757932014829696
-    - rid: 7508757932014829697
-    - rid: 7508757932014829698
-    - rid: 7508757932014829699
-    - rid: 7508757932014829700
-    - rid: 7508757932014829701
-    - rid: 7508757932014829702
-    - rid: 7508757932014829703
-    - rid: 7508757932014829704
-    - rid: 7508757932014829705
-    - rid: 7508757932014829706
-    - rid: 7508757932014829707
-    - rid: 7508757932014829708
-    - rid: 7508757932014829709
-    - rid: 7508757932014829710
-    - rid: 7508757932014829711
-    - rid: 7508757932014829712
-    - rid: 7508757932014829713
-    - rid: 7508757932014829714
-    - rid: 7508757932014829715
-    - rid: 7508757932014829716
-    - rid: 7508757932014829717
-    - rid: 7508757932014829718
-    - rid: 7508757932014829719
-    - rid: 7508757932014829720
-    - rid: 7508757932014829721
-    - rid: 7508757932014829722
-    - rid: 7508757932014829723
-    - rid: 7508757932014829724
-    - rid: 7508757932014829725
-    - rid: 7508757932014829726
-    - rid: 7508757932014829727
-    - rid: 7508757932014829728
-    - rid: 7508757932014829729
-    - rid: 7508757932014829730
+    - rid: 7508757932014829732
+    - rid: 7508757932014829733
+    - rid: 7508757932014829734
+    - rid: 7508757932014829735
+    - rid: 7508757932014829736
+    - rid: 7508757932014829737
+    - rid: 7508757932014829738
+    - rid: 7508757932014829739
+    - rid: 7508757932014829740
+    - rid: 7508757932014829741
+    - rid: 7508757932014829742
+    - rid: 7508757932014829743
+    - rid: 7508757932014829744
+    - rid: 7508757932014829745
+    - rid: 7508757932014829746
+    - rid: 7508757932014829747
+    - rid: 7508757932014829748
+    - rid: 7508757932014829749
+    - rid: 7508757932014829750
+    - rid: 7508757932014829751
+    - rid: 7508757932014829752
+    - rid: 7508757932014829753
+    - rid: 7508757932014829754
+    - rid: 7508757932014829755
+    - rid: 7508757932014829756
+    - rid: 7508757932014829757
+    - rid: 7508757932014829758
+    - rid: 7508757932014829759
+    - rid: 7508757932014829760
+    - rid: 7508757932014829761
+    - rid: 7508757932014829762
+    - rid: 7508757932014829763
+    - rid: 7508757932014829764
+    - rid: 7508757932014829765
+    - rid: 7508757932014829766
+    - rid: 7508757932014829767
+    - rid: 7508757932014829768
+    - rid: 7508757932014829769
+    - rid: 7508757932014829770
+    - rid: 7508757932014829771
+    - rid: 7508757932014829772
+    - rid: 7508757932014829773
+    - rid: 7508757932014829774
     promptText: "\xBFQu\xE9 deseas hacer?"
     choices: []
     conditionVariableName: 
@@ -83,7 +90,7 @@ MonoBehaviour:
     exitConditionVariable: 
     explorationTimeout: -1
     comment: 
-  - guid: d12e1bbe-1721-4dfc-bbbe-bd63604ae56a
+  - guid: 35b0a61e-7762-44aa-a86f-3198de494c36
     title: End
     nodeType: 6
     position: {x: 700, y: 200}
@@ -100,28 +107,28 @@ MonoBehaviour:
     explorationTimeout: -1
     comment: 
   nodeLinks:
-  - baseNodeGuid: ce79b802-6d6f-4fcd-a3c4-be00c91a1ea1
+  - baseNodeGuid: a0e8ba60-9a17-4d4d-a460-5085b5526c50
     portIdentifier: output
-    targetNodeGuid: 6e1aef18-3463-4b27-ac9e-3ccc96fd4d28
-  - baseNodeGuid: 6e1aef18-3463-4b27-ac9e-3ccc96fd4d28
+    targetNodeGuid: cde9ec33-2568-4848-924b-2e0b27f891bb
+  - baseNodeGuid: cde9ec33-2568-4848-924b-2e0b27f891bb
     portIdentifier: output
-    targetNodeGuid: d12e1bbe-1721-4dfc-bbbe-bd63604ae56a
+    targetNodeGuid: 35b0a61e-7762-44aa-a86f-3198de494c36
   blackboard:
     initialVariables: []
   references:
     version: 2
     RefIds:
-    - rid: 7508757932014829695
+    - rid: 7508757932014829732
       type: {class: SetWorldUIAction, ns: Investigation, asm: Investigation.Runtime}
       data:
         enabled: 1
         active: 0
-    - rid: 7508757932014829696
+    - rid: 7508757932014829733
       type: {class: TravelLocationAction, ns: Investigation, asm: Investigation.Runtime}
       data:
         enabled: 1
         targetLocationId: road
-    - rid: 7508757932014829697
+    - rid: 7508757932014829734
       type: {class: OverlayTextAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -132,7 +139,7 @@ MonoBehaviour:
         duration: 2
         waitForClick: 1
         fadeDuration: 0.5
-    - rid: 7508757932014829698
+    - rid: 7508757932014829735
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -144,7 +151,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829699
+    - rid: 7508757932014829736
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -156,7 +163,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829700
+    - rid: 7508757932014829737
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -169,7 +176,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829701
+    - rid: 7508757932014829738
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -181,7 +188,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829702
+    - rid: 7508757932014829739
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -193,7 +200,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829703
+    - rid: 7508757932014829740
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -204,7 +211,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829704
+    - rid: 7508757932014829741
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -216,19 +223,19 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829705
+    - rid: 7508757932014829742
       type: {class: CaseFlagAction, ns: Investigation, asm: Investigation.Runtime}
       data:
         enabled: 1
         operation: 0
         key: d1_ernesto_talked
         amount: 1
-    - rid: 7508757932014829706
+    - rid: 7508757932014829743
       type: {class: TravelLocationAction, ns: Investigation, asm: Investigation.Runtime}
       data:
         enabled: 1
         targetLocationId: motel
-    - rid: 7508757932014829707
+    - rid: 7508757932014829744
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -240,7 +247,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829708
+    - rid: 7508757932014829745
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -251,7 +258,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829709
+    - rid: 7508757932014829746
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -262,7 +269,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829710
+    - rid: 7508757932014829747
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -273,7 +280,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829711
+    - rid: 7508757932014829748
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -285,14 +292,14 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829712
+    - rid: 7508757932014829749
       type: {class: CaseFlagAction, ns: Investigation, asm: Investigation.Runtime}
       data:
         enabled: 1
         operation: 0
         key: d1_elena_talked
         amount: 1
-    - rid: 7508757932014829713
+    - rid: 7508757932014829750
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -304,7 +311,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829714
+    - rid: 7508757932014829751
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -317,7 +324,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829715
+    - rid: 7508757932014829752
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -328,7 +335,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829716
+    - rid: 7508757932014829753
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -341,7 +348,7 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829717
+    - rid: 7508757932014829754
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -353,14 +360,14 @@ MonoBehaviour:
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829718
+    - rid: 7508757932014829755
       type: {class: CaseFlagAction, ns: Investigation, asm: Investigation.Runtime}
       data:
         enabled: 1
         operation: 0
         key: d1_robert_talked
         amount: 1
-    - rid: 7508757932014829719
+    - rid: 7508757932014829756
       type: {class: OverlayTextAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -371,64 +378,126 @@ MonoBehaviour:
         duration: 2
         waitForClick: 1
         fadeDuration: 0.5
-    - rid: 7508757932014829720
+    - rid: 7508757932014829757
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
         speakerName: 
-        dialogueText: "Un grito corto, cortado a la mitad. Despu\xE9s, vidrio rompi\xE9ndose."
+        dialogueText: "Un grito corto, cortado a la mitad. Despu\xE9s, el sonido
+          seco de vidrio rompi\xE9ndose contra el suelo."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829721
+    - rid: 7508757932014829758
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
         speakerName: 
-        dialogueText: "Cuando salgo al pasillo alcanzo a ver a Elena, corriendo en
-          direcci\xF3n contraria al ruido."
+        dialogueText: Salgo al pasillo alertado por el estruendo. Apenas alcanzo
+          a ver la silueta de Elena corriendo despavorida hacia la salida trasera.
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829722
+    - rid: 7508757932014829759
       type: {class: CollectClueAction, ns: Investigation, asm: Investigation.Runtime}
       data:
         enabled: 1
         clueId: elena_seen_running
-    - rid: 7508757932014829723
+    - rid: 7508757932014829760
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
         speakerName: 
-        dialogueText: Para cuando llego a la parte trasera, ya hay gente alrededor
-          del cuerpo. Alguien fue a buscar a Robert.
+        dialogueText: "Sigo el ruido hasta la parte trasera del motel, cerca del
+          acceso al s\xF3tano. Hay una mujer inm\xF3vil en el suelo, rodeada de vidrios
+          rotos."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829724
+    - rid: 7508757932014829761
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
         speakerName: 
-        dialogueText: "Llega antes de lo que deber\xEDa tardar cualquiera en despertarse
-          y vestirse. Sin marcas, sin agitaci\xF3n, con la explicaci\xF3n ya lista."
+        dialogueText: "En cuesti\xF3n de segundos aparece Robert, perfectamente peinado
+          y vestido, como si nunca se hubiera acostado."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
         waitForClick: 1
         hideAfterFinished: 0
-    - rid: 7508757932014829725
+    - rid: 7508757932014829762
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Gabe
+        dialogueText: "\xBFQu\xE9 fue ese grito? \xBFQui\xE9n es la mujer del suelo?"
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829763
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Robert
+        dialogueText: "Es Carla... Carla Rossi. Pobrecita, Dios m\xEDo... parece
+          que tropez\xF3 con una botella o alguien la atac\xF3 en la oscuridad."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829764
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Gabe
+        dialogueText: "\xBFLleg\xF3 usted muy r\xE1pido, no? Apenas se escuch\xF3
+          el golpe."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829765
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Robert
+        dialogueText: "Tengo el sue\xF1o ligero cuando se trata de la seguridad de
+          mi motel, se\xF1or Miller. Ya avis\xE9 al sheriff del condado, estar\xE1n
+          aqu\xED a primera hora."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829766
       type: {class: CollectClueAction, ns: Investigation, asm: Investigation.Runtime}
       data:
         enabled: 1
         clueId: robert_quick_arrival
-    - rid: 7508757932014829726
+    - rid: 7508757932014829767
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Robert
+        dialogueText: "Le sugiero volver a su habitaci\xF3n y cerrar con llave. Esto
+          no es algo que un hu\xE9sped deba presenciar."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829768
       type: {class: OverlayTextAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -439,7 +508,7 @@ MonoBehaviour:
         duration: 2
         waitForClick: 1
         fadeDuration: 0.5
-    - rid: 7508757932014829727
+    - rid: 7508757932014829769
       type: {class: OverlayTextAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
@@ -450,19 +519,45 @@ MonoBehaviour:
         duration: 2.5
         waitForClick: 1
         fadeDuration: 0.5
-    - rid: 7508757932014829728
+    - rid: 7508757932014829770
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Gabe
+        dialogueText: "A la ma\xF1ana siguiente, la polic\xEDa local anota cuatro
+          datos con desgano. Tienen tres sospechosos f\xE1ciles: el borracho de la
+          gasolinera, el comerciante nuevo y la chica de recepci\xF3n."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829771
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Gabe
+        dialogueText: "Pero nadie mira a Robert Hale. El due\xF1o del motel parece
+          intocable para todos en este pueblo... y eso es exactamente lo que me huele
+          mal."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829772
       type: {class: SetDayPhaseAction, ns: Investigation, asm: Investigation.Runtime}
       data:
         enabled: 1
         targetDay: 2
         targetPhase: 1
         actionsRemaining: 4
-    - rid: 7508757932014829729
+    - rid: 7508757932014829773
       type: {class: SetWorldUIAction, ns: Investigation, asm: Investigation.Runtime}
       data:
         enabled: 1
         active: 1
-    - rid: 7508757932014829730
+    - rid: 7508757932014829774
       type: {class: TravelLocationAction, ns: Investigation, asm: Investigation.Runtime}
       data:
         enabled: 1
