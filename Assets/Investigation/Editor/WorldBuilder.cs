@@ -165,6 +165,9 @@ namespace Investigation.EditorTools
             // Configurar Audio y SFX
             InvestigationSFXGenerator.WireSFXToScene();
 
+            // Asegurar layout de Diálogo con Stage de medio cuerpo y caja limpia
+            DialogueUIRefactor.Refactor();
+
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
             Debug.Log($"[WorldBuilder] Mundo construido con StoryGraphs: 6 locaciones, inicio en 'road' (Carretera).");
         }

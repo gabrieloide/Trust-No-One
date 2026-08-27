@@ -49,60 +49,65 @@ namespace VisualNovelSystem.Editor
             uiControllerRect.offsetMax = Vector2.zero;
             var uiController = uiControllerObj.GetComponent<StoryUIController>();
 
-            // 3. Create Dialogue UI
+            // 3. Create Half-body Character Stage (standing on scene, behind dialogue box)
+            var stageObj = new GameObject("CharacterStage", typeof(RectTransform), typeof(Image));
+            stageObj.transform.SetParent(uiControllerObj.transform, false);
+            stageObj.transform.SetSiblingIndex(0);
+            var stageRect = stageObj.GetComponent<RectTransform>();
+            stageRect.anchorMin = new Vector2(0.5f, 0f);
+            stageRect.anchorMax = new Vector2(0.5f, 0f);
+            stageRect.pivot = new Vector2(0.5f, 0f);
+            stageRect.sizeDelta = new Vector2(520f, 750f);
+            stageRect.anchoredPosition = new Vector2(0f, 100f);
+            var stageImg = stageObj.GetComponent<Image>();
+            stageImg.preserveAspect = true;
+            stageImg.raycastTarget = false;
+            stageObj.SetActive(false);
+
+            // 4. Create Clean Dialogue Box (at bottom)
             var dialogueObj = new GameObject("DialogueBox", typeof(RectTransform), typeof(CanvasGroup), typeof(Image), typeof(StoryDialogueUI));
             dialogueObj.transform.SetParent(uiControllerObj.transform, false);
             var diagRect = dialogueObj.GetComponent<RectTransform>();
-            diagRect.anchorMin = new Vector2(0.1f, 0.05f);
-            diagRect.anchorMax = new Vector2(0.9f, 0.32f);
+            diagRect.anchorMin = new Vector2(0.06f, 0.03f);
+            diagRect.anchorMax = new Vector2(0.94f, 0.28f);
             diagRect.offsetMin = Vector2.zero;
             diagRect.offsetMax = Vector2.zero;
 
             var diagImage = dialogueObj.GetComponent<Image>();
-            diagImage.color = new Color(0.08f, 0.08f, 0.12f, 0.92f);
+            diagImage.color = new Color(0.06f, 0.06f, 0.08f, 0.95f);
 
-            // Portrait
-            var portraitObj = new GameObject("CharacterPortrait", typeof(RectTransform), typeof(Image));
-            portraitObj.transform.SetParent(dialogueObj.transform, false);
-            var portRect = portraitObj.GetComponent<RectTransform>();
-            portRect.anchorMin = new Vector2(0.02f, 0.1f);
-            portRect.anchorMax = new Vector2(0.18f, 0.9f);
-            portRect.offsetMin = Vector2.zero;
-            portRect.offsetMax = Vector2.zero;
-            portraitObj.GetComponent<Image>().preserveAspect = true;
-
-            // Speaker Name
+            // Speaker Name (Full width top)
             var speakerObj = new GameObject("SpeakerName", typeof(RectTransform), typeof(TextMeshProUGUI));
             speakerObj.transform.SetParent(dialogueObj.transform, false);
             var speakerRect = speakerObj.GetComponent<RectTransform>();
-            speakerRect.anchorMin = new Vector2(0.2f, 0.72f);
-            speakerRect.anchorMax = new Vector2(0.95f, 0.92f);
+            speakerRect.anchorMin = new Vector2(0.025f, 0.74f);
+            speakerRect.anchorMax = new Vector2(0.975f, 0.95f);
             speakerRect.offsetMin = Vector2.zero;
             speakerRect.offsetMax = Vector2.zero;
             var speakerTMP = speakerObj.GetComponent<TextMeshProUGUI>();
             speakerTMP.text = "Nombre del Personaje";
-            speakerTMP.fontSize = 28;
+            speakerTMP.fontSize = 26;
             speakerTMP.fontStyle = FontStyles.Bold;
-            speakerTMP.color = new Color(0.95f, 0.75f, 0.3f);
+            speakerTMP.color = new Color(0.96f, 0.75f, 0.29f);
 
-            // Dialogue Text
+            // Dialogue Text (Full width body)
             var textObj = new GameObject("DialogueText", typeof(RectTransform), typeof(TextMeshProUGUI));
             textObj.transform.SetParent(dialogueObj.transform, false);
             var textRect = textObj.GetComponent<RectTransform>();
-            textRect.anchorMin = new Vector2(0.2f, 0.1f);
-            textRect.anchorMax = new Vector2(0.95f, 0.7f);
+            textRect.anchorMin = new Vector2(0.025f, 0.08f);
+            textRect.anchorMax = new Vector2(0.975f, 0.72f);
             textRect.offsetMin = Vector2.zero;
             textRect.offsetMax = Vector2.zero;
             var textTMP = textObj.GetComponent<TextMeshProUGUI>();
             textTMP.text = "Este es el texto del diálogo...";
-            textTMP.fontSize = 24;
+            textTMP.fontSize = 22;
             textTMP.color = Color.white;
 
             // Continue Indicator
             var indicatorObj = new GameObject("ContinueIndicator", typeof(RectTransform), typeof(TextMeshProUGUI));
             indicatorObj.transform.SetParent(dialogueObj.transform, false);
             var indRect = indicatorObj.GetComponent<RectTransform>();
-            indRect.anchorMin = new Vector2(0.94f, 0.05f);
+            indRect.anchorMin = new Vector2(0.95f, 0.05f);
             indRect.anchorMax = new Vector2(0.98f, 0.2f);
             indRect.offsetMin = Vector2.zero;
             indRect.offsetMax = Vector2.zero;
@@ -120,7 +125,7 @@ namespace VisualNovelSystem.Editor
             SetPrivateField(dialogueUI, "canvasGroup", dialogueObj.GetComponent<CanvasGroup>());
             SetPrivateField(dialogueUI, "speakerNameText", speakerTMP);
             SetPrivateField(dialogueUI, "dialogueText", textTMP);
-            SetPrivateField(dialogueUI, "characterPortrait", portraitObj.GetComponent<Image>());
+            SetPrivateField(dialogueUI, "characterPortrait", stageImg);
             SetPrivateField(dialogueUI, "continueIndicator", indicatorObj);
             SetPrivateField(dialogueUI, "voiceAudioSource", voiceSource);
 
