@@ -82,6 +82,7 @@ namespace VisualNovelSystem
                 StopCoroutine(runnerRoutine);
                 runnerRoutine = null;
             }
+            if (uiController != null) uiController.HideDialogue();
             IsRunning = false;
             CurrentNode = null;
         }
@@ -244,6 +245,7 @@ namespace VisualNovelSystem
 
                     case StoryNodeType.End:
                         IsRunning = false;
+                        if (uiController != null) uiController.HideDialogue();
                         OnNodeFinished?.Invoke(currentNode);
                         OnGraphCompleted?.Invoke();
                         yield break;
@@ -260,6 +262,7 @@ namespace VisualNovelSystem
                 currentNode = storyGraph.GetNodeByGuid(nextNodeGuid);
             }
 
+            if (uiController != null) uiController.HideDialogue();
             IsRunning = false;
             CurrentNode = null;
             OnGraphCompleted?.Invoke();
