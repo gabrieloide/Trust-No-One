@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add2fa017e242b645a140c265247b220, type: 3}
+  m_Name: SG_D1_Ernesto_Ruta
+  m_EditorClassIdentifier: VisualNovelSystem.Runtime::VisualNovelSystem.StoryGraph
+  graphTitle: SG_D1_Ernesto_Ruta
+  entryNodeGuid: 42fa2475-5a2a-4bbf-964f-590ab0a8fc96
+  nodes:
+  - guid: 42fa2475-5a2a-4bbf-964f-590ab0a8fc96
+    title: Start
+    nodeType: 0
+    position: {x: 100, y: 200}
+    actions: []
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  - guid: ba672762-dfcf-4aa6-837d-a1feddbabb54
+    title: Encuentro con Ernesto
+    nodeType: 1
+    position: {x: 350, y: 200}
+    actions:
+    - rid: 7508757932014829662
+    - rid: 7508757932014829663
+    - rid: 7508757932014829664
+    - rid: 7508757932014829665
+    - rid: 7508757932014829666
+    - rid: 7508757932014829667
+    - rid: 7508757932014829668
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  - guid: afc94a70-7bf1-454d-972c-5cdc19ce2930
+    title: End
+    nodeType: 6
+    position: {x: 700, y: 200}
+    actions: []
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  nodeLinks:
+  - baseNodeGuid: 42fa2475-5a2a-4bbf-964f-590ab0a8fc96
+    portIdentifier: output
+    targetNodeGuid: ba672762-dfcf-4aa6-837d-a1feddbabb54
+  - baseNodeGuid: ba672762-dfcf-4aa6-837d-a1feddbabb54
+    portIdentifier: output
+    targetNodeGuid: afc94a70-7bf1-454d-972c-5cdc19ce2930
+  blackboard:
+    initialVariables: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7508757932014829662
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: 
+        dialogueText: "Un hombre carga cajas hacia una camioneta. Se frena en seco
+          al verme, como si hubiera memorizado cada cara del pueblo y la m\xEDa no
+          encajara."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829663
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Ernesto
+        dialogueText: "\xBFUsted es nuevo por ac\xE1? No... no suelo ver caras nuevas
+          seguido."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829664
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Gabe
+        dialogueText: "Se me rompi\xF3 el auto en la ruta. Voy a quedarme una noche
+          en el motel."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829665
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: Ernesto
+        dialogueText: El motel. Claro. Buena suerte con eso.
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829666
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: 
+        dialogueText: Lo dice como quien repite un chiste privado que no piensa explicar.
+          Sigue cargando cajas sin volver a mirarme.
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829667
+      type: {class: SpendActionAction, ns: Investigation, asm: Investigation.Runtime}
+      data:
+        enabled: 1
+    - rid: 7508757932014829668
+      type: {class: CaseFlagAction, ns: Investigation, asm: Investigation.Runtime}
+      data:
+        enabled: 1
+        operation: 0
+        key: d1_ernesto_talked
+        amount: 1

@@ -1,0 +1,182 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add2fa017e242b645a140c265247b220, type: 3}
+  m_Name: SG_D1_Noche_Crimen
+  m_EditorClassIdentifier: VisualNovelSystem.Runtime::VisualNovelSystem.StoryGraph
+  graphTitle: SG_D1_Noche_Crimen
+  entryNodeGuid: 2c1544ab-58bf-4918-bb11-9802944dde79
+  nodes:
+  - guid: 2c1544ab-58bf-4918-bb11-9802944dde79
+    title: Start
+    nodeType: 0
+    position: {x: 100, y: 200}
+    actions: []
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  - guid: 83dcfb5e-2695-41f7-b1ab-c28532b385bd
+    title: Noche del Crimen
+    nodeType: 1
+    position: {x: 350, y: 200}
+    actions:
+    - rid: 7508757932014829683
+    - rid: 7508757932014829684
+    - rid: 7508757932014829685
+    - rid: 7508757932014829686
+    - rid: 7508757932014829687
+    - rid: 7508757932014829688
+    - rid: 7508757932014829689
+    - rid: 7508757932014829690
+    - rid: 7508757932014829691
+    - rid: 7508757932014829692
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  - guid: 093c49ec-8530-4cc6-9921-508ae3ec935f
+    title: End
+    nodeType: 6
+    position: {x: 700, y: 200}
+    actions: []
+    promptText: "\xBFQu\xE9 deseas hacer?"
+    choices: []
+    conditionVariableName: 
+    conditionComparison: 0
+    conditionCompareValue: true
+    waitDuration: 1
+    explorationPrompt: "Modo Exploraci\xF3n: Haz clic o interact\xFAa con objetos
+      del mapa."
+    exitConditionVariable: 
+    explorationTimeout: -1
+    comment: 
+  nodeLinks:
+  - baseNodeGuid: 2c1544ab-58bf-4918-bb11-9802944dde79
+    portIdentifier: output
+    targetNodeGuid: 83dcfb5e-2695-41f7-b1ab-c28532b385bd
+  - baseNodeGuid: 83dcfb5e-2695-41f7-b1ab-c28532b385bd
+    portIdentifier: output
+    targetNodeGuid: 093c49ec-8530-4cc6-9921-508ae3ec935f
+  blackboard:
+    initialVariables: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7508757932014829683
+      type: {class: OverlayTextAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        titleText: 
+        subtitleText: Esa noche...
+        displayMode: 1
+        effect: 0
+        duration: 2
+        waitForClick: 1
+        fadeDuration: 0.5
+    - rid: 7508757932014829684
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: 
+        dialogueText: "Un grito corto, cortado a la mitad. Despu\xE9s, vidrio rompi\xE9ndose."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829685
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: 
+        dialogueText: "Cuando salgo al pasillo alcanzo a ver a Elena, corriendo en
+          direcci\xF3n contraria al ruido."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829686
+      type: {class: CollectClueAction, ns: Investigation, asm: Investigation.Runtime}
+      data:
+        enabled: 1
+        clueId: elena_seen_running
+    - rid: 7508757932014829687
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: 
+        dialogueText: Para cuando llego, ya hay gente alrededor del cuerpo. Alguien
+          fue a buscar a Robert.
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829688
+      type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        speakerName: 
+        dialogueText: "Llega antes de lo que deber\xEDa tardar cualquiera en despertarse
+          y vestirse. Sin marcas, sin agitaci\xF3n, con la explicaci\xF3n ya lista."
+        characterPortrait: {fileID: 0}
+        voiceClip: {fileID: 0}
+        typewriterSpeed: 0.03
+        waitForClick: 1
+        hideAfterFinished: 0
+    - rid: 7508757932014829689
+      type: {class: CollectClueAction, ns: Investigation, asm: Investigation.Runtime}
+      data:
+        enabled: 1
+        clueId: robert_quick_arrival
+    - rid: 7508757932014829690
+      type: {class: OverlayTextAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        titleText: 
+        subtitleText: "Fin del D\xEDa 1"
+        displayMode: 2
+        effect: 0
+        duration: 2
+        waitForClick: 1
+        fadeDuration: 0.5
+    - rid: 7508757932014829691
+      type: {class: OverlayTextAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
+      data:
+        enabled: 1
+        titleText: "D\xCDA 2"
+        subtitleText: La lista de sospechosos no incluye a Robert Hale
+        displayMode: 0
+        effect: 0
+        duration: 2.5
+        waitForClick: 1
+        fadeDuration: 0.5
+    - rid: 7508757932014829692
+      type: {class: TravelLocationAction, ns: Investigation, asm: Investigation.Runtime}
+      data:
+        enabled: 1
+        targetLocationId: motel
