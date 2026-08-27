@@ -162,6 +162,9 @@ namespace Investigation.EditorTools
             so.FindProperty("startingLocationId").stringValue = "road";
             so.ApplyModifiedPropertiesWithoutUndo();
 
+            // Configurar Audio y SFX
+            InvestigationSFXGenerator.WireSFXToScene();
+
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
             Debug.Log($"[WorldBuilder] Mundo construido con StoryGraphs: 6 locaciones, inicio en 'road' (Carretera).");
         }
@@ -438,6 +441,19 @@ namespace Investigation.EditorTools
             tmp.alignment = alignment;
             tmp.color = color;
             tmp.raycastTarget = false;
+
+            // Tipografía contextual según el rol del texto
+            if (fontSize >= 26f || (parent != null && parent.name.StartsWith("Location_")))
+            {
+                var bebas = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Bebas_Neue/BebasNeue-Regular SDF.asset");
+                if (bebas != null) tmp.font = bebas;
+            }
+            else
+            {
+                var spaceMono = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Space_Mono/SpaceMono-Regular SDF.asset");
+                if (spaceMono != null) tmp.font = spaceMono;
+            }
+
             return tmp;
         }
 

@@ -1,12 +1,16 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace VisualNovelSystem
 {
-    public class StoryChoiceButton : MonoBehaviour
+    public class StoryChoiceButton : MonoBehaviour, IPointerEnterHandler
     {
+        public static event Action OnAnyChoiceClicked;
+        public static event Action OnAnyChoiceHovered;
+
         [SerializeField] private Button button;
         [SerializeField] private TextMeshProUGUI buttonText;
 
@@ -20,8 +24,17 @@ namespace VisualNovelSystem
             if (button != null)
             {
                 button.onClick.RemoveAllListeners();
-                button.onClick.AddListener(() => onClickCallback?.Invoke());
+                button.onClick.AddListener(() =>
+                {
+                    OnAnyChoiceClicked?.Invoke();
+                    onClickCallback?.Invoke();
+                });
             }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            OnAnyChoiceHovered?.Invoke();
         }
     }
 }

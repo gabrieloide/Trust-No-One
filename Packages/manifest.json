@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.besty.unity-skills": "https://github.com/Besty0728/Unity-Skills.git?path=/SkillsForUnity",
+    "com.gabrieloide.retro-sound-synthesizer": "https://github.com/gabrieloide/Retro-Sound-Synthesizer.git#upm",
     "com.unity.2d.animation": "15.1.0",
     "com.unity.2d.aseprite": "5.0.3",
     "com.unity.2d.psdimporter": "14.0.3",

@@ -45,11 +45,11 @@ namespace Investigation.EditorTools
             seqNode.actions.Add(new TravelLocationAction { targetLocationId = "road" });
             seqNode.actions.Add(new OverlayTextAction
             {
-                titleText = "DÍA 1",
-                subtitleText = "La carretera de ningún lugar",
+                titleText = "NO ONE IS INNOCENT",
+                subtitleText = "Día 1 — La carretera de ningún lugar",
                 displayMode = OverlayDisplayMode.CenterTitleCard,
                 effect = OverlayEffect.Fade,
-                duration = 2.0f,
+                duration = 2.5f,
                 waitForClick = true
             });
             seqNode.actions.Add(new FadeScreenAction { fadeType = FadeType.FadeIn, duration = 0.6f, waitForCompletion = true });
