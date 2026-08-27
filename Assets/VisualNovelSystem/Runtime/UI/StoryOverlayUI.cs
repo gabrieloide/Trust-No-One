@@ -67,6 +67,12 @@ namespace VisualNovelSystem
         public IEnumerator ShowOverlayRoutine(string title, string subtitle, OverlayDisplayMode mode, OverlayEffect effect, float duration, bool waitForClick, float fadeDuration = 0.5f)
         {
             skipRequested = false;
+
+            if (StoryUIController.Instance != null)
+            {
+                StoryUIController.Instance.HideDialogue();
+            }
+
             if (canvasGroup != null)
             {
                 canvasGroup.alpha = 1f;

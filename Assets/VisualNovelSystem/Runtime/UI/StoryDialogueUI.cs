@@ -51,9 +51,17 @@ namespace VisualNovelSystem
             {
                 canvasGroup.alpha = 0f;
                 canvasGroup.blocksRaycasts = false;
+                canvasGroup.interactable = false;
             }
 
             if (continueIndicator != null) continueIndicator.SetActive(false);
+            if (dialogueText != null) dialogueText.text = "";
+            if (speakerNameText != null)
+            {
+                speakerNameText.text = "";
+                speakerNameText.gameObject.SetActive(false);
+            }
+            if (characterPortrait != null) characterPortrait.gameObject.SetActive(false);
         }
 
         public IEnumerator ShowDialogueRoutine(string speakerName, string text, Sprite portrait, AudioClip voiceClip, float typewriterSpeed = -1f, bool waitForClick = true)
