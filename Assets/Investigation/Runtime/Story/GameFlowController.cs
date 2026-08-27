@@ -7,9 +7,8 @@ namespace Investigation
     // Controla los eventos cinemáticos y transiciones de días usando StoryGraphs.
     public class GameFlowController : MonoBehaviour
     {
-        [Header("Story Graphs de Transición")]
+        [Header("Story Graph del Prólogo")]
         [SerializeField] private StoryGraph introStoryGraph;
-        [SerializeField] private StoryGraph night1StoryGraph;
 
         private int lastSeenDay = 1;
         private StoryUIController UI => StoryUIController.Instance;
@@ -31,7 +30,10 @@ namespace Investigation
 
         private IEnumerator IntroSequence()
         {
-            LocationController.Instance.HideAll();
+            if (LocationController.Instance != null)
+            {
+                LocationController.Instance.HideAll();
+            }
 
             if (introStoryGraph != null && StoryRunner.ActiveRunner != null)
             {
@@ -42,7 +44,11 @@ namespace Investigation
                 yield return UI.ShowOverlay("DÍA 1", "La carretera de ningún lugar", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2f, true);
                 yield return UI.ShowDialogue("", "El auto se apaga a diez minutos de cualquier cosa. El único cartel en kilómetros dice MOTEL, con una flecha pintada a mano.", null, null, -1f, true);
                 yield return UI.ShowDialogue("", "No va a venir ninguna grúa antes de mañana. Voy a tener que quedarme.", null, null, -1f, true);
-                LocationController.Instance.RevealStartingLocation();
+                
+                if (LocationController.Instance != null)
+                {
+                    LocationController.Instance.RevealStartingLocation();
+                }
             }
         }
 
@@ -56,43 +62,33 @@ namespace Investigation
 
             if (fromDay == 1 && day == 2)
             {
-                StartCoroutine(Day1NightSequence());
+                // El prólogo unificado ya reproduce la noche del crimen del Día 1
+                // y hace la transición directa al Día 2, por lo que no debe duplicarse.
+                return;
             }
-            else if (day <= 3)
+            else if (day == 3)
             {
-                StartCoroutine(SimpleDayOverlay(day));
+                StartCoroutine(SimpleDayOverlay(3, "Última oportunidad para investigar"));
+            }
+            else if (day > 3)
+            {
+                StartCoroutine(EndInvestigationOverlay());
             }
         }
 
-        private IEnumerator Day1NightSequence()
+        private IEnumerator SimpleDayOverlay(int day, string subtitle)
         {
-            LocationController.Instance.HideAll();
-
-            if (night1StoryGraph != null && StoryRunner.ActiveRunner != null)
-            {
-                StoryRunner.ActiveRunner.StartStory(night1StoryGraph);
-            }
-            else
-            {
-                yield return UI.ShowOverlay("", "Esa noche...", OverlayDisplayMode.TopHeader, OverlayEffect.Fade, 2f, true);
-                yield return UI.ShowDialogue("", "Un grito corto, cortado a la mitad. Después, vidrio rompiéndose.", null, null, -1f, true);
-                yield return UI.ShowDialogue("", "Cuando salgo al pasillo alcanzo a ver a Elena, corriendo en dirección contraria al ruido.", null, null, -1f, true);
-                CaseState.Instance.CollectClue("elena_seen_running");
-
-                yield return UI.ShowDialogue("", "Para cuando llego, ya hay gente alrededor del cuerpo. Alguien fue a buscar a Robert.", null, null, -1f, true);
-                yield return UI.ShowDialogue("", "Llega antes de lo que debería tardar cualquiera en despertarse y vestirse. Sin marcas, sin agitación, con la explicación ya lista.", null, null, -1f, true);
-                CaseState.Instance.CollectClue("robert_quick_arrival");
-
-                yield return UI.ShowOverlay("", "Fin del Día 1", OverlayDisplayMode.BottomTimestamp, OverlayEffect.Fade, 2f, true);
-                yield return UI.ShowOverlay("DÍA 2", "La lista de sospechosos no incluye a Robert Hale", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2.5f, true);
-
-                LocationController.Instance.RevealStartingLocation();
-            }
+            yield return UI.ShowOverlay("DÍA " + day, subtitle, OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2.5f, true);
         }
 
-        private IEnumerator SimpleDayOverlay(int day)
+        private IEnumerator EndInvestigationOverlay()
         {
-            yield return UI.ShowOverlay("DÍA " + day, day >= 3 ? "Última oportunidad para acusar" : "", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2f, true);
+            yield return UI.ShowOverlay("PLAZO AGOTADO", "El tiempo de investigación ha terminado. Es hora de formular la acusación.", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 3f, true);
+            
+            if (AccusationController.Instance != null)
+            {
+                AccusationController.Instance.BeginAccusation();
+            }
         }
     }
 }
