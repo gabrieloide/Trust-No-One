@@ -121,7 +121,52 @@ namespace Investigation.EditorTools
                 }
             }
 
-            // 5. Vincular al componente StoryDialogueUI
+            // 5. Ajustar OverlayUI (Carteles de título de capítulo amplios y sin cortes)
+            var overlayUI = Object.FindAnyObjectByType<StoryOverlayUI>();
+            if (overlayUI != null)
+            {
+                var ovTrans = overlayUI.transform;
+                var contentCont = ovTrans.Find("ContentContainer");
+                if (contentCont != null)
+                {
+                    var cRect = contentCont.GetComponent<RectTransform>();
+                    cRect.sizeDelta = new Vector2(1700f, 350f);
+
+                    var tTrans = contentCont.Find("TitleText");
+                    if (tTrans != null)
+                    {
+                        var tTMP = tTrans.GetComponent<TextMeshProUGUI>();
+                        if (tTMP != null)
+                        {
+                            var bebas = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Bebas_Neue/BebasNeue-Regular SDF.asset");
+                            if (bebas != null) tTMP.font = bebas;
+                            tTMP.enableAutoSizing = true;
+                            tTMP.fontSizeMin = 32f;
+                            tTMP.fontSizeMax = 56f;
+                            tTMP.enableWordWrapping = true;
+                            tTMP.alignment = TextAlignmentOptions.Center;
+                        }
+                    }
+
+                    var sTrans = contentCont.Find("SubtitleText");
+                    if (sTrans != null)
+                    {
+                        var sTMP = sTrans.GetComponent<TextMeshProUGUI>();
+                        if (sTMP != null)
+                        {
+                            if (courier != null) sTMP.font = courier;
+                            sTMP.enableAutoSizing = true;
+                            sTMP.fontSizeMin = 22f;
+                            sTMP.fontSizeMax = 32f;
+                            sTMP.enableWordWrapping = true;
+                            sTMP.alignment = TextAlignmentOptions.Center;
+                        }
+                    }
+                }
+                EditorUtility.SetDirty(overlayUI);
+            }
+
+            // 6. Vincular al componente StoryDialogueUI
             var so = new SerializedObject(dialogueUI);
             so.FindProperty("characterPortrait").objectReferenceValue = stageImg;
             if (speakerTMP != null) so.FindProperty("speakerNameText").objectReferenceValue = speakerTMP;
