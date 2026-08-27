@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEditor;
@@ -25,14 +26,34 @@ namespace Investigation.EditorTools
         [MenuItem("Tools/Investigation/Generate TMP Font Assets and Apply to Scene")]
         public static void GenerateAndApplyAll()
         {
-            var bebas = GetOrCreateFontAsset(BebasTtfPath, BebasAssetPath);
-            var courier = GetOrCreateFontAsset(CourierTtfPath, CourierAssetPath);
-            var spaceMono = GetOrCreateFontAsset(SpaceMonoTtfPath, SpaceMonoAssetPath);
-            var specialElite = GetOrCreateFontAsset(SpecialEliteTtfPath, SpecialEliteAssetPath);
+            var courier = CreateDynamicFontAsset(CourierTtfPath, CourierAssetPath);
+            var bebas = CreateDynamicFontAsset(BebasTtfPath, BebasAssetPath);
+            var spaceMono = CreateDynamicFontAsset(SpaceMonoTtfPath, SpaceMonoAssetPath);
+            var specialElite = CreateDynamicFontAsset(SpecialEliteTtfPath, SpecialEliteAssetPath);
+
+            // Configurar Courier y LiberationSans como fallback de BebasNeue para caracteres especiales/minúsculas/acentos
+            if (bebas != null && courier != null)
+            {
+                var libSans = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset");
+                var fallbacks = new List<TMP_FontAsset> { courier };
+                if (libSans != null) fallbacks.Add(libSans);
+                bebas.fallbackFontAssetTable = fallbacks;
+                EditorUtility.SetDirty(bebas);
+            }
+
+            if (courier != null)
+            {
+                var libSans = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset");
+                if (libSans != null)
+                {
+                    courier.fallbackFontAssetTable = new List<TMP_FontAsset> { libSans };
+                    EditorUtility.SetDirty(courier);
+                }
+            }
 
             ApplyFontsToActiveScene(bebas, courier, spaceMono, specialElite);
 
-            // Reconstruir la escena para asegurar que todos los prefabs y builders usen las nuevas fuentes
+            // Reconstruir la escena y UI para asegurar consistencia
             WorldBuilder.Build();
 
             // Guardar cambios
@@ -40,14 +61,11 @@ namespace Investigation.EditorTools
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            Debug.Log("[FontAssetSetup] ¡Todas las fuentes TMP fueron generadas y aplicadas a toda la UI exitosamente!");
+            Debug.Log("[FontAssetSetup] ¡Fuentes TMP dinámicas (con soporte completo de acentos, caracteres especiales y fallbacks) generadas y aplicadas!");
         }
 
-        public static TMP_FontAsset GetOrCreateFontAsset(string fontPath, string targetAssetPath)
+        public static TMP_FontAsset CreateDynamicFontAsset(string fontPath, string targetAssetPath)
         {
-            var existing = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(targetAssetPath);
-            if (existing != null) return existing;
-
             var font = AssetDatabase.LoadAssetAtPath<Font>(fontPath);
             if (font == null)
             {
@@ -55,16 +73,24 @@ namespace Investigation.EditorTools
                 return null;
             }
 
-            var fontAsset = TMP_FontAsset.CreateFontAsset(font, 90, 9, UnityEngine.TextCore.LowLevel.GlyphRenderMode.SDFAA, 1024, 1024);
-            if (fontAsset != null)
+            var fontAsset = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(targetAssetPath);
+            if (fontAsset == null)
             {
+                fontAsset = TMP_FontAsset.CreateFontAsset(font, 90, 9, UnityEngine.TextCore.LowLevel.GlyphRenderMode.SDFAA, 1024, 1024);
                 string dir = Path.GetDirectoryName(targetAssetPath);
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
 
                 AssetDatabase.CreateAsset(fontAsset, targetAssetPath);
-                AssetDatabase.SaveAssets();
-                Debug.Log($"[FontAssetSetup] Creado TMP_FontAsset en: {targetAssetPath}");
             }
+
+            if (fontAsset != null)
+            {
+                fontAsset.atlasPopulationMode = AtlasPopulationMode.Dynamic;
+                fontAsset.isMultiAtlasTexturesEnabled = true;
+                EditorUtility.SetDirty(fontAsset);
+                AssetDatabase.SaveAssets();
+            }
+
             return fontAsset;
         }
 

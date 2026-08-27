@@ -189,65 +189,78 @@ namespace VisualNovelSystem
         {
             if (contentContainer == null) return;
 
+            var vlg = contentContainer.GetComponent<VerticalLayoutGroup>();
+            if (vlg != null)
+            {
+                vlg.childControlWidth = true;
+                vlg.childControlHeight = false;
+                vlg.childForceExpandWidth = true;
+                vlg.childForceExpandHeight = false;
+                vlg.spacing = 14f;
+                vlg.childAlignment = TextAnchor.MiddleCenter;
+            }
+
             switch (mode)
             {
                 case OverlayDisplayMode.CenterTitleCard:
-                    contentContainer.anchorMin = new Vector2(0.5f, 0.5f);
-                    contentContainer.anchorMax = new Vector2(0.5f, 0.5f);
+                    contentContainer.anchorMin = new Vector2(0f, 0.5f);
+                    contentContainer.anchorMax = new Vector2(1f, 0.5f);
                     contentContainer.pivot = new Vector2(0.5f, 0.5f);
-                    contentContainer.sizeDelta = new Vector2(1700f, 350f);
+                    contentContainer.sizeDelta = new Vector2(0f, 300f);
                     contentContainer.anchoredPosition = Vector2.zero;
                     if (titleText != null)
                     {
                         titleText.alignment = TextAlignmentOptions.Center;
                         titleText.enableAutoSizing = true;
-                        titleText.fontSizeMin = 32f;
-                        titleText.fontSizeMax = 56f;
-                        titleText.enableWordWrapping = true;
+                        titleText.fontSizeMin = 28f;
+                        titleText.fontSizeMax = 52f;
+                        titleText.textWrappingMode = TextWrappingModes.NoWrap;
+                        titleText.overflowMode = TextOverflowModes.Overflow;
                     }
                     if (subtitleText != null)
                     {
                         subtitleText.alignment = TextAlignmentOptions.Center;
                         subtitleText.enableAutoSizing = true;
-                        subtitleText.fontSizeMin = 22f;
-                        subtitleText.fontSizeMax = 32f;
-                        subtitleText.enableWordWrapping = true;
+                        subtitleText.fontSizeMin = 18f;
+                        subtitleText.fontSizeMax = 28f;
+                        subtitleText.textWrappingMode = TextWrappingModes.NoWrap;
+                        subtitleText.overflowMode = TextOverflowModes.Overflow;
                     }
                     break;
 
                 case OverlayDisplayMode.TopHeader:
-                    contentContainer.anchorMin = new Vector2(0.5f, 1f);
-                    contentContainer.anchorMax = new Vector2(0.5f, 1f);
+                    contentContainer.anchorMin = new Vector2(0f, 1f);
+                    contentContainer.anchorMax = new Vector2(1f, 1f);
                     contentContainer.pivot = new Vector2(0.5f, 1f);
-                    contentContainer.sizeDelta = new Vector2(1700f, 180f);
+                    contentContainer.sizeDelta = new Vector2(0f, 180f);
                     contentContainer.anchoredPosition = new Vector2(0, -60);
                     if (titleText != null)
                     {
                         titleText.alignment = TextAlignmentOptions.Center;
-                        titleText.enableWordWrapping = false;
+                        titleText.textWrappingMode = TextWrappingModes.NoWrap;
                     }
                     if (subtitleText != null)
                     {
                         subtitleText.alignment = TextAlignmentOptions.Center;
-                        subtitleText.enableWordWrapping = false;
+                        subtitleText.textWrappingMode = TextWrappingModes.NoWrap;
                     }
                     break;
 
                 case OverlayDisplayMode.BottomTimestamp:
-                    contentContainer.anchorMin = new Vector2(1f, 0f);
+                    contentContainer.anchorMin = new Vector2(0.5f, 0f);
                     contentContainer.anchorMax = new Vector2(1f, 0f);
                     contentContainer.pivot = new Vector2(1f, 0f);
-                    contentContainer.sizeDelta = new Vector2(1000f, 160f);
-                    contentContainer.anchoredPosition = new Vector2(-60, 60);
+                    contentContainer.sizeDelta = new Vector2(-60f, 160f);
+                    contentContainer.anchoredPosition = new Vector2(-30, 50);
                     if (titleText != null)
                     {
                         titleText.alignment = TextAlignmentOptions.Right;
-                        titleText.enableWordWrapping = false;
+                        titleText.textWrappingMode = TextWrappingModes.NoWrap;
                     }
                     if (subtitleText != null)
                     {
                         subtitleText.alignment = TextAlignmentOptions.Right;
-                        subtitleText.enableWordWrapping = false;
+                        subtitleText.textWrappingMode = TextWrappingModes.NoWrap;
                     }
                     break;
             }
