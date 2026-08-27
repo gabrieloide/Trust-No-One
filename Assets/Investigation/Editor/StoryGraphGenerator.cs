@@ -177,29 +177,59 @@ namespace Investigation.EditorTools
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
-                dialogueText = "Un grito corto, cortado a la mitad. Después, vidrio rompiéndose.",
+                dialogueText = "Un grito corto, cortado a la mitad. Después, el sonido seco de vidrio rompiéndose contra el suelo.",
                 waitForClick = true
             });
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
-                dialogueText = "Cuando salgo al pasillo alcanzo a ver a Elena, corriendo en dirección contraria al ruido.",
+                dialogueText = "Salgo al pasillo alertado por el estruendo. Apenas alcanzo a ver la silueta de Elena corriendo despavorida hacia la salida trasera.",
                 waitForClick = true
             });
             seqNode.actions.Add(new CollectClueAction { clueId = "elena_seen_running" });
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
-                dialogueText = "Para cuando llego a la parte trasera, ya hay gente alrededor del cuerpo. Alguien fue a buscar a Robert.",
+                dialogueText = "Sigo el ruido hasta la parte trasera del motel, cerca del acceso al sótano. Hay una mujer inmóvil en el suelo, rodeada de vidrios rotos.",
                 waitForClick = true
             });
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
-                dialogueText = "Llega antes de lo que debería tardar cualquiera en despertarse y vestirse. Sin marcas, sin agitación, con la explicación ya lista.",
+                dialogueText = "En cuestión de segundos aparece Robert, perfectamente peinado y vestido, como si nunca se hubiera acostado.",
+                waitForClick = true
+            });
+            seqNode.actions.Add(new DialogueAction
+            {
+                speakerName = "Gabe",
+                dialogueText = "¿Qué fue ese grito? ¿Quién es la mujer del suelo?",
+                waitForClick = true
+            });
+            seqNode.actions.Add(new DialogueAction
+            {
+                speakerName = "Robert",
+                dialogueText = "Es Carla... Carla Rossi. Pobrecita, Dios mío... parece que tropezó con una botella o alguien la atacó en la oscuridad.",
+                waitForClick = true
+            });
+            seqNode.actions.Add(new DialogueAction
+            {
+                speakerName = "Gabe",
+                dialogueText = "¿Llegó usted muy rápido, no? Apenas se escuchó el golpe.",
+                waitForClick = true
+            });
+            seqNode.actions.Add(new DialogueAction
+            {
+                speakerName = "Robert",
+                dialogueText = "Tengo el sueño ligero cuando se trata de la seguridad de mi motel, señor Miller. Ya avisé al sheriff del condado, estarán aquí a primera hora.",
                 waitForClick = true
             });
             seqNode.actions.Add(new CollectClueAction { clueId = "robert_quick_arrival" });
+            seqNode.actions.Add(new DialogueAction
+            {
+                speakerName = "Robert",
+                dialogueText = "Le sugiero volver a su habitación y cerrar con llave. Esto no es algo que un huésped deba presenciar.",
+                waitForClick = true
+            });
 
             // 7. Transición al Día 2 (Apertura de la investigación)
             seqNode.actions.Add(new OverlayTextAction
@@ -218,6 +248,18 @@ namespace Investigation.EditorTools
                 displayMode = OverlayDisplayMode.CenterTitleCard,
                 effect = OverlayEffect.Fade,
                 duration = 2.5f,
+                waitForClick = true
+            });
+            seqNode.actions.Add(new DialogueAction
+            {
+                speakerName = "Gabe",
+                dialogueText = "A la mañana siguiente, la policía local anota cuatro datos con desgano. Tienen tres sospechosos fáciles: el borracho de la gasolinera, el comerciante nuevo y la chica de recepción.",
+                waitForClick = true
+            });
+            seqNode.actions.Add(new DialogueAction
+            {
+                speakerName = "Gabe",
+                dialogueText = "Pero nadie mira a Robert Hale. El dueño del motel parece intocable para todos en este pueblo... y eso es exactamente lo que me huele mal.",
                 waitForClick = true
             });
 
