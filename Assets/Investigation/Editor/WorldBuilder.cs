@@ -54,7 +54,6 @@ namespace Investigation.EditorTools
 
             // Cargar StoryGraph del Prólogo Completo
             var introSG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Prologo_Completo.asset");
-            var night1SG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Noche_Crimen.asset");
 
             var locations = BuildLocationDefs(null, null, null);
 
@@ -84,7 +83,6 @@ namespace Investigation.EditorTools
             if (flowController == null) flowController = flowGO.AddComponent<GameFlowController>();
             var flowSo = new SerializedObject(flowController);
             flowSo.FindProperty("introStoryGraph").objectReferenceValue = introSG;
-            flowSo.FindProperty("night1StoryGraph").objectReferenceValue = night1SG;
             flowSo.ApplyModifiedPropertiesWithoutUndo();
 
             var accGO = GameObject.Find("AccusationController");
