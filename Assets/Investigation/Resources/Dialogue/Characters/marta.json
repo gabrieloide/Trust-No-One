@@ -24,6 +24,30 @@
                     "effects": []
                 }
             ]
+        },
+        {
+            "id": "marta_about_carla",
+            "displayName": "Preguntarle por Carla Rossi",
+            "kind": 1,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Marta", "text": "Carla venía a tomar café sola. Siempre sentada contra el ventanal, como esperando a alguien que nunca llegaba." },
+                        { "speaker": "Gabe", "text": "¿Mencionó tener problemas con alguien del motel?" },
+                        { "speaker": "Marta", "text": "Acá nadie habla mal de Robert Hale, detective. Y cuando en un pueblo nadie se anima a criticar a un hombre... es cuando más hay que desconfiar." },
+                        { "speaker": "", "text": "Limpia la taza con un trapo seco y no agrega una sola palabra más." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "marta_hint_heard", "b": "" }
+                    ]
+                }
+            ]
         }
     ]
 }
