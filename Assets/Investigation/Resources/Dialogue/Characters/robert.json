@@ -1,0 +1,152 @@
+{
+    "id": "robert",
+    "displayName": "Robert Hale",
+    "portraitId": "robert_default",
+    "topics": [
+        {
+            "id": "robert_intro",
+            "displayName": "Pedir una habitación",
+            "kind": 0,
+            "unlockConditions": [],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "Un hombre de sonrisa fácil sale a recibirme antes de que termine de estacionar." },
+                        { "speaker": "Robert", "text": "¡Bienvenido, bienvenido! No todos los días se le rompe el auto justo frente a un motel. Tiene suerte, en el sentido más raro posible." },
+                        { "speaker": "Gabe", "text": "Necesito un cuarto para esta noche." },
+                        { "speaker": "Robert", "text": "Por supuesto. Le doy el número 4, es el más tranquilo. Si necesita algo, cualquier hora, golpee mi puerta." },
+                        { "speaker": "", "text": "Todo en él es cortesía calculada al milímetro. El tipo de anfitrión que uno recuerda por lo perfecto, no por lo cálido." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "robert_talk_d2",
+            "displayName": "Preguntarle por anoche",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Robert", "text": "Un asunto terrible, lo de anoche. Terrible. Ya hablé con la policía, les dije todo lo que sé, que no es mucho." },
+                        { "speaker": "Gabe", "text": "¿Y qué es lo que sabe?" },
+                        { "speaker": "Robert", "text": "Que un huésped murió cerca del motel. Nada más. Yo dormía. Uno de mis empleados me despertó." },
+                        { "speaker": "", "text": "Ni un temblor en la voz. Ni una pausa de más. O es inocente, o practicó esto antes de que yo llegara." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "robert_press_early",
+            "displayName": "Presionar sobre el sótano",
+            "kind": 1,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
+                { "kind": 0, "a": "d3p1_started", "b": "", "negate": true },
+                { "kind": 0, "a": "robert_excuse_locked", "b": "", "negate": true }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "Tengo entendido que hay un sótano acá. ¿Qué hay ahí abajo?" },
+                        { "speaker": "", "text": "Por primera vez, algo se mueve detrás de sus ojos. Apenas. Y desaparece enseguida." },
+                        { "speaker": "Robert", "text": "Herramientas del generador, nada más. Es un lugar húmedo y feo, no dejo entrar a nadie ahí por seguridad." },
+                        { "speaker": "Robert", "text": "¿Por qué la pregunta? ¿Tiene algo que ver con lo de anoche?" },
+                        { "speaker": "", "text": "La respuesta le salió demasiado rápido. Demasiado lista. Me la va a repetir igual, palabra por palabra, la próxima vez que pregunte." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "robert_excuse_locked", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "robert_basement_excuse",
+            "displayName": "Volver sobre el sótano",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "locked",
+                    "priority": 1,
+                    "conditions": [
+                        { "kind": 0, "a": "robert_excuse_locked", "b": "", "negate": false }
+                    ],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "Volvamos al sótano." },
+                        { "speaker": "Robert", "text": "Herramientas del generador, nada más. Es un lugar húmedo y feo, no dejo entrar a nadie ahí por seguridad." },
+                        { "speaker": "", "text": "Exactamente las mismas palabras que la vez pasada. En el mismo orden. Como quien recita algo aprendido, no algo recordado." }
+                    ],
+                    "effects": []
+                },
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "Elena me contó que usted es el único con llave del sótano." },
+                        { "speaker": "Robert", "text": "Ah, eso. Sí. Ahí está el generador, y unas herramientas viejas. Prefiero manejarlo yo, se ahorra dolores de cabeza con el seguro." },
+                        { "speaker": "", "text": "La explicación es razonable. Prolija. Tan prolija que empieza a sonar ensayada, aunque sea la primera vez que la dice." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "robert_confront",
+            "displayName": "Confrontarlo con todo lo reunido",
+            "kind": 2,
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "locked",
+                    "priority": 1,
+                    "conditions": [
+                        { "kind": 0, "a": "robert_excuse_locked", "b": "", "negate": false }
+                    ],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "Candado reventado desde adentro. Acceso exclusivo suyo. Y ya van dos veces que me da la misma explicación con las mismas palabras." },
+                        { "speaker": "Robert", "text": "Porque es la verdad, detective. No tengo una versión distinta para cada visita." },
+                        { "speaker": "", "text": "No se altera. Ni un parpadeo fuera de lugar. Si esto lo incomoda, lo esconde mejor que nadie que haya conocido." },
+                        { "speaker": "Robert", "text": "Si eso es todo, tengo huéspedes esperando." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "robert_confronted_final", "b": "" }
+                    ]
+                },
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "Candado reventado desde adentro. Usted, el único con llave. Y llegó a la escena antes de que nadie lo llamara dos veces." },
+                        { "speaker": "Robert", "text": "Coincidencias feas, lo entiendo. Pero coincidencias, al fin." },
+                        { "speaker": "", "text": "Se toma un segundo largo antes de responder. El primero que le veo tomarse en dos días." },
+                        { "speaker": "Robert", "text": "¿Tiene algo más concreto, detective? Porque hasta ahora, todo lo que me trae son piezas sueltas." },
+                        { "speaker": "", "text": "Tiene razón. Y los dos lo sabemos." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "robert_confronted_final", "b": "" }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,139 @@
+/* Story Graph View Styles */
+
+GridBackground {
+    --grid-background-color: #202024;
+    --line-color: rgba(255, 255, 255, 0.04);
+    --thick-line-color: rgba(255, 255, 255, 0.08);
+    --spacing: 25;
+}
+
+.story-node {
+    background-color: #2b2b30;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: #3f3f46;
+    min-width: 280px;
+}
+
+.story-node:selected {
+    border-color: #38bdf8;
+    border-width: 2px;
+}
+
+.story-node.node-active {
+    border-color: #facc15;
+    border-width: 3px;
+    background-color: #323026;
+}
+
+/* Node Headers per type */
+.node-header-start {
+    background-color: #15803d;
+    padding: 6px 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.node-header-action {
+    background-color: #1d4ed8;
+    padding: 6px 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.node-header-choice {
+    background-color: #7e22ce;
+    padding: 6px 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.node-header-condition {
+    background-color: #b45309;
+    padding: 6px 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.node-header-wait {
+    background-color: #475569;
+    padding: 6px 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.node-header-exploration {
+    background-color: #0891b2;
+    padding: 6px 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.node-header-end {
+    background-color: #b91c1c;
+    padding: 6px 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+/* Action Cards */
+.action-card {
+    background-color: #1f1f23;
+    border-width: 1px;
+    border-color: #374151;
+    border-radius: 5px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 5px;
+}
+
+.action-card-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.action-card-title {
+    font-size: 11px;
+    -unity-font-style: bold;
+    color: #e5e7eb;
+    margin-left: 4px;
+    flex-grow: 1;
+}
+
+.action-button {
+    font-size: 10px;
+    height: 18px;
+    padding: 0 4px;
+    margin: 1px;
+    background-color: #374151;
+    color: #f3f4f6;
+    border-radius: 3px;
+}
+
+.action-button:hover {
+    background-color: #4b5563;
+}
+
+.action-button-danger {
+    background-color: #991b1b;
+}
+
+.action-button-danger:hover {
+    background-color: #dc2626;
+}
+
+/* Add Action Button */
+.add-action-btn {
+    background-color: #047857;
+    color: white;
+    font-size: 11px;
+    -unity-font-style: bold;
+    height: 24px;
+    margin-top: 6px;
+    border-radius: 4px;
+}
+
+.add-action-btn:hover {
+    background-color: #059669;
+}

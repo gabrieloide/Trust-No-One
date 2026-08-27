@@ -1,0 +1,32 @@
+{
+    "id": "gus",
+    "displayName": "Gus Whitlock",
+    "portraitId": "gus_default",
+    "topics": [
+        {
+            "id": "gus_arbustos",
+            "displayName": "Preguntarle qué vio",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "Un camionero fuma apoyado en su acoplado, mirando el motel con curiosidad genuina." },
+                        { "speaker": "Gus", "text": "Anoche vi a alguien saliendo de los arbustos, ahí atrás. Con apuro. No le vi la cara, la verdad." },
+                        { "speaker": "Gabe", "text": "¿Podría haber sido el vagabundo? ¿Mark?" },
+                        { "speaker": "Gus", "text": "Y, podría. Aunque este caminaba distinto, más derecho. Pero qué sé yo, era de noche." },
+                        { "speaker": "", "text": "Anoto el dato. Aunque la mitad de mi cabeza ya decidió, sin pruebas, que fue Mark. Habrá que revisar eso." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "arbustos_lead_mentioned", "b": "" }
+                    ]
+                }
+            ]
+        }
+    ]
+}

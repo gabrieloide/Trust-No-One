@@ -1,0 +1,29 @@
+{
+    "id": "marta",
+    "displayName": "Marta Solís",
+    "portraitId": "marta_default",
+    "topics": [
+        {
+            "id": "marta_no_see",
+            "displayName": "Preguntarle si vio algo",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Marta", "text": "No vi nada. Cierro tarde, abro temprano, no tengo tiempo de mirar para los costados." },
+                        { "speaker": "Gabe", "text": "¿Conoce a Mark, el que anda por la zona?" },
+                        { "speaker": "Marta", "text": "¿El loco? Lo conozco. No le creería ni la hora si me la dijera él." },
+                        { "speaker": "", "text": "Lo dice sin maldad, con el cansancio de quien ya decidió hace rato qué palabras vale la pena escuchar." }
+                    ],
+                    "effects": []
+                }
+            ]
+        }
+    ]
+}

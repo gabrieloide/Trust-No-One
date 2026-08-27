@@ -1,0 +1,113 @@
+{
+    "id": "ernesto",
+    "displayName": "Ernesto Vidal",
+    "portraitId": "ernesto_default",
+    "topics": [
+        {
+            "id": "ernesto_intro",
+            "displayName": "Presentarse",
+            "kind": 0,
+            "unlockConditions": [],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "Un hombre carga cajas hacia una camioneta. Se frena en seco al verme, como si hubiera memorizado cada cara del pueblo y la mía no encajara." },
+                        { "speaker": "Ernesto", "text": "¿Usted es nuevo por acá? No... no suelo ver caras nuevas seguido." },
+                        { "speaker": "Gabe", "text": "Se me rompió el auto en la ruta. Voy a quedarme una noche en el motel." },
+                        { "speaker": "Ernesto", "text": "El motel. Claro. Buena suerte con eso." },
+                        { "speaker": "", "text": "Lo dice como quien repite un chiste privado que no piensa explicar. Sigue cargando cajas sin volver a mirarme." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "ernesto_shop_talk",
+            "displayName": "Preguntarle por su tienda",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "nervous_receipt",
+                    "priority": 1,
+                    "conditions": [
+                        { "kind": 3, "a": "carpet_shop_receipt", "b": "", "negate": false }
+                    ],
+                    "lines": [
+                        { "speaker": "", "text": "Sobre el mostrador todavía está el recibo que encontré. Se lo menciono, casi al pasar." },
+                        { "speaker": "Ernesto", "text": "¿Y eso qué tiene? Un mal mes. Dos. La gente ya no compra alfombras, compran de esas de plástico que se pegan solas." },
+                        { "speaker": "Ernesto", "text": "No sé por qué me pregunta por mi negocio. Yo no tengo nada que ver con lo que pasó en el motel." },
+                        { "speaker": "", "text": "Nadie mencionó el motel. Lo dice él solo, sin que se lo pregunten." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "ernesto_denied_unprompted", "b": "" }
+                    ]
+                },
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Ernesto", "text": "La tienda va como va. No es la gran vida, pero es mía." },
+                        { "speaker": "Ernesto", "text": "Antes vendía. Ahora la gente pasa de largo. Así es esto." },
+                        { "speaker": "", "text": "Habla de la tienda como quien habla de sí mismo. Con la misma resignación." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "ernesto_confront",
+            "displayName": "Confrontarlo sobre esa noche",
+            "kind": 2,
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p1_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "with_fiber",
+                    "priority": 1,
+                    "conditions": [
+                        { "kind": 3, "a": "carpet_fiber", "b": "", "negate": false }
+                    ],
+                    "lines": [
+                        { "speaker": "", "text": "Le muestro la fibra verde oliva. Es la misma que vende él." },
+                        { "speaker": "Ernesto", "text": "Eso no prueba nada. Esa alfombra la vendo hace años, medio pueblo la tiene." },
+                        { "speaker": "Gabe", "text": "Usted dijo que estaba cerrando la tienda esa noche. Los horarios no cierran tan tarde." },
+                        { "speaker": "Ernesto", "text": "¿Y qué querés que te diga? Estaba ahí. Solo. Nadie me vio, pero estaba ahí." },
+                        { "speaker": "", "text": "Se toca la mano sin darse cuenta. Un corte reciente, mal vendado, asoma debajo de la manga." },
+                        { "speaker": "Gabe", "text": "¿Y eso?" },
+                        { "speaker": "Ernesto", "text": "Una lata. Me corté con una lata abriendo cajas. ¿Ahora hasta eso le importa?" },
+                        { "speaker": "", "text": "No nombra a Robert. Ni una vez. Pero tampoco mira para otro lado cuando podría hacerlo." }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "ernesto_false_alibi", "b": "" },
+                        { "kind": 3, "a": "ernesto_hand_cut", "b": "" },
+                        { "kind": 0, "a": "ernesto_confronted", "b": "" }
+                    ]
+                },
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "Usted dijo que estaba cerrando la tienda esa noche." },
+                        { "speaker": "Ernesto", "text": "Sí. Y así fue. ¿Qué otra cosa querés que te diga?" },
+                        { "speaker": "", "text": "Se cruza de brazos. El corte en la mano se asoma apenas debajo de la manga." },
+                        { "speaker": "Gabe", "text": "¿Y esa mano?" },
+                        { "speaker": "Ernesto", "text": "Una lata. Nada. ¿Terminamos?" },
+                        { "speaker": "", "text": "No hay mucho más para sacarle. Todavía no tengo con qué apretar de verdad." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "ernesto_confronted", "b": "" }
+                    ]
+                }
+            ]
+        }
+    ]
+}

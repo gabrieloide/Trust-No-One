@@ -1,0 +1,96 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace Investigation
+{
+    // Herramienta de QA: setea flags de CaseState al arrancar la escena, para probar
+    // contenido de un día/fase específico sin tener todavía el controlador de fases real
+    // (Etapa 4 del plan). Se usa en escenas de prueba, no en el flujo final del juego.
+    public class DebugPhaseSetter : MonoBehaviour
+    {
+        [SerializeField] private List<string> flagsToSetOnStart = new List<string>();
+
+        [Header("QA: abrir una conversación automáticamente")]
+        [SerializeField] private string autoOpenCharacterId = "";
+        [SerializeField] private float autoOpenDelaySeconds = 0.5f;
+
+        [Header("QA: investigar un punto automáticamente")]
+        [SerializeField] private string autoInvestigateSpotId = "";
+
+        [Header("QA: recolectar una pista directamente (sin diálogo)")]
+        [SerializeField] private string autoCollectClueId = "";
+
+        [Header("QA: abrir la acusación automáticamente")]
+        [SerializeField] private bool autoOpenAccusation = false;
+
+        [Header("QA: saltar la intro y revelar la locación ya")]
+        [SerializeField] private bool autoRevealLocation = false;
+
+        [Header("QA: gastar N acciones directamente (sin diálogo)")]
+        [SerializeField] private int autoSpendActions = 0;
+
+        [SerializeField] private bool logDatabaseSummaryOnStart = false;
+
+        private void Start()
+        {
+            foreach (var flag in flagsToSetOnStart)
+            {
+                if (!string.IsNullOrEmpty(flag)) CaseState.Instance.SetFlag(flag);
+            }
+
+            if (logDatabaseSummaryOnStart)
+            {
+                var db = DialogueDatabase.Instance;
+                foreach (var c in db.AllCharacters)
+                {
+                    Debug.Log($"[DEBUG] character={c.id} topics={c.topics.Count}");
+                }
+                Debug.Log($"[DEBUG] clues={db.AllClues.Count()} investigateSpots={db.AllInvestigateSpots.Count()}");
+            }
+
+            if (!string.IsNullOrEmpty(autoOpenCharacterId))
+            {
+                StartCoroutine(AutoOpenRoutine());
+            }
+
+            if (!string.IsNullOrEmpty(autoInvestigateSpotId))
+            {
+                StartCoroutine(AutoInvestigateRoutine());
+            }
+
+            if (!string.IsNullOrEmpty(autoCollectClueId))
+            {
+                CaseState.Instance.CollectClue(autoCollectClueId);
+            }
+
+            if (autoOpenAccusation)
+            {
+                AccusationController.Instance.BeginAccusation();
+            }
+
+            if (autoRevealLocation)
+            {
+                LocationController.Instance.RevealStartingLocation();
+            }
+
+            for (int i = 0; i < autoSpendActions; i++)
+            {
+                PhaseController.Instance.SpendAction();
+            }
+        }
+
+        private IEnumerator AutoOpenRoutine()
+        {
+            yield return new WaitForSeconds(autoOpenDelaySeconds);
+            ConversationController.Instance.Open(autoOpenCharacterId);
+        }
+
+        private IEnumerator AutoInvestigateRoutine()
+        {
+            yield return new WaitForSeconds(autoOpenDelaySeconds);
+            ConversationController.Instance.Investigate(autoInvestigateSpotId);
+        }
+    }
+}

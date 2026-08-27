@@ -1,0 +1,149 @@
+{
+    "id": "elena",
+    "displayName": "Elena Marchetti",
+    "portraitId": "elena_default",
+    "topics": [
+        {
+            "id": "elena_intro",
+            "displayName": "Hacer el check-in",
+            "kind": 0,
+            "unlockConditions": [],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "Una mujer joven atiende el mostrador sin levantar mucho la vista." },
+                        { "speaker": "Elena", "text": "¿Cuántas noches?" },
+                        { "speaker": "Gabe", "text": "Una, con suerte." },
+                        { "speaker": "Elena", "text": "Acá nadie se queda una sola noche por suerte." },
+                        { "speaker": "", "text": "Lo dice sin ánimo de broma. Me da la llave y vuelve a lo suyo antes de que pueda preguntar algo más." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "elena_confront_calm",
+            "displayName": "Preguntarle con calma por qué corrió",
+            "kind": 2,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
+                { "kind": 2, "a": "elena", "b": "elena_confront_calm", "negate": true },
+                { "kind": 2, "a": "elena", "b": "elena_confront_harsh", "negate": true }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "Alguien la vio correr, la noche del grito. En dirección contraria." },
+                        { "speaker": "", "text": "Se le corta la respiración medio segundo antes de contestar." },
+                        { "speaker": "Elena", "text": "Me asusté. Salí corriendo, no sé para dónde, solo corrí." },
+                        { "speaker": "Gabe", "text": "Está bien. Nadie dijo que hizo algo malo." },
+                        { "speaker": "", "text": "Se relaja, apenas. Suficiente para que la próxima pregunta no se cierre de entrada." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "elena_trust_intact", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "elena_confront_harsh",
+            "displayName": "Presionarla directamente",
+            "kind": 2,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
+                { "kind": 2, "a": "elena", "b": "elena_confront_calm", "negate": true },
+                { "kind": 2, "a": "elena", "b": "elena_confront_harsh", "negate": true }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "Alguien la vio correr esa noche, en dirección contraria al grito. ¿Por qué?" },
+                        { "speaker": "Elena", "text": "¿Y qué querría que hiciera? ¿Quedarme ahí parada?" },
+                        { "speaker": "Gabe", "text": "Quedarse a explicar, para empezar." },
+                        { "speaker": "", "text": "Se cierra de golpe. Cruza los brazos, la mirada se le va al mostrador." },
+                        { "speaker": "Elena", "text": "Terminé mi turno. Con permiso." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "elena_trust_broken", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "elena_basement_access",
+            "displayName": "Preguntarle por el sótano",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p1_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "broken",
+                    "priority": 1,
+                    "conditions": [
+                        { "kind": 0, "a": "elena_trust_broken", "b": "", "negate": false }
+                    ],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "¿Quién más tiene llave del sótano?" },
+                        { "speaker": "Elena", "text": "Nadie. Solo él. Dice que es por el generador." },
+                        { "speaker": "", "text": "Contesta sin mirarme, cortante, como quien paga una deuda que no quería tener." }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "basement_exclusive_access", "b": "" },
+                        { "kind": 0, "a": "elena_basement_access_known", "b": "" }
+                    ]
+                },
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "¿Alguna vez bajó al sótano?" },
+                        { "speaker": "Elena", "text": "Nunca. Solo Robert. Dice que ahí está el generador, que es peligroso, que prefiere manejarlo él." },
+                        { "speaker": "Elena", "text": "La verdad, ni sé bien qué hay ahí. Y ya llevo dos años trabajando acá." },
+                        { "speaker": "", "text": "Lo dice con un dejo raro. No es sospecha todavía. Es algo más viejo, más cansado, que recién ahora se pregunta por qué nunca preguntó." }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "basement_exclusive_access", "b": "" },
+                        { "kind": 0, "a": "elena_basement_access_known", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "elena_revisit",
+            "displayName": "Volver a hablar con ella",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false },
+                { "kind": 0, "a": "elena_trust_broken", "b": "", "negate": true }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Elena", "text": "¿De nuevo usted?" },
+                        { "speaker": "", "text": "Lo dice sin filo esta vez. Casi con alivio de tener con quién hablar." },
+                        { "speaker": "Elena", "text": "A veces Robert dice cosas. Medio en broma, medio no. Que acá una nunca sabe si va a terminar como... como otras que pasaron." },
+                        { "speaker": "", "text": "Se frena antes de terminar la frase. Como si ya hubiera dicho más de lo que quería." },
+                        { "speaker": "Elena", "text": "Olvídelo. Estoy cansada, nada más." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "elena_fear_hint", "b": "" }
+                    ]
+                }
+            ]
+        }
+    ]
+}

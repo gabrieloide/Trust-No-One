@@ -1,0 +1,184 @@
+{
+    "spots": [
+        {
+            "id": "inv_arbustos",
+            "displayName": "Arbustos junto a la escena",
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "Ramas rotas, tierra removida. Alguien pasó por acá corriendo, o escondiéndose." },
+                        { "speaker": "", "text": "No hay huella clara. Solo el hecho de que alguien estuvo." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "inv_carpet_shop_receipt",
+            "displayName": "Mostrador de la tienda de alfombras",
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "Un recibo arrugado, tirado como quien no espera que nadie lo lea." },
+                        { "speaker": "", "text": "Tres ventas en dos meses. Un negocio así no paga solo. ¿Qué más paga?" }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "carpet_shop_receipt", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "inv_basement_lock",
+            "displayName": "Puerta del sótano",
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "La cadena cuelga suelta. El candado no está forzado desde afuera — está reventado desde adentro." },
+                        { "speaker": "", "text": "Alguien quiso salir de ahí. No entrar." }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "basement_lock", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "inv_scene_glass",
+            "displayName": "Perímetro de la escena",
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "Vidrio verde, grueso. Los bordes coinciden con las botellas baratas que se consiguen en la gasolinera." },
+                        { "speaker": "", "text": "Las mismas que carga Mark. Eso no prueba nada. Todavía." }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "glass_matches_bottle", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "inv_crime_scene_fiber",
+            "displayName": "Revisión de la escena (Día 3)",
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p1_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "En la segunda pasada uno ve lo que se le escapó en la primera." },
+                        { "speaker": "", "text": "Una fibra verde oliva, enganchada en una astilla. No es de nada que haya en este motel." },
+                        { "speaker": "", "text": "Alfombra sintética. Conozco un solo lugar en el pueblo que vende de esa." }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "carpet_fiber", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "inv_basement_revisit",
+            "displayName": "Sótano, segunda revisión",
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "combo",
+                    "priority": 1,
+                    "conditions": [
+                        { "kind": 3, "a": "basement_lock", "b": "", "negate": false },
+                        { "kind": 3, "a": "basement_exclusive_access", "b": "", "negate": false }
+                    ],
+                    "lines": [
+                        { "speaker": "", "text": "Candado reventado desde adentro. Una sola llave en todo el motel." },
+                        { "speaker": "", "text": "Dos hechos sueltos que, juntos, dejan de ser sueltos." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "basement_combo_confirmed", "b": "" }
+                    ]
+                },
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "Vuelvo a mirar la puerta del sótano. Todavía me falta una pieza para que esto cierre." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "inv_robert_office",
+            "displayName": "Oficina de Robert",
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "Un cuaderno de mantenimiento. Entradas vagas: \"revisión\", \"generador\", sin horas, sin detalle." },
+                        { "speaker": "", "text": "Alguien que anota tan poco, anota justo lo necesario para poder mostrarlo." }
+                    ],
+                    "effects": [
+                        { "kind": 0, "a": "maintenance_log_seen", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "inv_near_basement_carla",
+            "displayName": "Rincón junto al sótano",
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "Detrás de unas cajas, escondidas más que guardadas: cosas que no son del motel." },
+                        { "speaker": "", "text": "Ropa, un cepillo, algo personal. De alguien que no debería haber estado nunca en la lista de huéspedes." },
+                        { "speaker": "", "text": "¿Quién las escondió ahí? Eso todavía no me lo dice el objeto." }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "carla_belongings", "b": "" }
+                    ]
+                }
+            ]
+        }
+    ]
+}
