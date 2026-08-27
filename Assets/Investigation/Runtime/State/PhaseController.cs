@@ -52,12 +52,30 @@ namespace Investigation
 
         public void SpendAction()
         {
-            if (IsCaseOver) return;
+            if (IsCaseOver || CaseState.Instance.actionsRemainingInPhase <= 0) return;
 
             CaseState.Instance.actionsRemainingInPhase--;
             if (CaseState.Instance.actionsRemainingInPhase <= 0)
             {
                 AdvancePhase();
+            }
+
+            OnActionsChanged?.Invoke();
+        }
+
+        public void SetPhase(int day, int phase, int actions = ActionsPerPhase)
+        {
+            day = Mathf.Clamp(day, 1, TotalDays + 1);
+            int maxPhase = day <= TotalDays ? PhasesPerDay[day - 1] : 1;
+            phase = Mathf.Clamp(phase, 1, maxPhase);
+
+            CaseState.Instance.currentDay = day;
+            CaseState.Instance.currentPhase = phase;
+            CaseState.Instance.actionsRemainingInPhase = actions;
+
+            if (day <= TotalDays)
+            {
+                CaseState.Instance.SetFlag(PhaseFlag(day, phase));
             }
 
             OnActionsChanged?.Invoke();

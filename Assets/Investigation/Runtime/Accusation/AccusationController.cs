@@ -91,6 +91,22 @@ namespace Investigation
                 }
             }
 
+            string suspectDisplayName = DialogueDatabase.Instance.GetCharacter(suspectId)?.displayName ?? suspectId;
+            var confirmOptions = new List<StoryChoiceOption>
+            {
+                new StoryChoiceOption { id = "confirm", text = $"Sí, formular acusación contra {suspectDisplayName}" },
+                new StoryChoiceOption { id = "cancel", text = "Volver atrás" }
+            };
+
+            int confirmIndex = -1;
+            yield return UI.ShowChoices($"¿Cerrar el caso y acusar a {suspectDisplayName}?", confirmOptions, idx => confirmIndex = idx);
+            if (confirmIndex != 0)
+            {
+                UI.HideDialogue();
+                isBusy = false;
+                yield break;
+            }
+
             yield return ResolveOutcome(suspectId, evidenceClueId);
 
             isBusy = false;
