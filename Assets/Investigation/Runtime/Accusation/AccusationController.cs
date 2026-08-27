@@ -106,8 +106,61 @@ namespace Investigation
                 && evidence.pointsTo.Contains(suspectId);
 
             string suspectName = DialogueDatabase.Instance.GetCharacter(suspectId)?.displayName ?? suspectId;
-            string ending;
 
+            // ACTO 1: Acusación directa de Gabe
+            yield return UI.ShowDialogue("Gabe", $"Fuiste vos, {suspectName}. Todo este tiempo estuviste armando la escena y jugando a que no tenías nada que ver.", null, null, -1f, true);
+
+            // ACTO 2: Réplica del sospechoso
+            switch (suspectId)
+            {
+                case "robert":
+                    yield return UI.ShowDialogue("Robert", "¿Y con qué pruebas piensa sostener semejante disparate, detective? Porque hasta ahora todo lo que tiene son conjeturas y sospechas de pasillo.", null, null, -1f, true);
+                    break;
+                case "ernesto":
+                    yield return UI.ShowDialogue("Ernesto", "¡Estás loco! ¡Yo no le hice nada a esa mujer! ¡No podés probar una sola palabra de lo que estás diciendo!", null, null, -1f, true);
+                    break;
+                case "mark":
+                    yield return UI.ShowDialogue("Mark", "¡No, no, no! ¡Yo no fui! ¡Había ruidos abajo, se lo juro, pero yo no la toqué a Carla! ¡No me encierren de nuevo!", null, null, -1f, true);
+                    break;
+                case "elena":
+                    yield return UI.ShowDialogue("Elena", "¿Yo? ¿Por qué me mira a mí? Todo lo que hice fue correr del miedo cuando escuché el golpe... esto es una locura.", null, null, -1f, true);
+                    break;
+            }
+
+            // ACTO 3: Presentación de la Evidencia y Reacción
+            if (evidence != null)
+            {
+                yield return UI.ShowOverlay("EVIDENCIA PRESENTADA", evidence.displayName, OverlayDisplayMode.TopHeader, OverlayEffect.Fade, 1.8f, false);
+
+                if (accusedRobert && hasStrongRelevant)
+                {
+                    yield return UI.ShowDialogue("Gabe", $"Tengo esto: {evidence.displayName}. {evidence.description}. El candado forzado desde adentro y tu acceso exclusivo al sótano. Ya no hay más versiones que inventar, Robert.", null, null, -1f, true);
+                    yield return UI.ShowDialogue("Robert", "...", null, null, -1f, true);
+                }
+                else if (accusedRobert)
+                {
+                    yield return UI.ShowDialogue("Gabe", $"Tengo esto: {evidence.displayName}. {evidence.description}.", null, null, -1f, true);
+                    yield return UI.ShowDialogue("Robert", "¿Eso es todo lo que tiene? Un indicio suelto. Me temo que va a necesitar mucho más que eso ante un juez, señor Miller.", null, null, -1f, true);
+                }
+                else if (hasStrongRelevant)
+                {
+                    yield return UI.ShowDialogue("Gabe", $"Tengo esto: {evidence.displayName}. {evidence.description}. Cada pieza encaja directamente con vos.", null, null, -1f, true);
+                    yield return UI.ShowDialogue(suspectName, "No... no puede ser... no fue así...", null, null, -1f, true);
+                }
+                else
+                {
+                    yield return UI.ShowDialogue("Gabe", $"Tengo esto: {evidence.displayName}. {evidence.description}.", null, null, -1f, true);
+                    yield return UI.ShowDialogue(suspectName, "Eso no prueba absolutamente nada contra mí. Está buscando un culpable a ciegas.", null, null, -1f, true);
+                }
+            }
+            else
+            {
+                yield return UI.ShowDialogue("Gabe", "No tengo una prueba física contundente... pero los hechos hablan por sí solos.", null, null, -1f, true);
+                yield return UI.ShowDialogue(suspectName, "Sin pruebas, sus palabras no valen nada.", null, null, -1f, true);
+            }
+
+            // EPÍLOGO / DESENLACE
+            string ending;
             if (accusedRobert && hasStrongRelevant)
             {
                 ending = "No confiesa. Nunca lo hace. Pero cuando se llevan las pruebas, no protesta, no llama a un abogado, no dice una palabra de más. Se queda mirando el sótano como quien mira algo que por fin dejó de ser suyo. A veces alcanza con eso.";
@@ -125,7 +178,9 @@ namespace Investigation
                 ending = $"Acuso con lo que tengo, que no es mucho. {suspectName} lo niega, y por una vez, tiene toda la razón para hacerlo. El expediente se cierra mal, con más preguntas que las que tenía al llegar. En algún lugar de este pueblo, alguien sigue sin pagar por lo que hizo.";
             }
 
+            yield return UI.ShowOverlay("", "EXPEDIENTE FINAL", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2f, true);
             yield return UI.ShowDialogue("", ending, null, null, -1f, true);
+            UI.HideDialogue();
         }
     }
 }

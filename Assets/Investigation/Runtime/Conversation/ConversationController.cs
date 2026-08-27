@@ -84,7 +84,12 @@ namespace Investigation
                 yield break;
             }
 
-            var options = visibleTopics.Select(t => new StoryChoiceOption { id = t.id, text = t.displayName }).ToList();
+            var options = visibleTopics.Select(t =>
+            {
+                bool seen = CaseState.Instance != null && CaseState.Instance.HasSeenTopic(character.id, t.id);
+                string label = seen ? $"{t.displayName} [✓]" : t.displayName;
+                return new StoryChoiceOption { id = t.id, text = label };
+            }).ToList();
             options.Add(new StoryChoiceOption { id = LeaveOptionId, text = "Terminar conversación" });
 
             int selected = -1;
@@ -158,6 +163,8 @@ namespace Investigation
                 }
 
                 CaseState.Instance.ApplyAll(variant.effects);
+
+                // Investigar consume 1 acción
                 PhaseController.Instance.SpendAction();
                 UI.HideDialogue();
             }
@@ -188,8 +195,16 @@ namespace Investigation
             }
 
             CaseState.Instance.ApplyAll(variant.effects);
-            CaseState.Instance.MarkTopicSeen(character.id, topic.id);
-            PhaseController.Instance.SpendAction();
+
+            // Relectura gratuita: solo gasta acción si el tema se escucha por primera vez
+            bool isFirstTime = !CaseState.Instance.HasSeenTopic(character.id, topic.id);
+            if (isFirstTime)
+            {
+                CaseState.Instance.MarkTopicSeen(character.id, topic.id);
+                PhaseController.Instance.SpendAction();
+            }
+
+            UI.HideDialogue();
         }
 
         private DialogueVariantData ResolveVariant(List<DialogueVariantData> variants)
