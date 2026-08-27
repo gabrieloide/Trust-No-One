@@ -130,7 +130,20 @@ namespace Investigation.EditorTools
                 if (contentCont != null)
                 {
                     var cRect = contentCont.GetComponent<RectTransform>();
-                    cRect.sizeDelta = new Vector2(1700f, 350f);
+                    cRect.anchorMin = new Vector2(0f, 0.5f);
+                    cRect.anchorMax = new Vector2(1f, 0.5f);
+                    cRect.pivot = new Vector2(0.5f, 0.5f);
+                    cRect.sizeDelta = new Vector2(0f, 300f);
+                    cRect.anchoredPosition = Vector2.zero;
+
+                    var vlg = contentCont.GetComponent<VerticalLayoutGroup>();
+                    if (vlg == null) vlg = contentCont.gameObject.AddComponent<VerticalLayoutGroup>();
+                    vlg.childAlignment = TextAnchor.MiddleCenter;
+                    vlg.childControlWidth = true;
+                    vlg.childControlHeight = false;
+                    vlg.childForceExpandWidth = true;
+                    vlg.childForceExpandHeight = false;
+                    vlg.spacing = 14f;
 
                     var tTrans = contentCont.Find("TitleText");
                     if (tTrans != null)
@@ -140,11 +153,14 @@ namespace Investigation.EditorTools
                         {
                             var bebas = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Fonts/Bebas_Neue/BebasNeue-Regular SDF.asset");
                             if (bebas != null) tTMP.font = bebas;
+                            tTMP.fontSize = 46f;
                             tTMP.enableAutoSizing = true;
-                            tTMP.fontSizeMin = 32f;
-                            tTMP.fontSizeMax = 56f;
-                            tTMP.enableWordWrapping = true;
+                            tTMP.fontSizeMin = 28f;
+                            tTMP.fontSizeMax = 52f;
+                            tTMP.textWrappingMode = TextWrappingModes.NoWrap;
+                            tTMP.overflowMode = TextOverflowModes.Overflow;
                             tTMP.alignment = TextAlignmentOptions.Center;
+                            tTMP.color = new Color(0.96f, 0.85f, 0.45f);
                         }
                     }
 
@@ -155,11 +171,14 @@ namespace Investigation.EditorTools
                         if (sTMP != null)
                         {
                             if (courier != null) sTMP.font = courier;
+                            sTMP.fontSize = 24f;
                             sTMP.enableAutoSizing = true;
-                            sTMP.fontSizeMin = 22f;
-                            sTMP.fontSizeMax = 32f;
-                            sTMP.enableWordWrapping = true;
+                            sTMP.fontSizeMin = 18f;
+                            sTMP.fontSizeMax = 28f;
+                            sTMP.textWrappingMode = TextWrappingModes.NoWrap;
+                            sTMP.overflowMode = TextOverflowModes.Overflow;
                             sTMP.alignment = TextAlignmentOptions.Center;
+                            sTMP.color = new Color(0.9f, 0.9f, 0.9f);
                         }
                     }
                 }
