@@ -19,28 +19,27 @@ namespace Investigation.EditorTools
                 AssetDatabase.Refresh();
             }
 
-            CreateIntroGraph();
-            CreateErnestoGraph();
-            CreateElenaGraph();
-            CreateRobertGraph();
-            CreateNight1Graph();
+            CreateCompletePrologueGraph();
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log("[StoryGraphGenerator] ¡Todos los StoryGraphs del Día 1 fueron generados exitosamente en " + StoriesFolder + "!");
+            Debug.Log("[StoryGraphGenerator] ¡Prólogo completo del Día 1 generado exitosamente en " + StoriesFolder + "!");
         }
 
-        private static void CreateIntroGraph()
+        private static void CreateCompletePrologueGraph()
         {
             var graph = ScriptableObject.CreateInstance<StoryGraph>();
-            graph.graphTitle = "SG_D1_Intro_Carretera";
+            graph.graphTitle = "SG_D1_Prologo_Completo";
 
             var startNode = new StoryNodeData(StoryNodeType.Start, new Vector2(100, 200));
             var seqNode = new StoryNodeData(StoryNodeType.ActionSequence, new Vector2(350, 200))
             {
-                title = "Secuencia Intro"
+                title = "Prólogo Día 1 (Completo)"
             };
 
+            // 1. Ocultar HUD y comenzar en la carretera
+            seqNode.actions.Add(new SetWorldUIAction { active = false });
+            seqNode.actions.Add(new TravelLocationAction { targetLocationId = "road" });
             seqNode.actions.Add(new OverlayTextAction
             {
                 titleText = "DÍA 1",
@@ -51,13 +50,13 @@ namespace Investigation.EditorTools
                 waitForClick = true
             });
 
+            // 2. Pensamientos de Gabe sobre el auto
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Gabe",
                 dialogueText = "El auto se apaga a diez minutos de cualquier cosa. El único cartel en kilómetros dice MOTEL, con una flecha pintada a mano.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Gabe",
@@ -65,221 +64,107 @@ namespace Investigation.EditorTools
                 waitForClick = true
             });
 
-            seqNode.actions.Add(new TravelLocationAction
-            {
-                targetLocationId = "road"
-            });
-
-            var endNode = new StoryNodeData(StoryNodeType.End, new Vector2(700, 200));
-
-            graph.nodes.Add(startNode);
-            graph.nodes.Add(seqNode);
-            graph.nodes.Add(endNode);
-
-            graph.entryNodeGuid = startNode.guid;
-            graph.nodeLinks.Add(new NodeLinkData(startNode.guid, "output", seqNode.guid));
-            graph.nodeLinks.Add(new NodeLinkData(seqNode.guid, "output", endNode.guid));
-
-            SaveGraph(graph, "SG_D1_Intro.asset");
-        }
-
-        private static void CreateErnestoGraph()
-        {
-            var graph = ScriptableObject.CreateInstance<StoryGraph>();
-            graph.graphTitle = "SG_D1_Ernesto_Ruta";
-
-            var startNode = new StoryNodeData(StoryNodeType.Start, new Vector2(100, 200));
-            var seqNode = new StoryNodeData(StoryNodeType.ActionSequence, new Vector2(350, 200))
-            {
-                title = "Encuentro con Ernesto"
-            };
-
+            // 3. Encuentro automático con Ernesto en la ruta
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
-                dialogueText = "Un hombre carga cajas hacia una camioneta. Se frena en seco al verme, como si hubiera memorizado cada cara del pueblo y la mía no encajara.",
+                dialogueText = "A unos metros, un hombre carga cajas hacia una camioneta. Se frena en seco al verme, como si hubiera memorizado cada cara del pueblo y la mía no encajara.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Ernesto",
                 dialogueText = "¿Usted es nuevo por acá? No... no suelo ver caras nuevas seguido.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Gabe",
                 dialogueText = "Se me rompió el auto en la ruta. Voy a quedarme una noche en el motel.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Ernesto",
                 dialogueText = "El motel. Claro. Buena suerte con eso.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
                 dialogueText = "Lo dice como quien repite un chiste privado que no piensa explicar. Sigue cargando cajas sin volver a mirarme.",
                 waitForClick = true
             });
-
-            seqNode.actions.Add(new SpendActionAction());
             seqNode.actions.Add(new CaseFlagAction { operation = CaseFlagAction.Operation.SetFlag, key = "d1_ernesto_talked" });
 
-            var endNode = new StoryNodeData(StoryNodeType.End, new Vector2(700, 200));
-
-            graph.nodes.Add(startNode);
-            graph.nodes.Add(seqNode);
-            graph.nodes.Add(endNode);
-
-            graph.entryNodeGuid = startNode.guid;
-            graph.nodeLinks.Add(new NodeLinkData(startNode.guid, "output", seqNode.guid));
-            graph.nodeLinks.Add(new NodeLinkData(seqNode.guid, "output", endNode.guid));
-
-            SaveGraph(graph, "SG_D1_Ernesto_Ruta.asset");
-        }
-
-        private static void CreateElenaGraph()
-        {
-            var graph = ScriptableObject.CreateInstance<StoryGraph>();
-            graph.graphTitle = "SG_D1_Elena_CheckIn";
-
-            var startNode = new StoryNodeData(StoryNodeType.Start, new Vector2(100, 200));
-            var seqNode = new StoryNodeData(StoryNodeType.ActionSequence, new Vector2(350, 200))
-            {
-                title = "Check-In con Elena"
-            };
-
+            // 4. Llegada a la recepción del Motel con Elena
+            seqNode.actions.Add(new TravelLocationAction { targetLocationId = "motel" });
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
-                dialogueText = "Una mujer joven atiende el mostrador sin levantar mucho la vista.",
+                dialogueText = "Camino hasta la recepción del motel. Una mujer joven atiende el mostrador sin levantar mucho la vista.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Elena",
                 dialogueText = "¿Cuántas noches?",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Gabe",
                 dialogueText = "Una, con suerte.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Elena",
                 dialogueText = "Acá nadie se queda una sola noche por suerte.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
-                dialogueText = "Lo dice sin ánimo de broma. Me da la llave y vuelve a lo suyo antes de que pueda preguntar algo más.",
+                dialogueText = "Me entrega una llave de bronce y vuelve a sus papeles antes de que pueda agregar una sola palabra.",
                 waitForClick = true
             });
-
-            seqNode.actions.Add(new SpendActionAction());
             seqNode.actions.Add(new CaseFlagAction { operation = CaseFlagAction.Operation.SetFlag, key = "d1_elena_talked" });
 
-            var endNode = new StoryNodeData(StoryNodeType.End, new Vector2(700, 200));
-
-            graph.nodes.Add(startNode);
-            graph.nodes.Add(seqNode);
-            graph.nodes.Add(endNode);
-
-            graph.entryNodeGuid = startNode.guid;
-            graph.nodeLinks.Add(new NodeLinkData(startNode.guid, "output", seqNode.guid));
-            graph.nodeLinks.Add(new NodeLinkData(seqNode.guid, "output", endNode.guid));
-
-            SaveGraph(graph, "SG_D1_Elena_CheckIn.asset");
-        }
-
-        private static void CreateRobertGraph()
-        {
-            var graph = ScriptableObject.CreateInstance<StoryGraph>();
-            graph.graphTitle = "SG_D1_Robert_Bienvenida";
-
-            var startNode = new StoryNodeData(StoryNodeType.Start, new Vector2(100, 200));
-            var seqNode = new StoryNodeData(StoryNodeType.ActionSequence, new Vector2(350, 200))
-            {
-                title = "Bienvenida de Robert"
-            };
-
+            // 5. Bienvenida de Robert
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
-                dialogueText = "Un hombre de sonrisa fácil sale a recibirme antes de que termine de acercarme.",
+                dialogueText = "Desde el pasillo sale un hombre de mediana edad, impecable y con una sonrisa amplia que contrasta con la recepcionista.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Robert",
-                dialogueText = "¡Bienvenido, bienvenido! No todos los días se le rompe el auto justo frente a un motel. Tiene suerte, en el sentido más raro posible.",
+                dialogueText = "¡Bienvenido, bienvenido! No todos los días se le rompe el auto a alguien justo frente a nuestro motel. Tiene suerte, en el sentido más raro posible.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Gabe",
-                dialogueText = "Necesito un cuarto para esta noche.",
+                dialogueText = "Solo necesito pasar la noche hasta que llegue el auxilio mañana.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "Robert",
-                dialogueText = "Por supuesto. Le doy el número 4, es el más tranquilo. Si necesita algo, cualquier hora, golpee mi puerta.",
+                dialogueText = "Por supuesto. Le toca la habitación 4, es la más tranquila de todas. Si necesita cualquier cosa, a cualquier hora, golpee mi puerta sin dudar.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
                 dialogueText = "Todo en él es cortesía calculada al milímetro. El tipo de anfitrión que uno recuerda por lo perfecto, no por lo cálido.",
                 waitForClick = true
             });
-
-            seqNode.actions.Add(new SpendActionAction());
             seqNode.actions.Add(new CaseFlagAction { operation = CaseFlagAction.Operation.SetFlag, key = "d1_robert_talked" });
 
-            var endNode = new StoryNodeData(StoryNodeType.End, new Vector2(700, 200));
-
-            graph.nodes.Add(startNode);
-            graph.nodes.Add(seqNode);
-            graph.nodes.Add(endNode);
-
-            graph.entryNodeGuid = startNode.guid;
-            graph.nodeLinks.Add(new NodeLinkData(startNode.guid, "output", seqNode.guid));
-            graph.nodeLinks.Add(new NodeLinkData(seqNode.guid, "output", endNode.guid));
-
-            SaveGraph(graph, "SG_D1_Robert_Bienvenida.asset");
-        }
-
-        private static void CreateNight1Graph()
-        {
-            var graph = ScriptableObject.CreateInstance<StoryGraph>();
-            graph.graphTitle = "SG_D1_Noche_Crimen";
-
-            var startNode = new StoryNodeData(StoryNodeType.Start, new Vector2(100, 200));
-            var seqNode = new StoryNodeData(StoryNodeType.ActionSequence, new Vector2(350, 200))
-            {
-                title = "Noche del Crimen"
-            };
-
+            // 6. Noche del crimen
             seqNode.actions.Add(new OverlayTextAction
             {
                 titleText = "",
@@ -289,45 +174,34 @@ namespace Investigation.EditorTools
                 duration = 2.0f,
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
                 dialogueText = "Un grito corto, cortado a la mitad. Después, vidrio rompiéndose.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
                 dialogueText = "Cuando salgo al pasillo alcanzo a ver a Elena, corriendo en dirección contraria al ruido.",
                 waitForClick = true
             });
-
-            seqNode.actions.Add(new CollectClueAction
-            {
-                clueId = "elena_seen_running"
-            });
-
+            seqNode.actions.Add(new CollectClueAction { clueId = "elena_seen_running" });
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
-                dialogueText = "Para cuando llego, ya hay gente alrededor del cuerpo. Alguien fue a buscar a Robert.",
+                dialogueText = "Para cuando llego a la parte trasera, ya hay gente alrededor del cuerpo. Alguien fue a buscar a Robert.",
                 waitForClick = true
             });
-
             seqNode.actions.Add(new DialogueAction
             {
                 speakerName = "",
                 dialogueText = "Llega antes de lo que debería tardar cualquiera en despertarse y vestirse. Sin marcas, sin agitación, con la explicación ya lista.",
                 waitForClick = true
             });
+            seqNode.actions.Add(new CollectClueAction { clueId = "robert_quick_arrival" });
 
-            seqNode.actions.Add(new CollectClueAction
-            {
-                clueId = "robert_quick_arrival"
-            });
-
+            // 7. Transición al Día 2 (Apertura de la investigación)
             seqNode.actions.Add(new OverlayTextAction
             {
                 titleText = "",
@@ -337,7 +211,6 @@ namespace Investigation.EditorTools
                 duration = 2.0f,
                 waitForClick = true
             });
-
             seqNode.actions.Add(new OverlayTextAction
             {
                 titleText = "DÍA 2",
@@ -348,10 +221,10 @@ namespace Investigation.EditorTools
                 waitForClick = true
             });
 
-            seqNode.actions.Add(new TravelLocationAction
-            {
-                targetLocationId = "motel"
-            });
+            // 8. Activar Día 2, desbloquear HUD y mundo
+            seqNode.actions.Add(new SetDayPhaseAction { targetDay = 2, targetPhase = 1, actionsRemaining = 4 });
+            seqNode.actions.Add(new SetWorldUIAction { active = true });
+            seqNode.actions.Add(new TravelLocationAction { targetLocationId = "motel" });
 
             var endNode = new StoryNodeData(StoryNodeType.End, new Vector2(700, 200));
 
@@ -363,7 +236,7 @@ namespace Investigation.EditorTools
             graph.nodeLinks.Add(new NodeLinkData(startNode.guid, "output", seqNode.guid));
             graph.nodeLinks.Add(new NodeLinkData(seqNode.guid, "output", endNode.guid));
 
-            SaveGraph(graph, "SG_D1_Noche_Crimen.asset");
+            SaveGraph(graph, "SG_D1_Prologo_Completo.asset");
         }
 
         private static void SaveGraph(StoryGraph graph, string fileName)

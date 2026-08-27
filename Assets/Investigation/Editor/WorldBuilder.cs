@@ -52,14 +52,11 @@ namespace Investigation.EditorTools
             locationsRoot.transform.SetParent(worldRoot.transform, false);
             StretchFull(locationsRoot.GetComponent<RectTransform>());
 
-            // Cargar StoryGraphs de Día 1
-            var introSG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Intro.asset");
-            var ernestoSG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Ernesto_Ruta.asset");
-            var elenaSG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Elena_CheckIn.asset");
-            var robertSG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Robert_Bienvenida.asset");
+            // Cargar StoryGraph del Prólogo Completo
+            var introSG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Prologo_Completo.asset");
             var night1SG = AssetDatabase.LoadAssetAtPath<StoryGraph>("Assets/Investigation/Stories/Dia1/SG_D1_Noche_Crimen.asset");
 
-            var locations = BuildLocationDefs(ernestoSG, elenaSG, robertSG);
+            var locations = BuildLocationDefs(null, null, null);
 
             var locationEntries = new List<(string id, GameObject panel)>();
             var investigateHotspotEntries = new List<(string id, GameObject go)>();
@@ -167,7 +164,6 @@ namespace Investigation.EditorTools
                     id = "road", displayName = "Camino / Ruta", color = new Color(0.30f, 0.32f, 0.28f),
                     characters =
                     {
-                        new HotspotDef { id = "ernesto", label = "Ernesto Vidal", storyGraph = ernestoSG },
                         new HotspotDef { id = "gus", label = "Gus Whitlock" }
                     },
                     investigateSpots = { new HotspotDef { id = "inv_arbustos", label = "Arbustos" } }
