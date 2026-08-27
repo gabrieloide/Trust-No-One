@@ -155,34 +155,52 @@ namespace Investigation.EditorTools
         private static void GenerateClueFound()
         {
             var cs = new CompositeSound();
+            // Capa 1: Sub-bajo profundo y redondo (cero agudos)
             cs.baseSound = new SoundParameters
             {
                 soundName = "sfx_clue_found",
                 waveType = WaveType.Sine,
                 sampleRate = SampleRateOption.Rate44k,
                 sampleSize = SampleSizeOption.Bit16,
-                masterGain = 0.65f,
-                attackTime = 0.02f,
-                sustainTime = 0.12f,
-                sustainPunch = 0.3f,
-                decayTime = 0.5f,
-                startFrequency = 0.5f,
-                slide = 0.25f,
-                frequencyMult = 0.3f,
-                changeSpeed = 0.15f
+                masterGain = 0.85f,
+                attackTime = 0.01f,
+                sustainTime = 0.18f,
+                sustainPunch = 0.45f,
+                decayTime = 0.75f,
+                startFrequency = 0.16f,
+                slide = -0.04f,
+                lpCutoffFrequency = 0.35f
             };
 
+            // Capa 2: Armónico grave misterioso
             var layer2 = new SoundParameters
             {
                 waveType = WaveType.Sine,
-                masterGain = 0.5f,
-                attackTime = 0.05f,
-                sustainTime = 0.15f,
-                decayTime = 0.6f,
-                startFrequency = 0.75f,
-                delay = 0.08f
+                masterGain = 0.45f,
+                attackTime = 0.03f,
+                sustainTime = 0.14f,
+                decayTime = 0.65f,
+                startFrequency = 0.24f,
+                slide = -0.02f,
+                lpCutoffFrequency = 0.40f,
+                delay = 0.02f
             };
             cs.layers.Add(layer2);
+
+            // Capa 3: Golpe sordo de fondo (thump misterioso de película noir)
+            var layer3 = new SoundParameters
+            {
+                waveType = WaveType.Noise,
+                masterGain = 0.35f,
+                attackTime = 0.0f,
+                sustainTime = 0.02f,
+                sustainPunch = 0.5f,
+                decayTime = 0.16f,
+                startFrequency = 0.08f,
+                slide = -0.5f,
+                lpCutoffFrequency = 0.22f
+            };
+            cs.layers.Add(layer3);
 
             float[] buffer = SynthEngine.Synthesize(cs);
             WavExporter.ExportToWav(buffer, cs.baseSound.sampleRate, cs.baseSound.sampleSize, "sfx_clue_found", SfxFolder);
