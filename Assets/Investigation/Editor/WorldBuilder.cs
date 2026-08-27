@@ -9,9 +9,8 @@ using VisualNovelSystem;
 namespace Investigation.EditorTools
 {
     // Arma de una sola pasada las 6 locaciones (placeholders de color + hotspots),
-    // la barra de navegación y el HUD de día/fase/acciones, dentro del
-    // VisualNovel_Canvas que ya crea StorySceneSetupWizard. Pensado para poder
-    // re-ejecutarse (borra WorldRoot si ya existe) mientras se itera el contenido.
+    // la barra de navegación dinámica, el panel de evidencias y el HUD de día/fase/acciones,
+    // dentro del VisualNovel_Canvas. Pensado para poder re-ejecutarse mientras se itera.
     public static class WorldBuilder
     {
         private class HotspotDef
@@ -56,16 +55,19 @@ namespace Investigation.EditorTools
             var locations = BuildLocationDefs();
 
             var locationEntries = new List<(string id, GameObject panel)>();
+            var investigateHotspotEntries = new List<(string id, GameObject go)>();
+
             foreach (var loc in locations)
             {
-                var panel = CreateLocationPanel(locationsRoot.transform, loc);
+                var panel = CreateLocationPanel(locationsRoot.transform, loc, investigateHotspotEntries);
                 locationEntries.Add((loc.id, panel));
             }
 
-            CreateNavBar(worldRoot.transform, locations);
-            var hud = CreateHud(worldRoot.transform);
-            var evidenceContainer = CreateEvidencePanel(worldRoot.transform);
-            CreateAccuseButton(worldRoot.transform);
+            var navButtonEntries = new List<(string id, GameObject go)>();
+            var navBarGO = CreateNavBar(worldRoot.transform, locations, navButtonEntries);
+            var (hudGO, hudText) = CreateHud(worldRoot.transform);
+            var (evidenceBarGO, evidenceContainer) = CreateEvidencePanel(worldRoot.transform);
+            var accuseButtonGO = CreateAccuseButton(worldRoot.transform);
 
             var convGO = GameObject.Find("ConversationController");
             if (convGO == null) convGO = new GameObject("ConversationController");
@@ -84,6 +86,7 @@ namespace Investigation.EditorTools
             var evController = evGO.GetComponent<EvidencePanelController>();
             if (evController == null) evController = evGO.AddComponent<EvidencePanelController>();
             var evSo = new SerializedObject(evController);
+            evSo.FindProperty("panelRoot").objectReferenceValue = evidenceBarGO;
             evSo.FindProperty("container").objectReferenceValue = evidenceContainer;
             evSo.ApplyModifiedPropertiesWithoutUndo();
 
@@ -93,6 +96,8 @@ namespace Investigation.EditorTools
             if (locController == null) locController = locGO.AddComponent<LocationController>();
 
             var so = new SerializedObject(locController);
+            
+            // Locations
             var listProp = so.FindProperty("locations");
             listProp.ClearArray();
             for (int i = 0; i < locationEntries.Count; i++)
@@ -102,12 +107,40 @@ namespace Investigation.EditorTools
                 elem.FindPropertyRelative("id").stringValue = locationEntries[i].id;
                 elem.FindPropertyRelative("panelRoot").objectReferenceValue = locationEntries[i].panel;
             }
-            so.FindProperty("hudText").objectReferenceValue = hud;
+
+            // NavButtons
+            var navProp = so.FindProperty("navButtons");
+            navProp.ClearArray();
+            for (int i = 0; i < navButtonEntries.Count; i++)
+            {
+                navProp.InsertArrayElementAtIndex(i);
+                var elem = navProp.GetArrayElementAtIndex(i);
+                elem.FindPropertyRelative("locationId").stringValue = navButtonEntries[i].id;
+                elem.FindPropertyRelative("buttonGO").objectReferenceValue = navButtonEntries[i].go;
+            }
+
+            // Investigate Hotspots
+            var hotProp = so.FindProperty("investigateHotspots");
+            hotProp.ClearArray();
+            for (int i = 0; i < investigateHotspotEntries.Count; i++)
+            {
+                hotProp.InsertArrayElementAtIndex(i);
+                var elem = hotProp.GetArrayElementAtIndex(i);
+                elem.FindPropertyRelative("spotId").stringValue = investigateHotspotEntries[i].id;
+                elem.FindPropertyRelative("hotspotGO").objectReferenceValue = investigateHotspotEntries[i].go;
+            }
+
+            // UI Elements
+            so.FindProperty("worldUIRoot").objectReferenceValue = worldRoot;
+            so.FindProperty("hudRoot").objectReferenceValue = hudGO;
+            so.FindProperty("hudText").objectReferenceValue = hudText;
+            so.FindProperty("navBarRoot").objectReferenceValue = navBarGO;
+            so.FindProperty("accuseButtonRoot").objectReferenceValue = accuseButtonGO;
             so.FindProperty("startingLocationId").stringValue = locations[0].id;
             so.ApplyModifiedPropertiesWithoutUndo();
 
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-            Debug.Log("[WorldBuilder] Mundo construido: " + locations.Count + " locaciones.");
+            Debug.Log($"[WorldBuilder] Mundo construido: {locations.Count} locaciones, {navButtonEntries.Count} botones de navegación, {investigateHotspotEntries.Count} puntos de investigación.");
         }
 
         private static List<LocationDef> BuildLocationDefs()
@@ -157,7 +190,7 @@ namespace Investigation.EditorTools
             };
         }
 
-        private static GameObject CreateLocationPanel(Transform parent, LocationDef loc)
+        private static GameObject CreateLocationPanel(Transform parent, LocationDef loc, List<(string id, GameObject go)> investigateHotspots)
         {
             var panel = new GameObject("Location_" + loc.id, typeof(RectTransform));
             panel.transform.SetParent(parent, false);
@@ -192,8 +225,9 @@ namespace Investigation.EditorTools
             x = -300f;
             foreach (var s in loc.investigateSpots)
             {
-                CreateHotspot(panel.transform, "[Investigar]\n" + s.label, new Vector2(x, -160f), new Vector2(200f, 90f),
+                var hotspot = CreateHotspot(panel.transform, "[Investigar]\n" + s.label, new Vector2(x, -160f), new Vector2(200f, 90f),
                     new Color(0.2f, 0.35f, 0.45f, 0.9f), InteractType.InvestigateSpot, s.id);
+                investigateHotspots.Add((s.id, hotspot));
                 x += 220f;
             }
 
@@ -243,7 +277,7 @@ namespace Investigation.EditorTools
             return go;
         }
 
-        private static void CreateNavBar(Transform parent, List<LocationDef> locations)
+        private static GameObject CreateNavBar(Transform parent, List<LocationDef> locations, List<(string id, GameObject go)> navButtons)
         {
             var bar = new GameObject("NavBar", typeof(RectTransform));
             bar.transform.SetParent(parent, false);
@@ -266,12 +300,15 @@ namespace Investigation.EditorTools
 
             foreach (var loc in locations)
             {
-                CreateHotspot(bar.transform, loc.displayName, Vector2.zero, new Vector2(150f, 54f),
+                var btn = CreateHotspot(bar.transform, loc.displayName, Vector2.zero, new Vector2(150f, 54f),
                     new Color(0.25f, 0.25f, 0.25f, 0.95f), InteractType.GoToLocation, loc.id);
+                navButtons.Add((loc.id, btn));
             }
+
+            return bar;
         }
 
-        private static Transform CreateEvidencePanel(Transform parent)
+        private static (GameObject bar, Transform container) CreateEvidencePanel(Transform parent)
         {
             var bar = new GameObject("EvidencePanel", typeof(RectTransform));
             bar.transform.SetParent(parent, false);
@@ -304,10 +341,10 @@ namespace Investigation.EditorTools
             chipsLayout.childForceExpandHeight = true;
             chipsContainer.AddComponent<LayoutElement>().flexibleWidth = 1f;
 
-            return chipsContainer.transform;
+            return (bar, chipsContainer.transform);
         }
 
-        private static void CreateAccuseButton(Transform parent)
+        private static GameObject CreateAccuseButton(Transform parent)
         {
             var go = CreateHotspot(parent, "ACUSAR", Vector2.zero, new Vector2(160f, 54f),
                 new Color(0.5f, 0.1f, 0.1f, 0.95f), InteractType.OpenAccusation, "");
@@ -317,9 +354,11 @@ namespace Investigation.EditorTools
             rect.anchorMax = new Vector2(1f, 1f);
             rect.pivot = new Vector2(1f, 1f);
             rect.anchoredPosition = new Vector2(-16f, -16f);
+
+            return go;
         }
 
-        private static TextMeshProUGUI CreateHud(Transform parent)
+        private static (GameObject go, TextMeshProUGUI text) CreateHud(Transform parent)
         {
             var go = new GameObject("Hud", typeof(RectTransform));
             go.transform.SetParent(parent, false);
@@ -337,7 +376,8 @@ namespace Investigation.EditorTools
             textRect.anchorMax = Vector2.one;
             textRect.offsetMin = Vector2.zero;
             textRect.offsetMax = Vector2.zero;
-            return text;
+
+            return (go, text);
         }
 
         private static TextMeshProUGUI CreateLabel(Transform parent, string text, float fontSize, TextAlignmentOptions alignment, Color color)
