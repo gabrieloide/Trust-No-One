@@ -81,16 +81,7 @@ namespace Investigation
             string evidenceClueId = null;
             if (collectedClues.Count > 0)
             {
-                var evidenceOptions = collectedClues
-                    .Select(c => new StoryChoiceOption { id = c.id, text = c.displayName })
-                    .ToList();
-
-                int evidenceIndex = -1;
-                yield return UI.ShowChoices("What do I present as evidence?", evidenceOptions, idx => evidenceIndex = idx);
-                if (evidenceIndex >= 0 && evidenceIndex < evidenceOptions.Count)
-                {
-                    evidenceClueId = evidenceOptions[evidenceIndex].id;
-                }
+                yield return AccusationEvidenceBoardUI.Instance.SelectEvidenceRoutine(collectedClues, id => evidenceClueId = id);
             }
 
             string suspectDisplayName = DialogueDatabase.Instance.GetCharacter(suspectId)?.displayName ?? suspectId;
