@@ -64,40 +64,44 @@ namespace Investigation
                 .Select(id => new StoryChoiceOption { id = id, text = DialogueDatabase.Instance.GetCharacter(id)?.displayName ?? id })
                 .ToList();
 
-            int suspectIndex = -1;
-            yield return UI.ShowChoices("Who do I accuse?", suspectOptions, idx => suspectIndex = idx);
-            if (suspectIndex < 0 || suspectIndex >= suspectOptions.Count)
-            {
-                isBusy = false;
-                yield break;
-            }
-            string suspectId = suspectOptions[suspectIndex].id;
-
-            var collectedClues = CaseState.Instance.CollectedClues
-                .Select(id => DialogueDatabase.Instance.GetClue(id))
-                .Where(c => c != null)
-                .ToList();
-
+            // "Go back" en la confirmación vuelve acá en vez de cortar la corrutina: si no,
+            // el jugador queda parado en la escena de la reunión sin nada clickeable.
+            string suspectId = null;
             string evidenceClueId = null;
-            if (collectedClues.Count > 0)
-            {
-                yield return AccusationEvidenceBoardUI.Instance.SelectEvidenceRoutine(collectedClues, id => evidenceClueId = id);
-            }
+            bool confirmed = false;
 
-            string suspectDisplayName = DialogueDatabase.Instance.GetCharacter(suspectId)?.displayName ?? suspectId;
-            var confirmOptions = new List<StoryChoiceOption>
+            while (!confirmed)
             {
-                new StoryChoiceOption { id = "confirm", text = $"Yes, formally accuse {suspectDisplayName}" },
-                new StoryChoiceOption { id = "cancel", text = "Go back" }
-            };
+                int suspectIndex = -1;
+                yield return UI.ShowChoices("Who do I accuse?", suspectOptions, idx => suspectIndex = idx);
+                if (suspectIndex < 0 || suspectIndex >= suspectOptions.Count)
+                {
+                    isBusy = false;
+                    yield break;
+                }
+                suspectId = suspectOptions[suspectIndex].id;
 
-            int confirmIndex = -1;
-            yield return UI.ShowChoices($"Close the case and accuse {suspectDisplayName}?", confirmOptions, idx => confirmIndex = idx);
-            if (confirmIndex != 0)
-            {
-                UI.HideDialogue();
-                isBusy = false;
-                yield break;
+                var collectedClues = CaseState.Instance.CollectedClues
+                    .Select(id => DialogueDatabase.Instance.GetClue(id))
+                    .Where(c => c != null)
+                    .ToList();
+
+                evidenceClueId = null;
+                if (collectedClues.Count > 0)
+                {
+                    yield return AccusationEvidenceBoardUI.Instance.SelectEvidenceRoutine(collectedClues, id => evidenceClueId = id);
+                }
+
+                string suspectDisplayName = DialogueDatabase.Instance.GetCharacter(suspectId)?.displayName ?? suspectId;
+                var confirmOptions = new List<StoryChoiceOption>
+                {
+                    new StoryChoiceOption { id = "confirm", text = $"Yes, formally accuse {suspectDisplayName}" },
+                    new StoryChoiceOption { id = "cancel", text = "Go back" }
+                };
+
+                int confirmIndex = -1;
+                yield return UI.ShowChoices($"Close the case and accuse {suspectDisplayName}?", confirmOptions, idx => confirmIndex = idx);
+                confirmed = confirmIndex == 0;
             }
 
             yield return ResolveOutcome(suspectId, evidenceClueId);
