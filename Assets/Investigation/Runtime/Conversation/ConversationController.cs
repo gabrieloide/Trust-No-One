@@ -92,7 +92,7 @@ namespace Investigation
 
             if (CaseState.Instance != null && CaseState.Instance.CollectedClues.Count > 0)
             {
-                mainOptions.Add(new StoryChoiceOption { id = ConfrontOptionId, text = "🔍 Confront..." });
+                mainOptions.Add(new StoryChoiceOption { id = ConfrontOptionId, text = "Confront..." });
             }
 
             mainOptions.Add(new StoryChoiceOption { id = LeaveOptionId, text = "Stop talking for now" });
@@ -129,7 +129,7 @@ namespace Investigation
             var options = visibleTopics.Select(t =>
             {
                 bool seen = CaseState.Instance != null && CaseState.Instance.HasSeenTopic(character.id, t.id);
-                string label = seen ? $"{t.displayName} [✓]" : t.displayName;
+                string label = seen ? $"{t.displayName} [seen]" : t.displayName;
                 return new StoryChoiceOption { id = t.id, text = label };
             }).ToList();
 
@@ -166,7 +166,7 @@ namespace Investigation
             var clueOptions = clues.Select(c =>
             {
                 bool tried = CaseState.Instance != null && CaseState.Instance.WasConfrontedWith(character.id, c.id);
-                string label = tried ? $"{c.displayName} [✓]" : c.displayName;
+                string label = tried ? $"{c.displayName} [used]" : c.displayName;
                 return new StoryChoiceOption { id = c.id, text = label };
             }).ToList();
             clueOptions.Add(new StoryChoiceOption { id = "__cancel__", text = "Back to the questions" });
@@ -204,10 +204,12 @@ namespace Investigation
 
                 foreach (var line in lines)
                 {
-                    yield return UI.ShowDialogue(line.speaker, line.text, null, null, -1f, true);
+                    yield return UI.ShowDialogue(DialogueDatabase.Instance.ResolveSpeakerDisplayName(line.speaker), line.text, null, null, -1f, true);
                 }
 
-                if (firstAttempt && PhaseController.Instance != null)
+                // Solo gasta acción si la confrontación fue incorrecta/irrelevante en su primer intento (para evitar spam).
+                // Las confrontaciones acertadas (isRelevant == true) recompensan al jugador no gastando acción.
+                if (!isRelevant && firstAttempt && PhaseController.Instance != null)
                 {
                     PhaseController.Instance.SpendAction();
                 }
@@ -276,7 +278,7 @@ namespace Investigation
                     if (clueId == "robert_quick_arrival")
                     {
                         lines.Add(("Gabe", "The first witnesses took a while to come over after the scream. You got there in under ninety seconds, dressed and groomed."));
-                        lines.Add(("Robert", "It's my motel, Miller. I'm a light sleeper when it comes to my guests' safety, and I keep my work clothes handy in case of emergencies. Looking after my guests is my duty."));
+                        lines.Add(("Robert", "It's my motel, detective. I'm a light sleeper when it comes to my guests' safety, and I keep my work clothes handy in case of emergencies. Looking after my guests is my duty."));
                         onFinish = () => CaseState.Instance.SetFlag("robert_timing_doubt");
                         return true;
                     }
@@ -300,8 +302,9 @@ namespace Investigation
                 case "elena":
                     if (clueId == "elena_master_keys")
                     {
-                        lines.Add(("Gabe", "There are only two master keys in the whole complex: Robert's and yours. Nobody can get into the rooms without them."));
-                        lines.Add(("Elena", "I didn't open Carla's door that night... I swear it. But I saw Robert leaving the office with his set of keys close to midnight."));
+                        lines.Add(("Gabe", "There are only two master keys in the whole complex: Robert's and yours. If Carla stole your money and locked herself in, you could easily open her door."));
+                        lines.Add(("Elena", "I had the key in my hand, yes! I was furious enough to kick her door down. But before I could do anything, I saw Robert heading toward her room with his own set of keys close to midnight."));
+                        lines.Add(("Elena", "Carla wasn't just conning me out of my money... she was scheming something with Robert too."));
                         onFinish = () =>
                         {
                             CaseState.Instance.SetFlag("elena_implicates_robert");
@@ -311,8 +314,9 @@ namespace Investigation
                     }
                     if (clueId == "elena_seen_running")
                     {
-                        lines.Add(("Gabe", "A witness saw you bolt down the back hallway right after the scream."));
-                        lines.Add(("Elena", "I was terrified! I heard Robert arguing with her... heard a hard thud, and I ran to lock myself in my room. I didn't want to be next."));
+                        lines.Add(("Gabe", "A witness saw you sprinting down the back hallway right after the scream."));
+                        lines.Add(("Elena", "I was chasing her down! I found out she bought a bus ticket only for herself and was sneaking out with my eight hundred dollars! We had a violent shouting match by the back doors."));
+                        lines.Add(("Elena", "When I heard the glass break moments later, I bolted. I knew how bad it looked — I was the one with the biggest motive to strangle her!"));
                         onFinish = () =>
                         {
                             CaseState.Instance.SetFlag("elena_confession_full");
@@ -322,11 +326,12 @@ namespace Investigation
                     }
                     if (clueId == "carla_belongings")
                     {
-                        lines.Add(("Elena", "That's the bag Carla left at the front desk... my God. Robert flat-out forbade me from going into the basement or touching anything."));
+                        lines.Add(("Gabe", "I found Carla's travel bag hidden behind the crates. Inside was a single bus ticket and an envelope of cash."));
+                        lines.Add(("Elena", "My envelope! That's my two years of hard work she stole with her fake friendship and empty promises of Seattle! Robert ordered me never to go near the basement... that's where she stashed it before trying to skip town!"));
                         onFinish = () => CaseState.Instance.SetFlag("elena_confirmed_coverup");
                         return true;
                     }
-                    lines.Add(("Elena", "I don't know what that is, Mr. Miller... please, don't put me in any more trouble than I already have."));
+                    lines.Add(("Elena", "I don't care about whatever junk that is, detective. Carla stole my life savings; that's the only evidence that matters to me."));
                     return false;
 
                 case "mark":
@@ -398,17 +403,17 @@ namespace Investigation
                 case "elena":
                     if (day == 2)
                     {
-                        if (phase == 1) return "What... what do you need, Mr. Miller? I couldn't sleep a wink after everything that happened last night.";
-                        if (phase == 2) return "Tell me quickly, please... I don't want trouble with Robert.";
-                        return "Things get tense around here at night... what are you after now?";
+                        if (phase == 1) return "What do you want, Gabe? As if having Carla's corpse out back wasn't already enough of a headache.";
+                        if (phase == 2) return "Make it quick. I have real work to do instead of gossiping about dead guests.";
+                        return "It's getting late. If you're going to accuse me of something, spit it out already.";
                     }
-                    return "Still poking around here... find out anything about Carla?";
+                    return "You're still digging around? Carla's gone, and this motel was better off without her.";
 
                 case "robert":
                     if (day == 2)
                     {
                         if (phase == 1) return "Good morning, detective. Trying to keep things calm at the motel after the tragedy. How can I help you?";
-                        if (phase == 2) return "Mr. Miller. Find anything useful to clear this up?";
+                        if (phase == 2) return "Detective Gabe. Find anything useful to clear this up?";
                         return "It's getting late, detective. Need anything before I close up the front desk?";
                     }
                     return "Last day around here, I understand. I hope your conclusions are fair and professional.";
@@ -477,7 +482,7 @@ namespace Investigation
             {
                 foreach (var line in variant.lines)
                 {
-                    yield return UI.ShowDialogue(line.speaker, line.text, null, null, -1f, true);
+                    yield return UI.ShowDialogue(DialogueDatabase.Instance.ResolveSpeakerDisplayName(line.speaker), line.text, null, null, -1f, true);
                 }
 
                 // Solo gasta acción si es la primera vez que se inspecciona
@@ -514,7 +519,7 @@ namespace Investigation
             {
                 foreach (var line in variant.lines)
                 {
-                    yield return UI.ShowDialogue(line.speaker, line.text, null, null, -1f, true);
+                    yield return UI.ShowDialogue(DialogueDatabase.Instance.ResolveSpeakerDisplayName(line.speaker), line.text, null, null, -1f, true);
                 }
 
                 // Solo gasta acción si es la primera vez que se lee este tema

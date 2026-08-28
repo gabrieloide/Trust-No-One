@@ -16,7 +16,7 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "A neatly dressed man with an easy manner comes out to greet me before I've even finished parking." },
+                        { "speaker": "", "text": "A neatly dressed man with an easy manner comes out from the hallway to greet me with a polite smile." },
                         { "speaker": "Robert", "text": "Welcome, welcome! Not every day a man's car breaks down right in front of a motel. Lucky, in the unluckiest way possible." },
                         { "speaker": "Gabe", "text": "I need a room for the night." },
                         { "speaker": "Robert", "text": "Of course. I'll give you room 4, it's the quietest one. If you need anything, any hour, my door's the first one by the lobby." },
@@ -39,13 +39,15 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Robert", "text": "A terrible business, last night, detective. The Starlight has always been a peaceful place. I already spoke with the sheriff first thing this morning." },
-                        { "speaker": "Gabe", "text": "Did you notice anything unusual before the crime?" },
-                        { "speaker": "Robert", "text": "There's been a lot of drifters wandering the highway lately. That vagrant, Mark, hangs around the gas station and gets aggressive when he's been drinking. And there's truckers passing through too." },
-                        { "speaker": "", "text": "Makes sense. A crime on his property is a death blow for the motel; it's logical he'd want this cleared up fast." }
+                        { "speaker": "Robert", "text": "A terrible business last night, detective. The Starlight has always been a peaceful place. I already notified the county sheriff first thing this morning." },
+                        { "speaker": "Gabe", "text": "You were fully dressed in your suit when you arrived at the scene in seconds." },
+                        { "speaker": "Robert", "text": "I was working late in my office reviewing supplier accounts with Mr. Vidal until past midnight. Running a business out here takes long hours." },
+                        { "speaker": "Robert", "text": "If you ask me, that vagrant Mark hangs around the gas station drinking cheap gin and gets aggressive in the dark." },
+                        { "speaker": "", "text": "An immaculate explanation, delivered without a single stutter. He deflects attention smoothly onto Mark." }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "robert_d2_talked", "b": "" }
+                        { "kind": 0, "a": "robert_d2_talked", "b": "" },
+                        { "kind": 3, "a": "robert_quick_arrival", "b": "" }
                     ]
                 }
             ]
@@ -66,9 +68,9 @@
                     "conditions": [],
                     "lines": [
                         { "speaker": "Gabe", "text": "I understand the building has a basement. What do you keep down there?" },
-                        { "speaker": "Robert", "text": "The machine room: backup generator, boilers, heavy tools. It's damp and poorly ventilated, that's why I keep it locked." },
+                        { "speaker": "Robert", "text": "The machine room: backup generator, boilers, heavy tools. It's damp and hazardous, that's why I keep it padlocked." },
                         { "speaker": "Robert", "text": "Why do you ask, detective? If you need to inspect the motel's facilities, I'll gladly walk you through later." },
-                        { "speaker": "", "text": "A practical, professional answer. If he's hiding something, he covers it with the calm of a man used to the routine of upkeep." }
+                        { "speaker": "", "text": "A practical, professional answer. If he's hiding something, he covers it with the calm of a man used to managing everything himself." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "robert_excuse_locked", "b": "" }
@@ -92,8 +94,8 @@
                     ],
                     "lines": [
                         { "speaker": "Gabe", "text": "Back to the basement: Elena told me you keep the only key to that door." },
-                        { "speaker": "Robert", "text": "Of course. The boilers are old and the liability insurance is very strict. I can't have inexperienced staff going down there fiddling with valves." },
-                        { "speaker": "", "text": "Impeccable, from a business-management standpoint. I'll need hard physical evidence if I want to prove that basement is hiding something more." }
+                        { "speaker": "Robert", "text": "Of course. The boilers are old and the liability insurance is very strict. I can't have staff wandering down there." },
+                        { "speaker": "", "text": "Impeccable, from a business-management standpoint. But physical evidence will tell what really happened down there." }
                     ],
                     "effects": []
                 },
@@ -103,7 +105,7 @@
                     "conditions": [],
                     "lines": [
                         { "speaker": "Gabe", "text": "Elena told me you're the only one with a key to the basement." },
-                        { "speaker": "Robert", "text": "That's right. I handle the boilers and the parts myself to avoid accidents. Basic safety protocol." },
+                        { "speaker": "Robert", "text": "That's right. I handle the boilers and parts myself to avoid accidents. Basic safety protocol." },
                         { "speaker": "", "text": "The explanation sounds reasonable and measured." }
                     ],
                     "effects": []
@@ -125,10 +127,10 @@
                         { "kind": 0, "a": "robert_excuse_locked", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "Gabe", "text": "The padlock busted from the inside. Exclusive access, yours alone. And Carla's belongings hidden behind the generator crates." },
-                        { "speaker": "Robert", "text": "Those are very serious inferences, detective. Someone could have forced the lock, or planted those things there to incriminate management." },
-                        { "speaker": "", "text": "For the first time, his smile disappears. He keeps his composure, but his eyes weigh every word of mine with cold calculation." },
-                        { "speaker": "Robert", "text": "If you have a formal accusation, I suggest you bring it to the sheriff with all the rigor the law demands." }
+                        { "speaker": "Gabe", "text": "The latch pried from the inside. Exclusive key access, yours alone. And Carla's travel bag hidden behind your toolboxes." },
+                        { "speaker": "Robert", "text": "Those are very bold inferences, detective. A desperate drifter could have forced that lock, or planted those items to blackmail management." },
+                        { "speaker": "", "text": "For the first time, his polite smile vanishes. His eyes weigh every word of mine with icy calculation." },
+                        { "speaker": "Robert", "text": "If you have a formal accusation, I suggest you bring it to the sheriff with all the proof the law demands." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "robert_confronted_final", "b": "" }
@@ -139,9 +141,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "The padlock was busted from the inside, and you're the only one with a key." },
+                        { "speaker": "Gabe", "text": "The padlock was busted from the inside, and you're the only one with a key to that room." },
                         { "speaker": "Robert", "text": "Unfortunate coincidences, detective. But in a serious investigation, coincidences don't add up to a verdict." },
-                        { "speaker": "", "text": "He takes a measured second before answering. His defenses are solid, but the physical facts don't lie." }
+                        { "speaker": "", "text": "He takes a measured second before answering. His facade holds, but the physical facts speak clearly." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "robert_confronted_final", "b": "" }

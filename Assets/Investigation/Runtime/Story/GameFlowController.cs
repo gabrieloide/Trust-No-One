@@ -79,6 +79,15 @@ namespace Investigation
 
         private IEnumerator Day2ToDay3TransitionRoutine()
         {
+            // Esperar a que la conversación o interacción activa cierre y libere completamente la UI
+            while (ConversationController.Instance != null && ConversationController.Instance.IsBusy)
+            {
+                yield return null;
+            }
+
+            // Esperar al final del frame para garantizar que cualquier llamada a HideDialogue() del caller haya finalizado
+            yield return new WaitForEndOfFrame();
+
             if (LocationController.Instance != null)
             {
                 LocationController.Instance.SetWorldUIActive(false);
@@ -93,10 +102,10 @@ namespace Investigation
             // 2. Fundido a negro (Fade Out)
             yield return UI.FadeScreen(1f, Color.black, 0.8f);
 
-            // 3. Reubicación automática en el Motel
+            // 3. Reubicación automática en la Habitación 4 (su habitación al despertar)
             if (LocationController.Instance != null)
             {
-                LocationController.Instance.GoTo("motel");
+                LocationController.Instance.GoTo("room4");
             }
 
             // 4. Cartel de Título de Día 3 limpio
@@ -118,6 +127,12 @@ namespace Investigation
 
         private IEnumerator EndInvestigationOverlay()
         {
+            while (ConversationController.Instance != null && ConversationController.Instance.IsBusy)
+            {
+                yield return null;
+            }
+            yield return new WaitForEndOfFrame();
+
             if (LocationController.Instance != null)
             {
                 LocationController.Instance.SetWorldUIActive(false);

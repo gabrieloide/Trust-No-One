@@ -16,7 +16,10 @@ namespace VisualNovelSystem
         InvestigateSpot,
         GoToLocation,
         OpenAccusation,
-        OpenClueBoard
+        OpenClueBoard,
+        EndDayBed,
+        RoomMirror,
+        RoomDesk
     }
 
     public class StoryInteractable : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
@@ -28,8 +31,13 @@ namespace VisualNovelSystem
         public static event Action<string> OnGoToLocationRequested;
         public static event Action OnOpenAccusationRequested;
         public static event Action OnOpenClueBoardRequested;
+        public static event Action OnEndDayRequested;
+        public static event Action OnRoomMirrorRequested;
+        public static event Action OnRoomDeskRequested;
         public static event Action OnAnyInteractClicked;
         public static event Action OnAnyInteractHovered;
+
+        public static void TriggerOpenClueBoard() => OnOpenClueBoardRequested?.Invoke();
 
         [Header("Interaction Settings")]
         [SerializeField] private InteractType interactType = InteractType.QuickDialogue;
@@ -188,6 +196,18 @@ namespace VisualNovelSystem
 
                 case InteractType.OpenClueBoard:
                     OnOpenClueBoardRequested?.Invoke();
+                    break;
+
+                case InteractType.EndDayBed:
+                    OnEndDayRequested?.Invoke();
+                    break;
+
+                case InteractType.RoomMirror:
+                    OnRoomMirrorRequested?.Invoke();
+                    break;
+
+                case InteractType.RoomDesk:
+                    OnRoomDeskRequested?.Invoke();
                     break;
             }
 

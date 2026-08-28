@@ -41,6 +41,10 @@ namespace VisualNovelSystem
         private Coroutine activeDialogueRoutine;
         private Coroutine activePortraitRoutine;
         private Coroutine activeFocusRoutine;
+        private Coroutine talkBobRoutine;
+        private Coroutine idleBreathRoutine;
+        private const float talkBobAmp = 3.5f;
+        private const float talkBobDur = 0.11f;
         private bool isTyping = false;
         private bool skipRequested = false;
 
@@ -109,6 +113,21 @@ namespace VisualNovelSystem
                 StopCoroutine(activeFocusRoutine);
                 activeFocusRoutine = null;
             }
+            if (talkBobRoutine != null)
+            {
+                StopCoroutine(talkBobRoutine);
+                talkBobRoutine = null;
+            }
+            if (idleBreathRoutine != null)
+            {
+                StopCoroutine(idleBreathRoutine);
+                idleBreathRoutine = null;
+            }
+            if (activePortraitRoutine != null)
+            {
+                StopCoroutine(activePortraitRoutine);
+                activePortraitRoutine = null;
+            }
 
             ResetAllPortraitTransforms();
 
@@ -135,6 +154,35 @@ namespace VisualNovelSystem
             currentInterlocutorSprite = null;
         }
 
+        public void ClearInterlocutor()
+        {
+            currentInterlocutor = "";
+            currentInterlocutorSprite = null;
+            if (rightCharacterPortrait != null) rightCharacterPortrait.gameObject.SetActive(false);
+        }
+
+        public void PrepareSpeakerStage(string speakerName, Sprite portrait)
+        {
+            if (speakerNameText != null)
+            {
+                speakerNameText.text = speakerName;
+                speakerNameText.gameObject.SetActive(!string.IsNullOrEmpty(speakerName));
+            }
+
+            if (dialogueText != null)
+            {
+                dialogueText.text = "";
+            }
+
+            UpdateSpeakerStage(speakerName, portrait, PortraitEmotion.None);
+
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 1f;
+                canvasGroup.blocksRaycasts = true;
+            }
+        }
+
         public IEnumerator ShowDialogueRoutine(string speakerName, string text, Sprite portrait, AudioClip voiceClip, float typewriterSpeed = -1f, bool waitForClick = true)
         {
             skipRequested = false;
@@ -156,6 +204,12 @@ namespace VisualNovelSystem
 
             // Actualizar el estado de los personajes en escena (Dual Speaker Stage)
             UpdateSpeakerStage(speakerName, portrait, emotion);
+
+            bool isGabeSpeaking = IsProtagonistSpeaker(speakerName);
+            bool isNpcSpeaking = !isGabeSpeaking && !IsNarratorSpeaker(speakerName);
+            RectTransform activeSpeakerRect = isGabeSpeaking ? leftRect : (isNpcSpeaking ? rightRect : (characterPortrait != null ? centerRect : null));
+            Vector2 activeSpeakerOrigin = isGabeSpeaking ? originalLeftPos : (isNpcSpeaking ? originalRightPos : originalCenterPos);
+            Vector3 activeSpeakerScale = isGabeSpeaking ? originalLeftScale : (isNpcSpeaking ? originalRightScale : originalCenterScale);
 
             if (continueIndicator != null) continueIndicator.SetActive(false);
 
@@ -181,11 +235,14 @@ namespace VisualNovelSystem
 
                     dialogueText.text = text.Substring(0, i);
 
-                    // Reproducir teletipo al tipear caracteres
-                    if (i > 0 && i < text.Length && text[i - 1] != ' ' && voiceAudioSource != null && typingAudioClip != null)
+                    // Reproducir teletipo al escribir caracteres
+                    if (i > 0 && i < text.Length && text[i - 1] != ' ')
                     {
-                        voiceAudioSource.pitch = UnityEngine.Random.Range(0.92f, 1.08f);
-                        voiceAudioSource.PlayOneShot(typingAudioClip, typingAudioVolume);
+                        if (voiceAudioSource != null && typingAudioClip != null)
+                        {
+                            voiceAudioSource.pitch = UnityEngine.Random.Range(0.92f, 1.08f);
+                            voiceAudioSource.PlayOneShot(typingAudioClip, typingAudioVolume);
+                        }
                     }
 
                     yield return new WaitForSeconds(speed);
@@ -195,21 +252,58 @@ namespace VisualNovelSystem
                 isTyping = false;
             }
 
-            yield return new WaitForSeconds(0.1f);
+            if (activeSpeakerRect != null && activePortraitRoutine == null)
+            {
+                activeSpeakerRect.anchoredPosition = activeSpeakerOrigin;
+            }
+
+            yield return new WaitForSeconds(0.08f);
             skipRequested = false;
 
             if (continueIndicator != null) continueIndicator.SetActive(true);
 
             if (waitForClick)
             {
+                if (activeSpeakerRect != null && activePortraitRoutine == null)
+                {
+                    if (idleBreathRoutine != null) StopCoroutine(idleBreathRoutine);
+                    idleBreathRoutine = StartCoroutine(IdleBreathRoutine(activeSpeakerRect, activeSpeakerScale));
+                }
+
                 while (!skipRequested)
                 {
                     yield return null;
+                }
+
+                if (idleBreathRoutine != null)
+                {
+                    StopCoroutine(idleBreathRoutine);
+                    idleBreathRoutine = null;
+                }
+                if (activeSpeakerRect != null && activePortraitRoutine == null)
+                {
+                    activeSpeakerRect.localScale = activeSpeakerScale;
                 }
             }
 
             if (continueIndicator != null) continueIndicator.SetActive(false);
             activeDialogueRoutine = null;
+        }
+
+        private bool IsProtagonistSpeaker(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return false;
+            return name.Equals("Gabe", StringComparison.OrdinalIgnoreCase) ||
+                   name.Equals("Protagonista", StringComparison.OrdinalIgnoreCase) ||
+                   name.Equals("Player", StringComparison.OrdinalIgnoreCase) ||
+                   name.Equals("Gabriel", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool IsNarratorSpeaker(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return true;
+            return name.Equals("Narrador", StringComparison.OrdinalIgnoreCase) ||
+                   name.Equals("Narrator", StringComparison.OrdinalIgnoreCase);
         }
 
         private void UpdateSpeakerStage(string speakerName, Sprite portrait, PortraitEmotion emotion)
@@ -225,7 +319,7 @@ namespace VisualNovelSystem
                         characterPortrait.color = Color.white;
                         characterPortrait.gameObject.SetActive(true);
                     }
-                    else if (!string.IsNullOrEmpty(speakerName) && speakerName != "Narrador")
+                    else if (!IsNarratorSpeaker(speakerName))
                     {
                         characterPortrait.color = GetSpeakerPlaceholderColor(speakerName);
                         characterPortrait.gameObject.SetActive(true);
@@ -243,20 +337,20 @@ namespace VisualNovelSystem
                 return;
             }
 
+            bool isGabeSpeaking = IsProtagonistSpeaker(speakerName);
+            bool isNarrator = IsNarratorSpeaker(speakerName);
+            bool isNpcSpeaking = !isGabeSpeaking && !isNarrator;
+
             // Sistema Dual Stage (Gabe a la Izquierda, Interlocutor a la Derecha)
-            if (!string.IsNullOrEmpty(speakerName) && speakerName != "Gabe" && speakerName != "Narrador")
+            if (isNpcSpeaking)
             {
                 currentInterlocutor = speakerName;
                 if (portrait != null) currentInterlocutorSprite = portrait;
             }
-            else if (speakerName == "Gabe" && portrait != null)
+            else if (isGabeSpeaking && portrait != null)
             {
                 gabeSprite = portrait;
             }
-
-            bool isGabeSpeaking = (speakerName == "Gabe");
-            bool isNpcSpeaking = (!string.IsNullOrEmpty(speakerName) && speakerName != "Gabe" && speakerName != "Narrador");
-            bool isNarrator = (speakerName == "Narrador" || string.IsNullOrEmpty(speakerName));
 
             // Configurar Slot Izquierdo (Gabe)
             if (leftCharacterPortrait != null)
@@ -309,7 +403,7 @@ namespace VisualNovelSystem
 
         private IEnumerator TransitionSpeakerFocusRoutine(bool isGabeSpeaking, bool isNpcSpeaking, bool isNarrator)
         {
-            float duration = 0.18f;
+            float duration = 0.22f;
             float elapsed = 0f;
 
             Color targetLeftColor;
@@ -358,17 +452,22 @@ namespace VisualNovelSystem
             {
                 elapsed += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
+                float popT = EaseOutBack(t, 1.4f);
 
                 if (leftCharacterPortrait != null && leftRect != null)
                 {
                     leftCharacterPortrait.color = Color.Lerp(startLeftColor, targetLeftColor, t);
-                    leftRect.localScale = Vector3.Lerp(startLeftScale, targetLeftScale, t);
+                    leftRect.localScale = isGabeSpeaking
+                        ? Vector3.LerpUnclamped(startLeftScale, targetLeftScale, popT)
+                        : Vector3.Lerp(startLeftScale, targetLeftScale, t);
                 }
 
                 if (rightCharacterPortrait != null && rightRect != null)
                 {
                     rightCharacterPortrait.color = Color.Lerp(startRightColor, targetRightColor, t);
-                    rightRect.localScale = Vector3.Lerp(startRightScale, targetRightScale, t);
+                    rightRect.localScale = isNpcSpeaking
+                        ? Vector3.LerpUnclamped(startRightScale, targetRightScale, popT)
+                        : Vector3.Lerp(startRightScale, targetRightScale, t);
                 }
 
                 yield return null;
@@ -386,6 +485,48 @@ namespace VisualNovelSystem
             }
 
             activeFocusRoutine = null;
+        }
+
+        private static float EaseOutBack(float t, float overshoot = 1.7f)
+        {
+            t -= 1f;
+            return t * t * ((overshoot + 1f) * t + overshoot) + 1f;
+        }
+
+        private static float EaseOutElastic(float t)
+        {
+            const float p = 0.3f;
+            return Mathf.Pow(2f, -10f * t) * Mathf.Sin((t - p / 4f) * (2f * Mathf.PI) / p) + 1f;
+        }
+
+        private IEnumerator TalkBobRoutine(RectTransform rect, Vector2 originPos)
+        {
+            float t = 0f;
+            while (t < talkBobDur)
+            {
+                t += Time.deltaTime;
+                float n = Mathf.Clamp01(t / talkBobDur);
+                float y = originPos.y + Mathf.Sin(n * Mathf.PI) * talkBobAmp * (1f - n);
+                rect.anchoredPosition = new Vector2(originPos.x, y);
+                yield return null;
+            }
+            rect.anchoredPosition = originPos;
+            talkBobRoutine = null;
+        }
+
+        private IEnumerator IdleBreathRoutine(RectTransform rect, Vector3 originScale)
+        {
+            float t = 0f;
+            const float period = 2.4f;
+            const float amplitude = 0.018f;
+
+            while (true)
+            {
+                t += Time.deltaTime;
+                float breathe = (Mathf.Sin(t * Mathf.PI * 2f / period) + 1f) * 0.5f;
+                rect.localScale = new Vector3(originScale.x, originScale.y * (1f + breathe * amplitude), originScale.z);
+                yield return null;
+            }
         }
 
         private PortraitEmotion DetectEmotion(ref string text)
@@ -418,12 +559,20 @@ namespace VisualNovelSystem
                 return PortraitEmotion.Nod;
             }
 
-            // Detección contextual sutil por puntuación
-            if (text.EndsWith("!!!") || text.Contains("?!") || text.Contains("!?"))
+            // Detección contextual sutil por puntuación y semántica
+            if (text.Contains("?!") || text.Contains("!?") || text.EndsWith("!!!"))
             {
                 return PortraitEmotion.Shake;
             }
-            if (text.EndsWith("...") && text.Length > 20 && (text.Contains("afraid") || text.Contains("scared") || text.Contains("blood") || text.Contains("crime") || text.Contains("corpse") || text.Contains("dead body")))
+            if (text.EndsWith("!"))
+            {
+                return PortraitEmotion.Punch;
+            }
+            if (text.EndsWith("?"))
+            {
+                return PortraitEmotion.Nod;
+            }
+            if (text.Contains("...") && (text.Contains("afraid") || text.Contains("scared") || text.Contains("dead") || text.Contains("body") || text.Contains("blood") || text.Contains("murder") || text.Contains("kill") || text.Contains("lie") || text.Contains("knife") || text.Contains("glass")))
             {
                 return PortraitEmotion.Tremble;
             }
@@ -513,14 +662,14 @@ namespace VisualNovelSystem
 
         private IEnumerator PunchPortraitRoutine(RectTransform targetRect, Vector3 originScale)
         {
-            float duration = 0.25f;
+            float duration = 0.3f;
             float elapsed = 0f;
 
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
                 float t = elapsed / duration;
-                float scaleBoost = Mathf.Sin(t * Mathf.PI) * 0.22f;
+                float scaleBoost = (1f - t) * Mathf.Sin(t * Mathf.PI * 3f) * 0.24f;
 
                 targetRect.localScale = originScale * (1f + scaleBoost);
                 yield return null;
@@ -589,9 +738,10 @@ namespace VisualNovelSystem
 
         private Color GetSpeakerPlaceholderColor(string speakerName)
         {
+            if (IsProtagonistSpeaker(speakerName)) return new Color(0.35f, 0.50f, 0.70f, 1f); // Azul detective noir
+
             switch (speakerName)
             {
-                case "Gabe": return new Color(0.35f, 0.50f, 0.70f, 1f); // Azul detective noir
                 case "Elena": return new Color(0.85f, 0.45f, 0.45f, 1f);
                 case "Ernesto": return new Color(0.75f, 0.55f, 0.35f, 1f);
                 case "Robert": return new Color(0.45f, 0.65f, 0.75f, 1f);

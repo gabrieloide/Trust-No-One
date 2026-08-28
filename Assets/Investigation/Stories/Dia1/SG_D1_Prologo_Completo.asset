@@ -378,8 +378,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName:
-        dialogueText: "I walk up to the motel's front desk. A young woman works
-          the counter without looking up much."
+        dialogueText: "Near the curb by the gas station, a disheveled man sits
+          on the concrete, clutching an Old Crow gin bottle in a paper bag."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -389,8 +389,9 @@ MonoBehaviour:
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName: Elena
-        dialogueText: "How many nights?"
+        speakerName: Mark
+        dialogueText: "Got a dollar, stranger?... Or a smoke. Doesn't matter. Nobody
+          sleeps sound in this motel anyway."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -401,7 +402,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "One, hopefully."
+        dialogueText: "I leave him to his bottle and push through the front door
+          into the motel lobby."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -412,7 +414,7 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Elena
-        dialogueText: "Nobody here stays just one night out of luck."
+        dialogueText: "How many nights?"
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -422,9 +424,8 @@ MonoBehaviour:
       type: {class: DialogueAction, ns: VisualNovelSystem, asm: VisualNovelSystem.Runtime}
       data:
         enabled: 1
-        speakerName:
-        dialogueText: "She hands me a brass key and goes back to her papers before
-          I can add another word."
+        speakerName: Gabe
+        dialogueText: "One, hopefully. Just waiting on a tow truck."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -674,8 +675,7 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Gabe
-        dialogueText: "You got here awfully fast, didn't you? The crash barely
-          made a sound."
+        dialogueText: "What on earth happened out here? Did someone call the police?"
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03
@@ -686,9 +686,8 @@ MonoBehaviour:
       data:
         enabled: 1
         speakerName: Robert
-        dialogueText: "I'm a light sleeper when my motel's safety is at stake,
-          Mr. Miller. I've already notified the county sheriff, they'll be here
-          first thing."
+        dialogueText: "I've already notified the county sheriff, detective. They'll
+          be here first thing in the morning."
         characterPortrait: {fileID: 0}
         voiceClip: {fileID: 0}
         typewriterSpeed: 0.03

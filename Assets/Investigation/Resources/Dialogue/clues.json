@@ -3,112 +3,112 @@
         {
             "id": "carpet_fiber",
             "displayName": "Carpet fiber",
-            "description": "A synthetic, olive-green fiber, snagged on a splinter near the scene. It's not from the motel.",
+            "description": "A synthetic olive-green fiber, snagged on a splinter near the scene. It matches the carpet rolls sold at Ernesto's shop.",
             "hiddenWeight": 1,
             "pointsTo": ["ernesto"]
         },
         {
             "id": "carpet_shop_receipt",
-            "displayName": "Carpet shop receipt",
-            "description": "A crumpled receipt. Barely any sales in months. Somebody needs money.",
+            "displayName": "Carpet shop receipt and debt",
+            "description": "A crumpled invoice with near-zero sales and a note showing heavy financial debt to Robert Hale.",
             "hiddenWeight": 0,
             "pointsTo": ["ernesto"]
         },
         {
             "id": "ernesto_false_alibi",
             "displayName": "Ernesto's false alibi",
-            "description": "He said he was closing up the shop. The hours don't add up.",
+            "description": "He claimed he was in his shop all night, but his truck was seen cruising the dark highway shoulder at midnight.",
             "hiddenWeight": 1,
             "pointsTo": ["ernesto"]
         },
         {
             "id": "ernesto_hand_cut",
             "displayName": "Fresh cut on Ernesto's hand",
-            "description": "A fresh cut, poorly bandaged. He says it was from a can.",
-            "hiddenWeight": 1,
+            "description": "A fresh cut on his palm, poorly bandaged. He claims it was a shop tool, but it matches jagged bottle glass.",
+            "hiddenWeight": 0,
             "pointsTo": ["ernesto"]
         },
         {
             "id": "basement_lock",
             "displayName": "Basement padlock",
-            "description": "The chain lies on the ground, the padlock forced from the inside. Someone got out, not in.",
+            "description": "The loose chain lies on the ground, the padlock burst outward using a boiler wrench. Someone broke out, not in.",
             "hiddenWeight": 1,
             "pointsTo": ["robert"]
         },
         {
             "id": "basement_exclusive_access",
             "displayName": "Exclusive basement access",
-            "description": "According to Elena, only Robert has the key. Nobody else goes down there.",
+            "description": "According to Elena, only Robert Hale holds the key to the boiler room. Nobody else is allowed down there.",
             "hiddenWeight": 1,
             "pointsTo": ["robert"]
         },
         {
             "id": "basement_noises_match",
             "displayName": "Matching basement noise reports",
-            "description": "Mark talks about noises and people locked up. Frank, without realizing it, mentions the same thing.",
+            "description": "Mark talks about noises and someone locked away. Frank mentions Robert constantly hauling heavy boxes to the basement.",
             "hiddenWeight": 0,
             "pointsTo": ["robert"]
         },
         {
             "id": "robert_quick_arrival",
             "displayName": "Robert's suspiciously quick arrival",
-            "description": "He reached the scene before anyone had to call him twice.",
+            "description": "He reached the crime scene in under ninety seconds, fully dressed in suit and fine dress shoes at midnight.",
             "hiddenWeight": 0,
             "pointsTo": ["robert"]
         },
         {
             "id": "bottle_was_marks",
             "displayName": "The bottle was Mark's",
-            "description": "The label matches what Mark always carries on him.",
+            "description": "The Old Crow gin label matches the exact bottle Mark bought at the gas station that evening.",
             "hiddenWeight": 1,
             "pointsTo": ["mark"]
         },
         {
             "id": "glass_matches_bottle",
             "displayName": "The glass matches the bottle",
-            "description": "The edges of the broken glass match a bottle of that brand.",
+            "description": "The fatal shard used in the attack matches the jagged neck of Mark's shattered gin bottle.",
             "hiddenWeight": 1,
             "pointsTo": ["mark"]
         },
         {
             "id": "frank_saw_mark_and_carla",
             "displayName": "Frank saw Mark cross paths with Carla",
-            "description": "Frank saw them arguing from a distance that night. He wasn't sure what was going on.",
+            "description": "Frank saw Mark and Carla arguing or crossing paths near the roadside shortly before midnight.",
             "hiddenWeight": 0,
             "pointsTo": ["mark"]
         },
         {
             "id": "mark_no_memory",
             "displayName": "Mark doesn't remember that night",
-            "description": "His story cuts off right at that part. Could be the drink. Could be something else.",
+            "description": "His story breaks into panic and confusion after seeing a tall figure in clean clothes step out from the dark.",
             "hiddenWeight": 0,
             "pointsTo": ["mark"]
         },
         {
             "id": "elena_seen_running",
             "displayName": "Elena seen running that night",
-            "description": "Someone saw her running in the opposite direction from the scream.",
+            "description": "Witnesses saw her fleeing the alleyway right after the scream, visibly terrified and furious.",
             "hiddenWeight": 0,
             "pointsTo": ["elena"]
         },
         {
             "id": "elena_master_keys",
-            "displayName": "Elena's full access",
-            "description": "She has a master key to the whole motel. Any door, any hour.",
+            "displayName": "Elena's master key access",
+            "description": "She carries a master pass to every motel door and hallway, allowing unmonitored movement across the complex.",
             "hiddenWeight": 1,
             "pointsTo": ["elena"]
         },
         {
             "id": "carla_belongings",
-            "displayName": "Carla's belongings",
-            "description": "Carla's things, hidden near the basement. Someone stashed them there.",
+            "displayName": "Carla's travel bag and escape cash",
+            "description": "Carla's hidden bag. Contains a single bus ticket to Seattle and $5,000 cash stolen from the escape pact with Elena.",
             "hiddenWeight": 1,
             "pointsTo": ["robert", "elena"]
         },
         {
             "id": "elena_alibi_gap",
-            "displayName": "Elena's alibi doesn't add up",
-            "description": "She says she was in the linen room. The timing doesn't work.",
+            "displayName": "Elena's hallway confrontation",
+            "description": "Elena discovered Carla's betrayal and violently screamed at her before midnight: 'You won't leave with my money!'",
             "hiddenWeight": 0,
             "pointsTo": ["elena"]
         }

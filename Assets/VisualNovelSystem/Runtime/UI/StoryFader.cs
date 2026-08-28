@@ -26,6 +26,7 @@ namespace VisualNovelSystem
         }
 
         public bool IsFading => currentFadeRoutine != null;
+        public bool IsBlack => canvasGroup != null && canvasGroup.alpha >= 0.95f;
 
         public void SetInstant(Color color, float alpha)
         {
