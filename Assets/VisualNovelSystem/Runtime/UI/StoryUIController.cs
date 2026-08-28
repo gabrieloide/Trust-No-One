@@ -81,6 +81,11 @@ namespace VisualNovelSystem
             {
                 yield return new WaitForSeconds(duration);
             }
+
+            if (targetAlpha >= 0.95f)
+            {
+                HideDialogue();
+            }
         }
 
         public IEnumerator ShowOverlay(string title, string subtitle, OverlayDisplayMode mode, OverlayEffect effect, float duration, bool waitForClick, float fadeDuration = 0.5f)

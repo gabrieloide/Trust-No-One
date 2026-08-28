@@ -58,6 +58,8 @@ namespace Investigation
                 yield break;
             }
 
+            yield return GatheringPreamble();
+
             var suspectOptions = SuspectIds
                 .Select(id => new StoryChoiceOption { id = id, text = DialogueDatabase.Instance.GetCharacter(id)?.displayName ?? id })
                 .ToList();
@@ -112,6 +114,27 @@ namespace Investigation
             isBusy = false;
         }
 
+        // Reúne al sheriff y a los 4 sospechosos antes del menú de acusación: paga la promesa
+        // del monólogo del amanecer del Día 3 ("the sheriff will arrive at nightfall to close
+        // the case"), que hasta ahora no tenía ninguna escena asociada.
+        private IEnumerator GatheringPreamble()
+        {
+            yield return UI.ShowOverlay("NIGHTFALL", "The sheriff's cruiser pulls into the lot.", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2f, true);
+
+            yield return UI.ShowDialogue("", "By the time he steps out, everyone's already gathered under the buzzing neon sign — Robert, Elena, Ernesto, Mark, herded together like it's the only thing left to do tonight.", null, null, -1f, true);
+
+            yield return UI.ShowDialogue("Sheriff", "Alright. I'm told somebody here's got a story worth hearing. Last chance before I start writing names down myself.", null, null, -1f, true);
+
+            var db = DialogueDatabase.Instance;
+            yield return UI.ShowDialogue(db.ResolveSpeakerDisplayName("ernesto"), "Ask him what he keeps in that basement! Ask him why nobody else gets a key!", null, null, -1f, true);
+            yield return UI.ShowDialogue(db.ResolveSpeakerDisplayName("robert"), "Ernesto, please. This isn't the time for wild stories.", null, null, -1f, true);
+            yield return UI.ShowDialogue(db.ResolveSpeakerDisplayName("elena"), "Wild stories? A girl is dead, Robert.", null, null, -1f, true);
+            yield return UI.ShowDialogue(db.ResolveSpeakerDisplayName("mark"), "I didn't do nothing... I didn't do nothing...", null, null, -1f, true);
+
+            yield return UI.ShowDialogue("Sheriff", "That's enough, all of you. Quiet.", null, null, -1f, true);
+            yield return UI.ShowDialogue("Sheriff", "Detective. You've had three days. Who was it?", null, null, -1f, true);
+        }
+
         private IEnumerator ResolveOutcome(string suspectId, string evidenceClueId)
         {
             bool accusedRobert = suspectId == "robert";
@@ -130,16 +153,16 @@ namespace Investigation
             switch (suspectId)
             {
                 case "robert":
-                    yield return UI.ShowDialogue("Robert", "And what evidence do you plan to back up such an outrageous claim with, detective? Because so far all you have are guesses and hallway gossip.", null, null, -1f, true);
+                    yield return UI.ShowDialogue(suspectName, "And what evidence do you plan to back up such an outrageous claim with, detective? Because so far all you have are guesses and hallway gossip.", null, null, -1f, true);
                     break;
                 case "ernesto":
-                    yield return UI.ShowDialogue("Ernesto", "You're crazy! I didn't do anything to that woman! You can't prove a single word of what you're saying!", null, null, -1f, true);
+                    yield return UI.ShowDialogue(suspectName, "You're crazy! I didn't do anything to that woman! You can't prove a single word of what you're saying!", null, null, -1f, true);
                     break;
                 case "mark":
-                    yield return UI.ShowDialogue("Mark", "No, no, no! It wasn't me! There were noises downstairs, I swear, but I never touched Carla! Don't lock me up again!", null, null, -1f, true);
+                    yield return UI.ShowDialogue(suspectName, "No, no, no! It wasn't me! There were noises downstairs, I swear, but I never touched Carla! Don't lock me up again!", null, null, -1f, true);
                     break;
                 case "elena":
-                    yield return UI.ShowDialogue("Elena", "Me? Why are you looking at me? All I did was run out of fear when I heard the crash... this is insane.", null, null, -1f, true);
+                    yield return UI.ShowDialogue(suspectName, "Me?! Of course, blame the motel clerk! That woman conned me out of my life savings, and I wanted to tear her apart, yes! But I didn't murder her!", null, null, -1f, true);
                     break;
             }
 
@@ -151,12 +174,16 @@ namespace Investigation
                 if (accusedRobert && hasStrongRelevant)
                 {
                     yield return UI.ShowDialogue("Gabe", $"I have this: {evidence.displayName}. {evidence.description}. The padlock forced from the inside, and your exclusive access to the basement. There's no more stories left to invent, Robert.", null, null, -1f, true);
-                    yield return UI.ShowDialogue("Robert", "...", null, null, -1f, true);
+
+                    AudioManager.Play(SFXType.ConfrontationSlam);
+                    yield return UI.ShowOverlay("", "He says nothing.", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 1.6f, false);
+
+                    yield return UI.ShowDialogue(suspectName, "...", null, null, -1f, true);
                 }
                 else if (accusedRobert)
                 {
                     yield return UI.ShowDialogue("Gabe", $"I have this: {evidence.displayName}. {evidence.description}.", null, null, -1f, true);
-                    yield return UI.ShowDialogue("Robert", "Is that all you have? A loose thread. I'm afraid you'll need a lot more than that in front of a judge, Mr. Miller.", null, null, -1f, true);
+                    yield return UI.ShowDialogue(suspectName, "Is that all you have? A loose thread. I'm afraid you'll need a lot more than that in front of a judge, detective.", null, null, -1f, true);
                 }
                 else if (hasStrongRelevant)
                 {

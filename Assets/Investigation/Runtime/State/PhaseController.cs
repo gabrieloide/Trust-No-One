@@ -23,7 +23,7 @@ namespace Investigation
         }
 
         private static readonly int[] PhasesPerDay = { 2, 3, 3 };
-        private const int ActionsPerPhase = 4;
+        private const int ActionsPerPhase = 6;
         private const int TotalDays = 3;
 
         public static event Action OnActionsChanged;
@@ -49,6 +49,40 @@ namespace Investigation
         }
 
         public bool IsCaseOver => CaseState.Instance.currentDay > TotalDays;
+
+        public int GetTotalActionsRemainingToday()
+        {
+            if (IsCaseOver || CaseState.Instance == null) return 0;
+            int day = CaseState.Instance.currentDay;
+            if (day > TotalDays) return 0;
+
+            int maxPhases = PhasesPerDay[Mathf.Clamp(day - 1, 0, PhasesPerDay.Length - 1)];
+            int currentPhase = CaseState.Instance.currentPhase;
+            int remainingPhases = Mathf.Max(0, maxPhases - currentPhase);
+            return CaseState.Instance.actionsRemainingInPhase + (remainingPhases * ActionsPerPhase);
+        }
+
+        public void AdvanceToNextDay()
+        {
+            if (IsCaseOver || CaseState.Instance == null) return;
+
+            int currentDay = CaseState.Instance.currentDay;
+            if (currentDay >= TotalDays)
+            {
+                CaseState.Instance.currentDay = TotalDays + 1;
+                CaseState.Instance.actionsRemainingInPhase = 0;
+            }
+            else
+            {
+                int nextDay = currentDay + 1;
+                CaseState.Instance.currentDay = nextDay;
+                CaseState.Instance.currentPhase = 1;
+                CaseState.Instance.actionsRemainingInPhase = ActionsPerPhase;
+                CaseState.Instance.SetFlag(PhaseFlag(nextDay, 1));
+            }
+
+            OnActionsChanged?.Invoke();
+        }
 
         public void SpendAction()
         {

@@ -14,7 +14,9 @@ namespace Investigation
         {
             if (!string.IsNullOrEmpty(targetLocationId) && LocationController.Instance != null)
             {
-                LocationController.Instance.GoTo(targetLocationId);
+                var fader = runner != null && runner.UIController != null ? runner.UIController.Fader : null;
+                bool isAlreadyBlack = fader != null && fader.IsBlack;
+                LocationController.Instance.GoTo(targetLocationId, isAlreadyBlack);
             }
             yield break;
         }

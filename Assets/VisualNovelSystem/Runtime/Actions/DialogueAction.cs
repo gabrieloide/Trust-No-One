@@ -23,6 +23,14 @@ namespace VisualNovelSystem
             var ui = runner != null ? runner.UIController : null;
             if (ui != null)
             {
+                // Si la pantalla aún está en proceso de Fade (ej. Fade In tras cambio de escena),
+                // preparamos los personajes e interfaz para que durante el Fade In ya aparezca el personaje correcto
+                // en lugar de mostrar al personaje anterior y cambiar de golpe al terminar.
+                if (ui.DialogueUI != null && ui.Fader != null && ui.Fader.IsFading)
+                {
+                    ui.DialogueUI.PrepareSpeakerStage(speakerName, characterPortrait);
+                }
+
                 // Esperar si la pantalla aún está en proceso de Fade antes de empezar a escribir el texto y reproducir audio
                 if (ui.Fader != null)
                 {

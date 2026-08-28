@@ -15,8 +15,8 @@
                     ],
                     "lines": [
                         { "speaker": "", "text": "Knowing what Gus told me, I crouch down to check the mud behind the hedge." },
-                        { "speaker": "", "text": "The broken branches are at shoulder height. There's a deep print in the mud: stiff leather sole, thin heel." },
-                        { "speaker": "", "text": "Those aren't Mark's worn-out sneakers. Whoever ran through here was wearing dress shoes." }
+                        { "speaker": "", "text": "The broken branches are fresh. There's a clear print in the wet soil: stiff leather sole, thin heel." },
+                        { "speaker": "", "text": "Those aren't Mark's worn sneakers or Ernesto's work boots. Whoever pursued Carla here was wearing formal dress shoes." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "arbustos_examined", "b": "" },
@@ -28,8 +28,8 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Broken branches by the roadside, disturbed dirt. Someone came through here in a hurry, heading for the back of the motel." },
-                        { "speaker": "", "text": "There's no clear print without knowing what to look for, but it confirms there was movement before dawn." }
+                        { "speaker": "", "text": "Broken branches by the roadside hedge, disturbed dirt. Someone ran through here in a hurry toward the dark alley." },
+                        { "speaker": "", "text": "There's no clear print without knowing what to look for, but it confirms a struggle took place before dawn." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "arbustos_examined", "b": "" }
@@ -52,8 +52,8 @@
                     ],
                     "lines": [
                         { "speaker": "", "text": "I take another look at the papers on the counter after Ernesto's nervous reaction." },
-                        { "speaker": "", "text": "He's not just failing to sell carpet: on the back of an invoice there's a note in Robert's handwriting: 'Monthly payment deferred in exchange for night hauls.'" },
-                        { "speaker": "", "text": "Ernesto isn't just broke; he's in deep with the motel owner." }
+                        { "speaker": "", "text": "He's not just failing to sell carpets: on the back of an overdue bill, there's a note in Robert's handwriting: 'Monthly debt deferred in exchange for night transport and supply hauls.'" },
+                        { "speaker": "", "text": "Ernesto isn't just broke; he's completely trapped by Robert Hale's financial leverage." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carpet_shop_receipt", "b": "" },
@@ -65,8 +65,8 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "A crumpled receipt on the counter, tossed aside like nobody was ever meant to read it." },
-                        { "speaker": "", "text": "Three small sales in two months. A business can't survive on these numbers. What else is getting paid for here?" }
+                        { "speaker": "", "text": "A crumpled invoice on the counter, tossed aside like nobody was ever meant to read it." },
+                        { "speaker": "", "text": "Near-zero sales in three months. A business cannot survive on these numbers without hidden income." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carpet_shop_receipt", "b": "" }
@@ -88,9 +88,9 @@
                         { "kind": 3, "a": "frank_saw_mark_and_carla", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Keeping Frank's testimony in mind, I examine the fragments under the streetlamp." },
-                        { "speaker": "", "text": "The neck still has part of the label: 'Old Crow Gin.' It's exactly the bottle Frank sold Mark before the argument." },
-                        { "speaker": "", "text": "The impact was against the curb, not the victim's body. The bottle fell during a struggle." }
+                        { "speaker": "", "text": "Keeping Frank's testimony in mind, I examine the glass shards under the perimeter light." },
+                        { "speaker": "", "text": "The neck still carries the label: 'Old Crow Gin.' It matches the exact bottle Mark purchased at the gas station." },
+                        { "speaker": "", "text": "The bottle shattered against the curb when Mark stumbled. The killer snatched the jagged neck right from the ground to strike Carla." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "glass_matches_bottle", "b": "" },
@@ -102,8 +102,8 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Thick green glass. The edges match the cheap bottles sold at the gas station." },
-                        { "speaker": "", "text": "The same kind Mark usually carries. That suggests his presence, but it still doesn't prove direct assault." }
+                        { "speaker": "", "text": "Thick green glass fragments scattered near the curb. The label indicates cheap gin." },
+                        { "speaker": "", "text": "The same brand Mark usually carries. That confirms his presence, but the fatal attack happened seconds later in the bushes." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "glass_matches_bottle", "b": "" }
@@ -125,9 +125,9 @@
                         { "kind": 3, "a": "basement_exclusive_access", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Elena confirmed that only Robert has the key to this door." },
-                        { "speaker": "", "text": "I look closely at the lock: the rivets popped outward from a hard blow from inside the underground room." },
-                        { "speaker": "", "text": "Robert locked someone down there, and that person tried desperately to escape before dying." }
+                        { "speaker": "", "text": "Elena confirmed that only Robert has the key to this boiler room door." },
+                        { "speaker": "", "text": "I inspect the chain and latch closely: a heavy boiler wrench was jammed through the door gap from the inside, bending the rusted eyelet outward with brutal leverage." },
+                        { "speaker": "", "text": "Robert locked Carla inside the basement, and she broke her way out into the dark to catch the morning bus." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "basement_lock", "b": "" },
@@ -139,8 +139,8 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "The chain hangs loose. The padlock isn't forced from outside: it's busted from the inside." },
-                        { "speaker": "", "text": "Someone wanted out of there. Not in." }
+                        { "speaker": "", "text": "The chain hangs loose against the wooden frame. The padlock and latch were pried open from the inside." },
+                        { "speaker": "", "text": "Someone trapped down in the boiler room fought desperately to break out." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "basement_lock", "b": "" }
@@ -162,9 +162,9 @@
                         { "kind": 3, "a": "carpet_shop_receipt", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "With Ernesto's shop catalog in mind, I check the splinters on the lower frame." },
-                        { "speaker": "", "text": "A synthetic olive-green fiber. The weave and the dye match exactly the roll from Ernesto Vidal's shop." },
-                        { "speaker": "", "text": "The body was carried wrapped in a scrap of that carpet before being left by the basement." }
+                        { "speaker": "", "text": "With Ernesto's debt arrangement in mind, I check the splinters on the lower corner of the wall." },
+                        { "speaker": "", "text": "A synthetic olive-green fiber, exactly matching the roll from Ernesto Vidal's shop." },
+                        { "speaker": "", "text": "Ernesto was forced to sweep and search the crime scene in the dark under Robert's orders, leaving traces of his work clothes." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carpet_fiber", "b": "" },
@@ -176,9 +176,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "On the second pass, you see what you missed the first time." },
-                        { "speaker": "", "text": "An olive-green fiber, snagged on a splinter. It's not from anything in this motel." },
-                        { "speaker": "", "text": "Synthetic carpet. I know exactly one place in town that sells it." }
+                        { "speaker": "", "text": "On the second pass, you notice what you missed the first night." },
+                        { "speaker": "", "text": "An olive-green fiber snagged on a rough splinter. It's not from any motel linen." },
+                        { "speaker": "", "text": "Synthetic carpet fabric. Only Ernesto's shop stocks this exact weave in town." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carpet_fiber", "b": "" }
@@ -201,8 +201,8 @@
                         { "kind": 3, "a": "basement_exclusive_access", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Padlock busted from the inside. One single key in the whole motel, and it's in Robert Hale's hands." },
-                        { "speaker": "", "text": "Two loose facts that, together, destroy any attempt at an innocent explanation." }
+                        { "speaker": "", "text": "Padlock and latch busted outward from within. A single key in the entire complex, held exclusively by Robert Hale." },
+                        { "speaker": "", "text": "Two physical facts that destroy any claim that Carla's death was a random highway robbery." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "basement_combo_confirmed", "b": "" }
@@ -213,7 +213,7 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "I take another look at the basement door. I still need one more piece to close this case for good." }
+                        { "speaker": "", "text": "I take another look at the basement door. The pieces are coming together, but I need the full chain of evidence." }
                     ],
                     "effects": []
                 }
@@ -231,8 +231,8 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "A maintenance logbook on the desk. Neat, orderly entries: 'valve inspection,' 'generator fuel,' 'supply purchase.'" },
-                        { "speaker": "", "text": "Everything looks in order. The detailed log of a meticulous manager." }
+                        { "speaker": "", "text": "A meticulous maintenance log on Robert's desk. Precise entries: 'valve inspection,' 'boiler check,' 'generator upkeep.'" },
+                        { "speaker": "", "text": "A calculated, immaculate record. The paper trail of a man who plans every excuse in advance." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "maintenance_log_seen", "b": "" }
@@ -254,9 +254,9 @@
                         { "kind": 0, "a": "elena_trust_intact", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "Following the halting directions Elena gave me, I search behind the stack of wooden crates." },
-                        { "speaker": "", "text": "A woman's travel bag with the initials 'C.R.' Inside is a bus ticket to Seattle for that very same dawn." },
-                        { "speaker": "", "text": "Carla wasn't planning to stay at the motel. She was planning to run. Robert found out, and he never let her reach that bus stop." }
+                        { "speaker": "", "text": "Following what Elena let slip in her terror, I search behind the stack of wooden toolboxes near the boiler room." },
+                        { "speaker": "", "text": "Carla's leather travel bag. Inside is a single bus ticket to Seattle dated for that very dawn, and a thick envelope stuffed with $5,000 cash." },
+                        { "speaker": "", "text": "Carla betrayed Elena by stealing the full escape fund. Robert took the bag after killing Carla and stashed it here to retrieve later." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carla_belongings", "b": "" },
@@ -268,9 +268,9 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Behind some toolboxes, hidden more than stored: belongings that don't belong to the motel." },
-                        { "speaker": "", "text": "Hastily folded clothes, a hairbrush, Carla Rossi's personal documents." },
-                        { "speaker": "", "text": "Who hid these here instead of leaving them in her room? The killer tried to erase her time at the Starlight." }
+                        { "speaker": "", "text": "Behind some toolboxes near the boiler wall: a woman's travel bag hidden in the shadows." },
+                        { "speaker": "", "text": "Carla's bag contains a single bus ticket to Seattle and $5,000 in cash. The escape money Elena spoke of." },
+                        { "speaker": "", "text": "Whoever killed Carla took her bag from the bushes and hid it here, waiting for the police to leave." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "carla_belongings", "b": "" }

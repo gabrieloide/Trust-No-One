@@ -284,7 +284,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gas Station
+  m_text: "\U0001F4CD Gas Station"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
   m_sharedMaterial: {fileID: -8793730768739547499, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
@@ -1493,6 +1493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791249d04e58b3544926c93f860abe21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Investigation.Runtime::Investigation.EvidencePanelController
+  panelRoot: {fileID: 0}
+  container: {fileID: 0}
 --- !u!4 &143839764
 Transform:
   m_ObjectHideFlags: 0
@@ -3846,7 +3848,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Roadside
+  m_text: "\U0001F4CD Road / Highway"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
   m_sharedMaterial: {fileID: -8793730768739547499, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
@@ -4198,7 +4200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Backyard - Crime Scene
+  m_text: "\U0001F4CD Backyard \u2014 Crime Scene"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
   m_sharedMaterial: {fileID: -8793730768739547499, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
@@ -4474,7 +4476,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Motel - Front Desk
+  m_text: "\U0001F4CD Motel \u2014 Front Desk"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
   m_sharedMaterial: {fileID: -8793730768739547499, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
@@ -8351,7 +8353,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ACCUSE
+  m_text: "\u2696\uFE0F ACCUSE"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
   m_sharedMaterial: {fileID: -8793730768739547499, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
@@ -9072,7 +9074,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Diner
+  m_text: "\U0001F4CD Diner"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
   m_sharedMaterial: {fileID: -8793730768739547499, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
@@ -9392,7 +9394,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: X
+  m_text: "\u2715"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
   m_sharedMaterial: {fileID: -8793730768739547499, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
@@ -10779,7 +10781,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '[Investigate]
 
-    Perimeter'
+    Perimeter / Ground'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
   m_sharedMaterial: {fileID: -8793730768739547499, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
@@ -11190,7 +11192,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Clue Board
+  m_text: "\U0001F5C2 Clue Board"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
   m_sharedMaterial: {fileID: -8793730768739547499, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
@@ -12455,7 +12457,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Carpet Shop
+  m_text: "\U0001F4CD Carpet Shop"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}
   m_sharedMaterial: {fileID: -8793730768739547499, guid: a84e2362293bad1439e825a0cf8dfc04, type: 2}

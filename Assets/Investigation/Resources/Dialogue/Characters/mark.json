@@ -16,11 +16,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Mark is sitting against the wall of the gas station, shivering and muttering under his breath." },
-                        { "speaker": "Mark", "text": "Noises. Last night, before, always. Banging down below. Like someone pounding to be heard and nobody hears." },
+                        { "speaker": "", "text": "Mark is sitting against the wall of the gas station, shivering and clutching his brown paper bag." },
+                        { "speaker": "Mark", "text": "Noises. Last night, before, always. Banging down below in the boiler room. Like someone pounding to be heard and nobody listens." },
                         { "speaker": "Gabe", "text": "Banging from where?" },
-                        { "speaker": "Mark", "text": "From the motel. Under the motel. There's people down there. Locked-up people. Told Frank once and he laughed." },
-                        { "speaker": "", "text": "He talks fast, jumps from one idea to the next, but there's a pattern underneath the rambling." }
+                        { "speaker": "Mark", "text": "From under the motel floorboards. Someone was trapped down there. Then last night, she came bursting out like a ghost from the ground." },
+                        { "speaker": "", "text": "He speaks in feverish bursts, but a chilling pattern emerges from his words." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "basement_noises_match", "b": "" }
@@ -45,9 +45,10 @@
                     "conditions": [],
                     "lines": [
                         { "speaker": "Gabe", "text": "I believe you, Mark. Go on." },
-                        { "speaker": "Mark", "text": "Yeah? Nobody ever believes me. Not even me, sometimes." },
-                        { "speaker": "", "text": "He calms down a little, looking me in the eye." },
-                        { "speaker": "Mark", "text": "Hale. Always Hale going down there at night. With a bag, with a box. Never goes down empty-handed." }
+                        { "speaker": "Mark", "text": "Yeah? Nobody ever believes me. Not even Frank." },
+                        { "speaker": "", "text": "He calms down a little, his eyes widening with vivid memory." },
+                        { "speaker": "Mark", "text": "When she ran past me toward the hedges, I stumbled and dropped my gin bottle on the curb. Smashed into a hundred pieces." },
+                        { "speaker": "Mark", "text": "Right behind her came a tall shadow with clean clothes and shiny shoes. I hid behind the pump because the dark around that man has teeth." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "mark_trusted", "b": "" }
@@ -72,8 +73,8 @@
                     "conditions": [],
                     "lines": [
                         { "speaker": "Gabe", "text": "I get it, Mark. Thanks." },
-                        { "speaker": "", "text": "I don't believe him. And it shows right away." },
-                        { "speaker": "Mark", "text": "Sure. Like everyone else. The crazy man talks, the crazy man doesn't matter." }
+                        { "speaker": "", "text": "My skepticism shows in my tone immediately." },
+                        { "speaker": "Mark", "text": "Sure. Like everyone else. The crazy drunk talks, nobody cares until the shadows swallow them too." }
                     ],
                     "effects": [
                         { "kind": 4, "a": "mark_credibility_broken", "b": "1" }
@@ -96,10 +97,10 @@
                         { "kind": 5, "a": "mark_credibility_broken", "b": "1", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "Mark", "text": "Empty bottles... it all blurs together. The cold, the wind. I don't know anything, I don't remember anything." },
-                        { "speaker": "Gabe", "text": "What about those footsteps you kept hearing?" },
-                        { "speaker": "Mark", "text": "What footsteps? Leave me alone. You already told me you don't believe me." },
-                        { "speaker": "", "text": "He turns to face the wall. There's no getting anything else out of him now." }
+                        { "speaker": "Mark", "text": "Broken glass... cheap gin... it all blurs together in my head. I don't remember anything." },
+                        { "speaker": "Gabe", "text": "What about the tall shadow in clean clothes?" },
+                        { "speaker": "Mark", "text": "What shadow? Leave me alone. You already made up your mind about me." },
+                        { "speaker": "", "text": "He curls up against the bricks and looks away. He won't say another word." }
                     ],
                     "effects": []
                 },
@@ -108,10 +109,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Mark", "text": "Footsteps. Almost every night, footsteps going down." },
-                        { "speaker": "Gabe", "text": "And the night the girl died?" },
-                        { "speaker": "Mark", "text": "That one... no. That night's a blank. Like someone tore it right out of my head." },
-                        { "speaker": "", "text": "It's the first time I've seen him admit he doesn't know something, instead of making it up." }
+                        { "speaker": "Mark", "text": "Footsteps going down into the boiler room... almost every night for weeks." },
+                        { "speaker": "Gabe", "text": "And right after the girl screamed in the bushes?" },
+                        { "speaker": "Mark", "text": "That part... my head went blank with fear. I ran. But that bottle wasn't in my hand when she died, I swear on my mother's grave." },
+                        { "speaker": "", "text": "His terror is genuine. His bottle was the weapon, but he wasn't the killer." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "mark_no_memory", "b": "" }

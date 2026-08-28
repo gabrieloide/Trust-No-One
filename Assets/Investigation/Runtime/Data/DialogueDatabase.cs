@@ -96,6 +96,16 @@ namespace Investigation
             return characters.TryGetValue(characterId, out var data) ? data : null;
         }
 
+        // Los diálogos usan solo el nombre de pila como "speaker" ("Robert", "Elena"...).
+        // Esto lo resuelve contra el nombre completo del personaje (con apellido) para que
+        // no haga falta llegar al final del juego para verlo. Nombres sin personaje
+        // registrado (Gabe, Sheriff, narrador) pasan sin cambios.
+        public string ResolveSpeakerDisplayName(string speaker)
+        {
+            if (string.IsNullOrEmpty(speaker)) return speaker;
+            return characters.TryGetValue(speaker.ToLowerInvariant(), out var data) ? data.displayName : speaker;
+        }
+
         public ClueData GetClue(string clueId)
         {
             return clues.TryGetValue(clueId, out var data) ? data : null;

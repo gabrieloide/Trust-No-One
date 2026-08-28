@@ -39,6 +39,13 @@ namespace VisualNovelSystem
             {
                 yield return new WaitForSeconds(duration);
             }
+
+            // Al oscurecer por completo (Fade Out), limpiamos el diálogo y los personajes viejos
+            // para que al hacer Fade In posterior nunca aparezca el personaje anterior.
+            if (fadeType == FadeType.FadeOut && runner != null && runner.UIController != null)
+            {
+                runner.UIController.HideDialogue();
+            }
         }
 
         public override string GetSummary()

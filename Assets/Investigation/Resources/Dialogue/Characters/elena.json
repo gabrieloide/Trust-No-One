@@ -16,11 +16,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "A young woman works the front desk without looking up much." },
+                        { "speaker": "", "text": "A sharp-eyed young woman works the front desk, staring at a ledger with tight-lipped bitterness." },
                         { "speaker": "Elena", "text": "How many nights?" },
                         { "speaker": "Gabe", "text": "One, hopefully." },
-                        { "speaker": "Elena", "text": "Nobody here stays just one night out of luck." },
-                        { "speaker": "", "text": "She says it with no hint of a joke. She hands me the key and goes back to her own business before I can ask anything else." }
+                        { "speaker": "Elena", "text": "Everyone says that until they get trapped here. People pass through, spin pretty promises, and leave you in the dirt." },
+                        { "speaker": "", "text": "She shoves a brass key across the wood without looking at me, her knuckles white with tension." }
                     ],
                     "effects": []
                 }
@@ -28,7 +28,7 @@
         },
         {
             "id": "elena_talk_morning",
-            "displayName": "Ask her about last night",
+            "displayName": "Ask her about Carla",
             "kind": 0,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
@@ -39,11 +39,12 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "How are you holding up after last night, Elena?" },
-                        { "speaker": "Elena", "text": "Bad. Couldn't sleep a wink. Carla... Carla was a quiet girl. She didn't deserve to end up lying next to that basement." },
-                        { "speaker": "Gabe", "text": "Any idea why she was near the basement at that hour?" },
-                        { "speaker": "Elena", "text": "No idea. The basement's always padlocked... only Robert has the key." },
-                        { "speaker": "", "text": "She rubs her arms like she's cold. Her fear seems genuine." }
+                        { "speaker": "Gabe", "text": "You look like you didn't get any sleep, Elena." },
+                        { "speaker": "Elena", "text": "Sleep? With Carla's body lying out back by the basement? I'm not shedding a single tear for her." },
+                        { "speaker": "Gabe", "text": "You two had bad blood?" },
+                        { "speaker": "Elena", "text": "We had a pact. We were going to pool our savings — five thousand dollars — buy two tickets, and get the hell away from Robert and this place forever." },
+                        { "speaker": "Elena", "text": "Then last night I found out she bought a single ticket to Seattle for herself. She stole the entire envelope and planned to leave me behind to rot." },
+                        { "speaker": "", "text": "Her jaw clenches with burning rage and bitter betrayal. But beneath the anger, her hands tremble with cold dread." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "elena_morning_talked", "b": "" }
@@ -53,7 +54,7 @@
         },
         {
             "id": "elena_confront_calm",
-            "displayName": "Calmly ask her why she ran that night",
+            "displayName": "Calmly ask her why she was running",
             "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
@@ -66,22 +67,23 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Someone saw you running the night of the scream. The wrong direction." },
-                        { "speaker": "", "text": "Her breath catches half a second before she answers." },
-                        { "speaker": "Elena", "text": "I got scared. I just ran, I don't know where, I just ran to get help." },
-                        { "speaker": "Gabe", "text": "It's alright. Nobody said you did anything wrong." },
-                        { "speaker": "", "text": "She relaxes, barely. Enough that she doesn't shut down completely." }
+                        { "speaker": "Gabe", "text": "Someone saw you sprinting away from the hallway right after the scream that night." },
+                        { "speaker": "Elena", "text": "I had just caught her packing! We had a furious fight in the corridor... I screamed at her that she wasn't going to leave with my money." },
+                        { "speaker": "Gabe", "text": "Did anyone hear you two fighting?" },
+                        { "speaker": "Elena", "text": "The whole motel must have. Robert's office door clicked open down the hall... That's when Carla panicked, broke away, and ran toward the back. When I heard the glass break minutes later, I bolted. I knew how it would look." },
+                        { "speaker": "", "text": "She looks down, breathing heavily. She gave Robert the clue that started the hunt, and she knows it." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "elena_trust_intact", "b": "" },
-                        { "kind": 3, "a": "elena_alibi_gap", "b": "" }
+                        { "kind": 3, "a": "elena_alibi_gap", "b": "" },
+                        { "kind": 3, "a": "elena_seen_running", "b": "" }
                     ]
                 }
             ]
         },
         {
             "id": "elena_confront_harsh",
-            "displayName": "Press her directly about her running",
+            "displayName": "Press her directly about the money and the crime",
             "kind": 1,
             "unlockConditions": [
                 { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
@@ -94,15 +96,16 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "You were seen running the wrong way from the noise that night. What were you running from?" },
-                        { "speaker": "Elena", "text": "What did you want me to do? Just stand there and see if I was next?" },
-                        { "speaker": "Gabe", "text": "Staying to explain it to the police, for starters." },
-                        { "speaker": "", "text": "She shuts down instantly. Crosses her arms and her eyes drop to the counter." },
-                        { "speaker": "Elena", "text": "We're done here. Excuse me." }
+                        { "speaker": "Gabe", "text": "She stole your life savings and you hunted her down in the dark. Did you crack her skull to take your envelope back?" },
+                        { "speaker": "Elena", "text": "I wanted my money back, not her blood! I was furious, yes — I could have killed her with my bare hands! But someone else got to her in the dark." },
+                        { "speaker": "Gabe", "text": "Convenient excuse for someone seen running from the scene." },
+                        { "speaker": "Elena", "text": "Think whatever you want, detective! But if I had killed her, I wouldn't be standing here broke, waiting for Robert to decide what to do with me next!" },
+                        { "speaker": "", "text": "She slams her hand against the desk and turns her back to me, shaking with pure rage and fear." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "elena_trust_broken", "b": "" },
-                        { "kind": 3, "a": "elena_alibi_gap", "b": "" }
+                        { "kind": 3, "a": "elena_alibi_gap", "b": "" },
+                        { "kind": 3, "a": "elena_seen_running", "b": "" }
                     ]
                 }
             ]
@@ -120,10 +123,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Who has access to every room in the motel?" },
-                        { "speaker": "Elena", "text": "Only Robert and I have master keys. I use mine for housekeeping, and Robert keeps the spare in his desk." },
-                        { "speaker": "Gabe", "text": "Could anyone else have gotten into a room without forcing the door?" },
-                        { "speaker": "Elena", "text": "Impossible. Unless Robert gave someone a key." }
+                        { "speaker": "Gabe", "text": "You have a master key to every room. You could have walked into Carla's room anytime." },
+                        { "speaker": "Elena", "text": "She locked herself in after stealing the envelope. I stood outside her door with the key in my hand, debating whether to barge in." },
+                        { "speaker": "Gabe", "text": "And did you?" },
+                        { "speaker": "Elena", "text": "No. Because right before midnight, Robert came down that same hallway. Carla wasn't just running from me... she knew what Robert keeps locked in the basement, and that made her dangerous to him." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "elena_master_keys", "b": "" }
@@ -146,9 +149,9 @@
                         { "kind": 0, "a": "elena_trust_broken", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Who else has a key to the basement?" },
-                        { "speaker": "Elena", "text": "Nobody. Just him. Says it's about the generator." },
-                        { "speaker": "", "text": "She answers without looking at me, clipped, like someone paying off a debt she never wanted." }
+                        { "speaker": "Gabe", "text": "Who else has access to the basement?" },
+                        { "speaker": "Elena", "text": "Only Robert. Nobody else has that key. Robert caught Carla trying to slip away with the money and shoved her down into that boiler room to silence her." },
+                        { "speaker": "", "text": "She whispers with chilled breath: 'She broke the chain to get out, but Robert never lets anyone walk away from his property.'" }
                     ],
                     "effects": [
                         { "kind": 3, "a": "basement_exclusive_access", "b": "" },
@@ -160,10 +163,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Have you ever been down to the basement?" },
-                        { "speaker": "Elena", "text": "Never. Only Robert. He says the generator's down there, that it's dangerous, that he'd rather handle it himself." },
-                        { "speaker": "Elena", "text": "Honestly, I don't even really know what's down there. And I've worked here two years already." },
-                        { "speaker": "", "text": "There's something odd in how she says it. Not suspicion yet. Something older, more tired — like she's only now asking herself why she never asked." }
+                        { "speaker": "Gabe", "text": "Why was Carla locked in the boiler room if she was planning to catch a bus?" },
+                        { "speaker": "Elena", "text": "Because Robert caught her trying to sneak out after our fight. He dragged her down to the basement to take the cash and keep her under control. Only Robert has that key." },
+                        { "speaker": "Elena", "text": "Carla must have grabbed a wrench from the pipes and smashed the latch from inside to run. But she didn't get past the hedges." },
+                        { "speaker": "", "text": "Her voice trembles. The pieces fit with terrifying precision." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "basement_exclusive_access", "b": "" },
@@ -186,11 +189,10 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Elena", "text": "You again?" },
-                        { "speaker": "", "text": "She says it without any edge this time. Almost relieved to have someone to talk to." },
-                        { "speaker": "Elena", "text": "Sometimes Robert says things. Half joking, half not. That around here you never know if you'll end up like... like others who passed through." },
-                        { "speaker": "", "text": "She stops before finishing the sentence. Like she's already said more than she meant to." },
-                        { "speaker": "Elena", "text": "Forget it. I'm just tired, that's all." }
+                        { "speaker": "Elena", "text": "Did you find Carla's bag, Gabe?" },
+                        { "speaker": "Gabe", "text": "I'm piecing the case together, Elena." },
+                        { "speaker": "Elena", "text": "Robert took that bag after he killed her. I know he did. He hid it near the boiler room to pick it up once the sheriff leaves. If you don't nail him today, I'm the next one who's going to disappear." },
+                        { "speaker": "", "text": "She looks straight at me, her eyes wide with cold, desperate certainty." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "elena_fear_hint", "b": "" }

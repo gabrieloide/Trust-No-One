@@ -54,6 +54,11 @@ namespace Investigation
         [SerializeField] private GameObject navBarRoot;
         [SerializeField] private GameObject accuseButtonRoot;
 
+        private string currentLocationId = "";
+        private Coroutine activeTransitionRoutine;
+
+        public string CurrentLocationId => currentLocationId;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -65,6 +70,11 @@ namespace Investigation
             Instance = this;
             StoryInteractable.OnGoToLocationRequested += GoTo;
             PhaseController.OnActionsChanged += RefreshAll;
+
+            if (Room4Controller.Instance == null && GetComponent<Room4Controller>() == null)
+            {
+                gameObject.AddComponent<Room4Controller>();
+            }
         }
 
         private void OnDestroy()
@@ -113,6 +123,55 @@ namespace Investigation
 
         public void GoTo(string locationId)
         {
+            GoTo(locationId, false);
+        }
+
+        public void GoTo(string locationId, bool instant)
+        {
+            if (activeTransitionRoutine != null)
+            {
+                StopCoroutine(activeTransitionRoutine);
+                activeTransitionRoutine = null;
+            }
+
+            var fader = StoryUIController.Instance != null ? StoryUIController.Instance.Fader : null;
+            bool isAlreadyBlack = fader != null && fader.IsBlack;
+
+            if (instant || isAlreadyBlack || string.IsNullOrEmpty(currentLocationId) || currentLocationId == locationId || StoryUIController.Instance == null)
+            {
+                ApplyLocationChange(locationId);
+            }
+            else
+            {
+                activeTransitionRoutine = StartCoroutine(TransitionLocationRoutine(locationId));
+            }
+        }
+
+        private System.Collections.IEnumerator TransitionLocationRoutine(string targetLocationId)
+        {
+            var ui = StoryUIController.Instance;
+            if (ui != null)
+            {
+                ui.HideDialogue();
+                // 1. Fade Out a negro (0.22s)
+                yield return ui.FadeScreen(1f, Color.black, 0.22f);
+
+                // 2. Cambiar espacio / locación en negro
+                ApplyLocationChange(targetLocationId);
+
+                // 3. Fade In revelando el nuevo espacio (0.22s)
+                yield return ui.FadeScreen(0f, Color.black, 0.22f);
+            }
+            else
+            {
+                ApplyLocationChange(targetLocationId);
+            }
+            activeTransitionRoutine = null;
+        }
+
+        private void ApplyLocationChange(string locationId)
+        {
+            currentLocationId = locationId;
             foreach (var entry in locations)
             {
                 if (entry.panelRoot != null) entry.panelRoot.SetActive(entry.id == locationId);

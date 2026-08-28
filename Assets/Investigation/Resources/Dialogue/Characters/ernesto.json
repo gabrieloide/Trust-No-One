@@ -16,11 +16,11 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "A man is loading boxes into a pickup truck. He stops dead at the sight of me, like he'd memorized every face in town and mine doesn't fit." },
+                        { "speaker": "", "text": "A man is loading boxes into a dusty pickup truck. He stops dead at the sight of me, like he'd memorized every face in town and mine doesn't fit." },
                         { "speaker": "Ernesto", "text": "You new around here? I... I don't see new faces too often." },
                         { "speaker": "Gabe", "text": "My car broke down on the highway. I'm staying a night at the motel." },
                         { "speaker": "Ernesto", "text": "The motel. Sure. Good luck with that." },
-                        { "speaker": "", "text": "He says it like a private joke he's got no plans to explain. He goes back to loading boxes without looking at me again." }
+                        { "speaker": "", "text": "He says it like a bitter joke he's got no plans to explain. He goes back to loading boxes without looking at me again." }
                     ],
                     "effects": []
                 }
@@ -41,10 +41,10 @@
                         { "kind": 3, "a": "carpet_shop_receipt", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "The crumpled receipt is still on the counter. I bring it up in passing." },
-                        { "speaker": "Ernesto", "text": "What about it? A bad month. Two. People don't buy good carpet anymore, they buy that synthetic junk." },
-                        { "speaker": "Ernesto", "text": "I don't know why you're asking about my business. I had nothing to do with what happened at the motel." },
-                        { "speaker": "", "text": "Nobody mentioned the motel. He brings it up himself, unprompted." }
+                        { "speaker": "", "text": "The crumpled receipt with Robert's debt note is in my notebook. I bring it up in passing." },
+                        { "speaker": "Ernesto", "text": "What about it? A bad month. Two. People don't buy good carpet anymore, they buy cheap synthetic rolls." },
+                        { "speaker": "Ernesto", "text": "I don't know why you're snooping around my business. I was doing delivery runs... had nothing to do with what happened behind the motel." },
+                        { "speaker": "", "text": "Nobody mentioned the motel alley. He brings it up himself, visibly sweating." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "ernesto_denied_unprompted", "b": "" }
@@ -56,8 +56,8 @@
                     "conditions": [],
                     "lines": [
                         { "speaker": "Ernesto", "text": "The shop is what it is. Not much of a life, but it's mine." },
-                        { "speaker": "Ernesto", "text": "Used to sell well. Now people just pass by. And with what happened at the motel, even worse." },
-                        { "speaker": "", "text": "He talks about the shop like he's talking about himself. With the same resignation." }
+                        { "speaker": "Ernesto", "text": "Used to sell well. Now people just speed by. And with what happened at the motel, things are only getting tighter." },
+                        { "speaker": "", "text": "He talks about the shop like he's talking about himself — trapped by circumstances he can't escape." }
                     ],
                     "effects": []
                 }
@@ -78,14 +78,14 @@
                         { "kind": 3, "a": "carpet_fiber", "b": "", "negate": false }
                     ],
                     "lines": [
-                        { "speaker": "", "text": "I show him the olive-green fiber. It's the same kind he sells." },
-                        { "speaker": "Ernesto", "text": "That proves nothing. I've sold that carpet for years, half the town has it." },
-                        { "speaker": "Gabe", "text": "You said you were closing up the shop that night. Your hours don't run that late." },
-                        { "speaker": "Ernesto", "text": "What do you want me to say? I was there. Alone. Nobody saw me, but I was there." },
-                        { "speaker": "", "text": "He touches his hand without realizing it. A fresh cut, poorly bandaged, peeks out from under his sleeve." },
-                        { "speaker": "Gabe", "text": "And that?" },
-                        { "speaker": "Ernesto", "text": "A can. Cut myself on a can opening boxes. Now even that matters to you?" },
-                        { "speaker": "", "text": "He doesn't name Robert. Not once. But he doesn't look away either, when he could." }
+                        { "speaker": "", "text": "I show him the synthetic olive-green fiber found by the splinters near the alley." },
+                        { "speaker": "Ernesto", "text": "That proves nothing. I sell that carpet weave all over the county." },
+                        { "speaker": "Gabe", "text": "You claimed you were locked in your shop all night, but your truck was seen circling the back alley at midnight." },
+                        { "speaker": "Ernesto", "text": "I was making late runs! Checking on property! Is that a crime now?" },
+                        { "speaker": "", "text": "He nervously clutches his right palm. A jagged, fresh cut peeks out from under a filthy bandage." },
+                        { "speaker": "Gabe", "text": "And that cut?" },
+                        { "speaker": "Ernesto", "text": "A metal trim! Cut myself moving boxes in the dark. You can't pin a murder on a working man just for being broke!" },
+                        { "speaker": "", "text": "He breathes heavily, terrified of taking the blame for a crime he only helped clean up." }
                     ],
                     "effects": [
                         { "kind": 3, "a": "ernesto_false_alibi", "b": "" },
@@ -98,12 +98,12 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "You said you were closing up the shop that night." },
-                        { "speaker": "Ernesto", "text": "Yeah. That's what happened. What else do you want me to say?" },
-                        { "speaker": "", "text": "He crosses his arms. The cut on his hand barely peeks out from under his sleeve." },
+                        { "speaker": "Gabe", "text": "You said you were closing up the shop alone all night." },
+                        { "speaker": "Ernesto", "text": "Yeah. That's what happened. What else do you want from me?" },
+                        { "speaker": "", "text": "He crosses his arms tightly, hiding his bandaged palm." },
                         { "speaker": "Gabe", "text": "And that hand?" },
-                        { "speaker": "Ernesto", "text": "A can. Nothing. We done?" },
-                        { "speaker": "", "text": "There's not much more to get out of him. I still don't have anything real to press with." }
+                        { "speaker": "Ernesto", "text": "A can. Nothing. We done here?" },
+                        { "speaker": "", "text": "Without physical proof linking him to the scene, he keeps his guard up." }
                     ],
                     "effects": [
                         { "kind": 0, "a": "ernesto_confronted", "b": "" }
