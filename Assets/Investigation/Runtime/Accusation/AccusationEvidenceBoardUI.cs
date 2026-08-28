@@ -127,7 +127,7 @@ namespace Investigation
             markRect.sizeDelta = new Vector2(18f, 18f);
             markRect.anchoredPosition = new Vector2(-2f, -2f);
             var mark = markGO.GetComponent<TextMeshProUGUI>();
-            mark.text = "✕";
+            mark.text = "X";
             mark.fontSize = 16f;
             mark.alignment = TextAlignmentOptions.Center;
             mark.color = new Color(0.9f, 0.15f, 0.15f, 1f);
