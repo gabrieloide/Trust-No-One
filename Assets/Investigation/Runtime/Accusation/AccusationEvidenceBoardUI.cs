@@ -32,6 +32,7 @@ namespace Investigation
         private GameObject panelRoot;
         private RectTransform pinArea;
         private TextMeshProUGUI detailText;
+        private TMP_FontAsset boardFont;
         private const string DetailPlaceholder = "Hover a pin to read it.";
 
         private readonly List<GameObject> spawnedPins = new List<GameObject>();
@@ -113,6 +114,7 @@ namespace Investigation
             labelRect.offsetMin = new Vector2(6f, 4f);
             labelRect.offsetMax = new Vector2(-16f, -4f);
             var label = labelGO.GetComponent<TextMeshProUGUI>();
+            if (boardFont != null) label.font = boardFont;
             label.text = clue.displayName;
             label.fontSize = 14f;
             label.alignment = TextAlignmentOptions.Center;
@@ -127,6 +129,7 @@ namespace Investigation
             markRect.sizeDelta = new Vector2(18f, 18f);
             markRect.anchoredPosition = new Vector2(-2f, -2f);
             var mark = markGO.GetComponent<TextMeshProUGUI>();
+            if (boardFont != null) mark.font = boardFont;
             mark.text = "X";
             mark.fontSize = 16f;
             mark.alignment = TextAlignmentOptions.Center;
@@ -190,6 +193,11 @@ namespace Investigation
         {
             if (panelRoot != null) return;
 
+            var dialogueUI = VisualNovelSystem.StoryUIController.Instance != null
+                ? VisualNovelSystem.StoryUIController.Instance.DialogueUI
+                : null;
+            boardFont = dialogueUI != null ? dialogueUI.BodyFont : null;
+
             var canvasGO = new GameObject("AccusationEvidenceBoardCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             canvasGO.transform.SetParent(transform, false);
             var canvas = canvasGO.GetComponent<Canvas>();
@@ -229,6 +237,7 @@ namespace Investigation
             promptRect.offsetMin = new Vector2(32f, 0f);
             promptRect.offsetMax = new Vector2(0f, -12f);
             var prompt = promptGO.GetComponent<TextMeshProUGUI>();
+            if (boardFont != null) prompt.font = boardFont;
             prompt.text = "What do I present as evidence?";
             prompt.fontSize = 26f;
             prompt.alignment = TextAlignmentOptions.MidlineLeft;
@@ -255,6 +264,7 @@ namespace Investigation
             detailRect.offsetMin = Vector2.zero;
             detailRect.offsetMax = Vector2.zero;
             detailText = detailGO.GetComponent<TextMeshProUGUI>();
+            if (boardFont != null) detailText.font = boardFont;
             detailText.fontSize = 20f;
             detailText.alignment = TextAlignmentOptions.TopLeft;
             detailText.color = new Color(0.9f, 0.9f, 0.9f, 1f);
@@ -282,6 +292,7 @@ namespace Investigation
             labelRect.offsetMin = new Vector2(12f, 4f);
             labelRect.offsetMax = new Vector2(-12f, -4f);
             var label = labelGO.GetComponent<TextMeshProUGUI>();
+            if (boardFont != null) label.font = boardFont;
             label.text = "Accuse without evidence";
             label.fontSize = 18f;
             label.alignment = TextAlignmentOptions.Center;
@@ -293,7 +304,10 @@ namespace Investigation
     }
 
     // Componente por-pin: clic izquierdo selecciona, clic derecho tacha/destacha (solo visual).
-    public class EvidencePinView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    // También se puede arrastrar y reacomodar en el corcho (solo estético, no afecta la
+    // selección) — clickear sin mover sigue seleccionando la pista.
+    public class EvidencePinView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler,
+        IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private string clueId;
         private GameObject discardMark;
@@ -302,6 +316,10 @@ namespace Investigation
         private Action<string> onSelect;
         private Action<string, string> onHover;
         private Action onHoverExit;
+
+        private RectTransform rectTransform;
+        private RectTransform boardArea;
+        private bool wasDragged;
 
         public void Init(string clueId, string label, string description, GameObject discardMark,
             Action<string> onSelect, Action<string, string> onHover, Action onHoverExit)
@@ -318,8 +336,50 @@ namespace Investigation
         private string label;
         private string description;
 
+        private void Awake()
+        {
+            rectTransform = GetComponent<RectTransform>();
+            boardArea = transform.parent as RectTransform;
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            wasDragged = false;
+            transform.SetAsLastSibling();
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (boardArea == null || rectTransform == null) return;
+
+            wasDragged = true;
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(boardArea, eventData.position, eventData.pressEventCamera, out var localPoint))
+            {
+                rectTransform.anchoredPosition = ClampToBoard(localPoint);
+            }
+        }
+
+        public void OnEndDrag(PointerEventData eventData) { }
+
+        private Vector2 ClampToBoard(Vector2 position)
+        {
+            var boardSize = boardArea.rect.size;
+            var size = rectTransform.sizeDelta;
+            float halfW = Mathf.Max(0f, boardSize.x * 0.5f - size.x * 0.5f);
+            float halfH = Mathf.Max(0f, boardSize.y * 0.5f - size.y * 0.5f);
+            position.x = Mathf.Clamp(position.x, -halfW, halfW);
+            position.y = Mathf.Clamp(position.y, -halfH, halfH);
+            return position;
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (wasDragged)
+            {
+                wasDragged = false;
+                return;
+            }
+
             if (eventData.button == PointerEventData.InputButton.Left)
             {
                 onSelect?.Invoke(clueId);

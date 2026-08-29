@@ -50,6 +50,30 @@
             ]
         },
         {
+            "id": "frank_night_supply_run",
+            "displayName": "Ask about late deliveries",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "Anybody come through tonight, Frank?" },
+                        { "speaker": "Frank", "text": "Robert did, actually. Filled up a couple of jerry cans around eleven. Said the generator's been eating more fuel than it used to." },
+                        { "speaker": "Frank", "text": "Struck me as a little odd, that generator's run fine for years. But machines get old, I guess." },
+                        { "speaker": "", "text": "Frank shrugs it off before he's even finished the sentence. I don't." }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "robert_late_fuel_runs", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
             "id": "frank_maintenance_slip",
             "displayName": "Chat with him about Robert again",
             "kind": 0,

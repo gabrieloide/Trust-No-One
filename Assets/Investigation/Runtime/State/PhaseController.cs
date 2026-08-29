@@ -48,6 +48,16 @@ namespace Investigation
             }
         }
 
+        // Ver CaseState.ResetForNewGame(): mismo motivo, mismo llamador (EndingCreditsUI).
+        public static void ResetForNewGame()
+        {
+            if (instance != null)
+            {
+                Destroy(instance.gameObject);
+                instance = null;
+            }
+        }
+
         public bool IsCaseOver => CaseState.Instance.currentDay > TotalDays;
 
         public int GetTotalActionsRemainingToday()

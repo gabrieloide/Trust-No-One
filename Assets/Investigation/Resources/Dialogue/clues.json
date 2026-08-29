@@ -111,6 +111,27 @@
             "description": "Elena discovered Carla's betrayal and violently screamed at her before midnight: 'You won't leave with my money!'",
             "hiddenWeight": 0,
             "pointsTo": ["elena"]
+        },
+        {
+            "id": "robert_late_fuel_runs",
+            "displayName": "Robert's late-night fuel runs",
+            "description": "Frank sold Robert two jerry cans of gasoline near midnight, for a generator that 'suddenly' needs more fuel than usual.",
+            "hiddenWeight": 0,
+            "pointsTo": ["robert"]
+        },
+        {
+            "id": "pickup_tread_marks",
+            "displayName": "Pickup tire tracks by the back door",
+            "description": "Faint tire tread marks near the motel's back door — wide grooves, consistent with a work pickup, not a passenger car.",
+            "hiddenWeight": 0,
+            "pointsTo": ["ernesto"]
+        },
+        {
+            "id": "ernesto_basement_deliveries",
+            "displayName": "Ernesto's basement deliveries",
+            "description": "Ernesto admits to hauling crates to the motel's basement door at odd hours as part of his debt to Robert — though he swears he never went past the doorway.",
+            "hiddenWeight": 0,
+            "pointsTo": ["robert"]
         }
     ]
 }

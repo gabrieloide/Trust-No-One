@@ -58,15 +58,6 @@ namespace Investigation
             {
                 // PhaseController.IsCaseOver exige currentDay > TotalDays (3).
                 CaseState.Instance.currentDay = 4;
-
-                // LocationController solo refresca el botón ACUSAR cuando PhaseController
-                // dispara OnActionsChanged; como aquí saltamos ese flujo, el botón puede
-                // quedar leyendo el día viejo (oculto) si su propio Start() corrió antes que
-                // el nuestro. Forzamos el refresco explícitamente para no depender del orden.
-                if (LocationController.Instance != null)
-                {
-                    LocationController.Instance.RefreshAccuseButton();
-                }
             }
 
             foreach (var flag in flagsToSetOnStart)

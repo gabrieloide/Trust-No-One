@@ -76,6 +76,28 @@
             ]
         },
         {
+            "id": "marta_last_orders",
+            "displayName": "Order coffee and talk",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Marta", "text": "Coffee, detective? On the house today." },
+                        { "speaker": "Gabe", "text": "That's new." },
+                        { "speaker": "Marta", "text": "Carla never let me pay her back for anything either. Kept saying 'someday, when I'm in Seattle, I'll send you a postcard and we'll call it even.'" },
+                        { "speaker": "", "text": "Marta sets the cup down without meeting my eyes. There won't be a postcard now, and we both know it." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
             "id": "marta_press_robert",
             "displayName": "Ask her what she meant about Robert",
             "kind": 1,

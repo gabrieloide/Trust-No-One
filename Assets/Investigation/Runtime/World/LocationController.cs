@@ -52,7 +52,6 @@ namespace Investigation
         [SerializeField] private GameObject hudRoot;
         [SerializeField] private TextMeshProUGUI hudText;
         [SerializeField] private GameObject navBarRoot;
-        [SerializeField] private GameObject accuseButtonRoot;
 
         private string currentLocationId = "";
         private Coroutine activeTransitionRoutine;
@@ -105,11 +104,6 @@ namespace Investigation
             if (worldUIRoot != null) worldUIRoot.SetActive(active);
             if (navBarRoot != null) navBarRoot.SetActive(active);
             if (hudRoot != null) hudRoot.SetActive(active);
-            if (accuseButtonRoot != null)
-            {
-                if (!active) accuseButtonRoot.SetActive(false);
-                else RefreshAccuseButton();
-            }
         }
 
         public void HideAll()
@@ -184,7 +178,6 @@ namespace Investigation
         {
             RefreshHud();
             RefreshNavBar();
-            RefreshAccuseButton();
             RefreshHotspots();
             RefreshCharacters();
         }
@@ -223,14 +216,6 @@ namespace Investigation
             }
         }
 
-        public void RefreshAccuseButton()
-        {
-            if (accuseButtonRoot == null || CaseState.Instance == null) return;
-
-            // El botón ACUSAR solo es visible en el Día 3 o cuando la investigación termina
-            bool isDay3OrOver = CaseState.Instance.currentDay >= 3 || (PhaseController.Instance != null && PhaseController.Instance.IsCaseOver);
-            accuseButtonRoot.SetActive(isDay3OrOver);
-        }
 
         public void RefreshHotspots()
         {
