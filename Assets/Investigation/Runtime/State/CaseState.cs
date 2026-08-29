@@ -53,6 +53,17 @@ namespace Investigation
             DontDestroyOnLoad(gameObject);
         }
 
+        // Llamado por EndingCreditsUI antes de recargar la escena en "Play Again": sin esto,
+        // el DontDestroyOnLoad dejaría día/pistas/flags de la partida anterior pegados.
+        public static void ResetForNewGame()
+        {
+            if (instance != null)
+            {
+                Destroy(instance.gameObject);
+                instance = null;
+            }
+        }
+
         public void SetFlag(string flag) => flags.Add(flag);
         public void ClearFlag(string flag) => flags.Remove(flag);
         public bool HasFlag(string flag) => flags.Contains(flag);

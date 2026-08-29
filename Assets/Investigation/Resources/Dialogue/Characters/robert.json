@@ -79,6 +79,29 @@
             ]
         },
         {
+            "id": "robert_night_rounds",
+            "displayName": "Ask about his nightly routine",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "You're still up this late, Robert." },
+                        { "speaker": "Robert", "text": "The Starlight doesn't run itself, detective. I walk the whole property every night before I lock up: boiler, generator, the guest wing. Old habit." },
+                        { "speaker": "Gabe", "text": "Every night, no exceptions?" },
+                        { "speaker": "Robert", "text": "Every night for eleven years. You learn every creak in a place like this. It's almost comforting." },
+                        { "speaker": "", "text": "He says it like a lullaby he's recited a thousand times. Maybe it is." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
             "id": "robert_basement_excuse",
             "displayName": "Press him on basement access",
             "kind": 0,
@@ -107,6 +130,28 @@
                         { "speaker": "Gabe", "text": "Elena told me you're the only one with a key to the basement." },
                         { "speaker": "Robert", "text": "That's right. I handle the boilers and parts myself to avoid accidents. Basic safety protocol." },
                         { "speaker": "", "text": "The explanation sounds reasonable and measured." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "robert_closing_thoughts",
+            "displayName": "Ask if he has anything to add",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "The sheriff comes tonight, Robert. Anything you want to add before then?" },
+                        { "speaker": "Robert", "text": "Only that this town survives on people minding their own business, detective. It's kept the peace a long time." },
+                        { "speaker": "Robert", "text": "I hope whatever you decide, you decide it carefully. The Starlight still has to open its doors tomorrow." },
+                        { "speaker": "", "text": "Not a threat. Not quite. But close enough to one that it settles cold in my chest." }
                     ],
                     "effects": []
                 }

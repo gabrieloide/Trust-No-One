@@ -110,6 +110,31 @@
                     ]
                 }
             ]
+        },
+        {
+            "id": "ernesto_basement_deliveries",
+            "displayName": "Ask about his 'maintenance favors'",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "You said Robert gives you rent extensions for 'maintenance favors.' What kind, exactly?" },
+                        { "speaker": "Ernesto", "text": "Hauling. Crates, mostly. Down to the basement door, late at night, when nobody's checking the register." },
+                        { "speaker": "Gabe", "text": "Down to the door, or through it?" },
+                        { "speaker": "Ernesto", "text": "To the door! I swear it. He always takes it from there himself. I never had a key, never wanted one. Whatever's past that door is his business, not mine." },
+                        { "speaker": "", "text": "He says it fast, rehearsed, like a line he's practiced in the mirror. But his eyes keep going to the floor, not to me." }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "ernesto_basement_deliveries", "b": "" }
+                    ]
+                }
+            ]
         }
     ]
 }

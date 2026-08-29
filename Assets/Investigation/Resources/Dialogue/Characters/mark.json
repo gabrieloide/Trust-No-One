@@ -83,6 +83,28 @@
             ]
         },
         {
+            "id": "mark_night_fears",
+            "displayName": "Ask what scares him at night",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "You don't sleep much, do you, Mark?" },
+                        { "speaker": "Mark", "text": "Sleep's for people the dark doesn't want. I keep watch instead." },
+                        { "speaker": "Mark", "text": "Same shapes pass by every night. Most never look down at me. That's how I know which ones to be scared of — the ones that never look down." },
+                        { "speaker": "", "text": "He pulls his knees in tighter and stares past me, like something's still walking by right now." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
             "id": "mark_more",
             "displayName": "Ask him about that night again",
             "kind": 0,
@@ -117,6 +139,28 @@
                     "effects": [
                         { "kind": 3, "a": "mark_no_memory", "b": "" }
                     ]
+                }
+            ]
+        },
+        {
+            "id": "mark_last_words",
+            "displayName": "Ask him one last time",
+            "kind": 0,
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "Gabe", "text": "Last night in town, Mark. Anything you didn't tell me?" },
+                        { "speaker": "Mark", "text": "Told you everything already. Nobody wrote it down, though, did they. Nobody ever does." },
+                        { "speaker": "Mark", "text": "Whatever you decide, detective... just don't let the quiet ones win because they talk nicer than me." },
+                        { "speaker": "", "text": "For a moment his eyes are perfectly clear. Then the shaking starts again, and he's just the drunk by the gas station once more." }
+                    ],
+                    "effects": []
                 }
             ]
         }

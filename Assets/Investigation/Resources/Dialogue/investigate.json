@@ -1,6 +1,26 @@
 {
     "spots": [
         {
+            "id": "inv_motel_lobby_morning",
+            "displayName": "Motel lobby, morning after",
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "The lobby smells like burnt coffee and old cigarettes. The guest registry is open on the counter — only two names inked in for the whole week." },
+                        { "speaker": "", "text": "A muddy footprint is drying near the door, already too smudged to mean anything." },
+                        { "speaker": "", "text": "Someone mopped half the floor and gave up halfway through. This town cleans up fast when it wants to, and slow when it doesn't." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
             "id": "inv_arbustos",
             "displayName": "Bushes near the crime scene",
             "unlockConditions": [
@@ -112,6 +132,48 @@
             ]
         },
         {
+            "id": "inv_road_shoulder_night",
+            "displayName": "Road shoulder at night",
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "The highway shoulder is dead quiet, gravel crunching under my own footsteps like gunshots in the dark." },
+                        { "speaker": "", "text": "Old glass shards from the gin bottle are still scattered near the curb, catching what little light the motel sign throws this far." },
+                        { "speaker": "", "text": "Nothing new here. Just the same night, replaying itself for anyone patient enough to stand in it." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "inv_motel_backdoor_tracks",
+            "displayName": "Motel back door, after dark",
+            "unlockConditions": [
+                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "I crouch by the back door with my flashlight low, out of sight of the office window." },
+                        { "speaker": "", "text": "Faint tire tread marks cut through the gravel, wide grooves, work tires. Not a sedan. Something closer to a pickup." },
+                        { "speaker": "", "text": "Nobody mentioned a truck parked back here last night. Somebody should have." }
+                    ],
+                    "effects": [
+                        { "kind": 3, "a": "pickup_tread_marks", "b": "" }
+                    ]
+                }
+            ]
+        },
+        {
             "id": "inv_basement_lock",
             "displayName": "Basement door",
             "unlockConditions": [
@@ -183,6 +245,26 @@
                     "effects": [
                         { "kind": 3, "a": "carpet_fiber", "b": "" }
                     ]
+                }
+            ]
+        },
+        {
+            "id": "inv_town_square_morning",
+            "displayName": "Town square, last morning",
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p1_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "The town square is quieter than usual. Word's gotten around that the sheriff is coming tonight." },
+                        { "speaker": "", "text": "A couple of shopkeepers watch me from their windows without pretending not to." },
+                        { "speaker": "", "text": "Everyone already has an opinion about how this ends. None of them are willing to say it to my face." }
+                    ],
+                    "effects": []
                 }
             ]
         },
@@ -275,6 +357,106 @@
                     "effects": [
                         { "kind": 3, "a": "carla_belongings", "b": "" }
                     ]
+                }
+            ]
+        },
+        {
+            "id": "inv_case_review",
+            "displayName": "Review the case file",
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "I lay everything out on the bed in room 4: notes, names, half-formed theories crossed out twice." },
+                        { "speaker": "", "text": "Every thread in this town leads back to the same motel, the same basement, the same padlock." },
+                        { "speaker": "", "text": "By tonight I have to turn this into an accusation. No more time to be careful." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "inv_motel_sign_final",
+            "displayName": "The Starlight sign, one last look",
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "The neon sign flickers the same way it did the night my car broke down out here — half the letters dead, the rest buzzing like they mean it." },
+                        { "speaker": "", "text": "Three days ago this was just a roadside motel with a vacancy. Now I know every name on that guest registry better than my own." },
+                        { "speaker": "", "text": "Whatever I decide tonight, that sign will keep flickering long after I'm gone." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "inv_elena_note_left",
+            "displayName": "A note under the office door",
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "Elena's shift ended hours ago, but a folded scrap of paper is wedged under the office door where only I'd find it." },
+                        { "speaker": "", "text": "'If you don't nail him today, ask why nobody's seen me tomorrow. — E.'" },
+                        { "speaker": "", "text": "Not evidence. Just fear, in her handwriting, and I've run out of time to tell her it'll be enough." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "inv_ernesto_shop_shutter",
+            "displayName": "Carpet shop, shutter down",
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "The carpet shop's metal shutter is down hours earlier than usual, padlocked twice over." },
+                        { "speaker": "", "text": "Through the gap at the bottom I can see boxes stacked by the door, ready to load, not to sell." },
+                        { "speaker": "", "text": "Ernesto isn't hiding from the law tonight. He's hiding from somebody who scares him a lot more than I do." }
+                    ],
+                    "effects": []
+                }
+            ]
+        },
+        {
+            "id": "inv_cafeteria_closed_marta",
+            "displayName": "Cafeteria, closed for the night",
+            "unlockConditions": [
+                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
+            ],
+            "variants": [
+                {
+                    "id": "default",
+                    "priority": 0,
+                    "conditions": [],
+                    "lines": [
+                        { "speaker": "", "text": "The cafeteria is dark, chairs stacked on tables, Marta's apron still hanging by the register." },
+                        { "speaker": "", "text": "On the counter, under a coffee cup ring, someone's traced a name into the dust with one finger: ROBERT." },
+                        { "speaker": "", "text": "She never says his name out loud. She didn't need to." }
+                    ],
+                    "effects": []
                 }
             ]
         }

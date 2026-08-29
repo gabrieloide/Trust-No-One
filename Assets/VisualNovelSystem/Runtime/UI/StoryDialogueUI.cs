@@ -28,6 +28,11 @@ namespace VisualNovelSystem
         [SerializeField] private AudioClip typingAudioClip;
         [SerializeField] [Range(0f, 1f)] private float typingAudioVolume = 0.35f;
 
+        // Paneles construidos por código (evidence board, ending credits) no tienen forma de
+        // arrastrar una referencia de fuente en el Inspector; toman la misma que usa el diálogo
+        // en vez de caer en el default de TMP Settings (LiberationSans), que no matchea el juego.
+        public TMP_FontAsset BodyFont => dialogueText != null ? dialogueText.font : null;
+
         [Header("Character Stage References (Dual Stage)")]
         [SerializeField] private Image leftCharacterPortrait;   // Gabe / Protagonista (Izquierda)
         [SerializeField] private Image rightCharacterPortrait;  // Interlocutor / NPC (Derecha)
