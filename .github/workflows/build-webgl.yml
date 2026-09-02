@@ -57,6 +57,16 @@ jobs:
           publish_dir: ./build/WebGL/WebGL
           publish_branch: gh-pages
 
+      - name: Deploy to Itch.io with Butler
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          curl -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
+          unzip -q butler.zip -d bin/
+          chmod +x bin/butler
+          ./bin/butler -V
+          ./bin/butler push build/WebGL/WebGL virterex/no-one-is-innocent:html5 --userversion ${{ github.sha }}
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
