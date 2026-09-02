@@ -39,6 +39,7 @@ jobs:
       - name: Prepare build for GitHub Pages
         run: |
           sudo apt-get update && sudo apt-get install -y brotli
+          sudo chown -R $USER:$USER build/
           if [ -d "build/WebGL/WebGL/Build" ]; then
             cd build/WebGL/WebGL
             for f in Build/*.br; do
@@ -54,6 +55,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/WebGL/WebGL
+          publish_branch: gh-pages
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
