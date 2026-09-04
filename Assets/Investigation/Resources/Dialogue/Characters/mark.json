@@ -97,7 +97,7 @@
                     "lines": [
                         { "speaker": "Gabe", "text": "You don't sleep much, do you, Mark?" },
                         { "speaker": "Mark", "text": "Sleep's for people the dark doesn't want. I keep watch instead." },
-                        { "speaker": "Mark", "text": "Same shapes pass by every night. Most never look down at me. That's how I know which ones to be scared of — the ones that never look down." },
+                        { "speaker": "Mark", "text": "Same shapes pass by every night. Most never look down at me. That's how I know which ones to be scared of: the ones that never look down." },
                         { "speaker": "", "text": "He pulls his knees in tighter and stares past me, like something's still walking by right now." }
                     ],
                     "effects": []

@@ -117,7 +117,7 @@ namespace Investigation
         {
             yield return UI.ShowOverlay("NIGHTFALL", "The sheriff's cruiser pulls into the lot.", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Fade, 2f, true);
 
-            yield return UI.ShowDialogue("", "By the time he steps out, everyone's already gathered under the buzzing neon sign — Robert, Elena, Ernesto, Mark, herded together like it's the only thing left to do tonight.", null, null, -1f, true);
+            yield return UI.ShowDialogue("", "By the time he steps out, everyone's already gathered under the buzzing neon sign: Robert, Elena, Ernesto, Mark, herded together like it's the only thing left to do tonight.", null, null, -1f, true);
 
             yield return UI.ShowDialogue("Sheriff", "Alright. I'm told somebody here's got a story worth hearing. Last chance before I start writing names down myself.", null, null, -1f, true);
 
@@ -196,7 +196,7 @@ namespace Investigation
                 else if (hasStrongRelevant)
                 {
                     yield return UI.ShowDialogue("Gabe", $"I have this: {evidence.displayName}. {evidence.description}. Every piece fits you directly.", null, null, -1f, true);
-                    yield return UI.ShowDialogue(suspectName, "That's not... that doesn't mean I—", null, null, -1f, true);
+                    yield return UI.ShowDialogue(suspectName, "That's not... that doesn't mean I...", null, null, -1f, true);
                     yield return UI.ShowDialogue("Gabe", "It means exactly what it looks like.", null, null, -1f, true);
                     yield return UI.ShowDialogue(suspectName, "No... it can't be... that's not how it happened...", null, null, -1f, true);
                 }
@@ -205,7 +205,7 @@ namespace Investigation
                     yield return UI.ShowDialogue("Gabe", $"I have this: {evidence.displayName}. {evidence.description}.", null, null, -1f, true);
                     yield return UI.ShowDialogue(suspectName, "That doesn't prove a single thing against me. You're grasping at a culprit in the dark.", null, null, -1f, true);
                     yield return UI.ShowDialogue("Gabe", "Maybe.", null, null, -1f, true);
-                    yield return UI.ShowDialogue(suspectName, "Not maybe. Ask anyone in this town — you're chasing the wrong shadow.", null, null, -1f, true);
+                    yield return UI.ShowDialogue(suspectName, "Not maybe. Ask anyone in this town, you're chasing the wrong shadow.", null, null, -1f, true);
                 }
             }
             else

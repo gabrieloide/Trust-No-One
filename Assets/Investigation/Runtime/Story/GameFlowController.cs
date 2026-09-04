@@ -109,7 +109,7 @@ namespace Investigation
             }
 
             // 4. Cartel de Título de Día 3 limpio
-            yield return UI.ShowOverlay("DAY 3", "08:00 AM — Last chance to investigate", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Instant, 2.5f, true);
+            yield return UI.ShowOverlay("DAY 3", "08:00 AM - Last chance to investigate", OverlayDisplayMode.CenterTitleCard, OverlayEffect.Instant, 2.5f, true);
 
             // 5. Fundido de entrada (Fade In)
             yield return UI.FadeScreen(0f, Color.black, 0.8f);

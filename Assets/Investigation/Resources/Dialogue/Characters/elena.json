@@ -42,7 +42,7 @@
                         { "speaker": "Gabe", "text": "You look like you didn't get any sleep, Elena." },
                         { "speaker": "Elena", "text": "Sleep? With Carla's body lying out back by the basement? I'm not shedding a single tear for her." },
                         { "speaker": "Gabe", "text": "You two had bad blood?" },
-                        { "speaker": "Elena", "text": "We had a pact. We were going to pool our savings — five thousand dollars — buy two tickets, and get the hell away from Robert and this place forever." },
+                        { "speaker": "Elena", "text": "We had a pact. We were going to pool our savings, five thousand dollars, buy two tickets, and get the hell away from Robert and this place forever." },
                         { "speaker": "Elena", "text": "Then last night I found out she bought a single ticket to Seattle for herself. She stole the entire envelope and planned to leave me behind to rot." },
                         { "speaker": "", "text": "Her jaw clenches with burning rage and bitter betrayal. But beneath the anger, her hands tremble with cold dread." }
                     ],
@@ -97,7 +97,7 @@
                     "conditions": [],
                     "lines": [
                         { "speaker": "Gabe", "text": "She stole your life savings and you hunted her down in the dark. Did you crack her skull to take your envelope back?" },
-                        { "speaker": "Elena", "text": "I wanted my money back, not her blood! I was furious, yes — I could have killed her with my bare hands! But someone else got to her in the dark." },
+                        { "speaker": "Elena", "text": "I wanted my money back, not her blood! I was furious, yes, I could have killed her with my bare hands! But someone else got to her in the dark." },
                         { "speaker": "Gabe", "text": "Convenient excuse for someone seen running from the scene." },
                         { "speaker": "Elena", "text": "Think whatever you want, detective! But if I had killed her, I wouldn't be standing here broke, waiting for Robert to decide what to do with me next!" },
                         { "speaker": "", "text": "She slams her hand against the desk and turns her back to me, shaking with pure rage and fear." }
