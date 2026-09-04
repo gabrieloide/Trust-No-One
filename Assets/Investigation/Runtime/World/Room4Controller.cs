@@ -72,7 +72,7 @@ namespace Investigation
                 };
 
                 int selected = -1;
-                yield return UI.ShowChoices("Sundown ends it — the sheriff will arrive at nightfall to close the case, and whatever is still buried stays buried.\n\nAre you ready to close your investigation and prepare your final accusation?", options, idx => selected = idx);
+                yield return UI.ShowChoices("Sundown ends it. The sheriff will arrive at nightfall to close the case, and whatever is still buried stays buried.\n\nAre you ready to close your investigation and prepare your final accusation?", options, idx => selected = idx);
 
                 if (selected == 0)
                 {

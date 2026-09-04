@@ -122,14 +122,14 @@
         {
             "id": "pickup_tread_marks",
             "displayName": "Pickup tire tracks by the back door",
-            "description": "Faint tire tread marks near the motel's back door — wide grooves, consistent with a work pickup, not a passenger car.",
+            "description": "Faint tire tread marks near the motel's back door, wide grooves, consistent with a work pickup, not a passenger car.",
             "hiddenWeight": 0,
             "pointsTo": ["ernesto"]
         },
         {
             "id": "ernesto_basement_deliveries",
             "displayName": "Ernesto's basement deliveries",
-            "description": "Ernesto admits to hauling crates to the motel's basement door at odd hours as part of his debt to Robert — though he swears he never went past the doorway.",
+            "description": "Ernesto admits to hauling crates to the motel's basement door at odd hours as part of his debt to Robert, though he swears he never went past the doorway.",
             "hiddenWeight": 0,
             "pointsTo": ["robert"]
         }

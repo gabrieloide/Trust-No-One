@@ -315,8 +315,8 @@ namespace Investigation
                     if (clueId == "elena_seen_running")
                     {
                         lines.Add(("Gabe", "A witness saw you sprinting down the back hallway right after the scream."));
-                        lines.Add(("Elena", "I was chasing her down! I found out she bought a bus ticket only for herself and was sneaking out with my eight hundred dollars! We had a violent shouting match by the back doors."));
-                        lines.Add(("Elena", "When I heard the glass break moments later, I bolted. I knew how bad it looked — I was the one with the biggest motive to strangle her!"));
+                        lines.Add(("Elena", "I was chasing her down! I found out she bought a bus ticket only for herself and was sneaking out with our five thousand dollars! We had a violent shouting match by the back doors."));
+                        lines.Add(("Elena", "When I heard the glass break moments later, I bolted. I knew how bad it looked: I was the one with the biggest motive to strangle her!"));
                         onFinish = () =>
                         {
                             CaseState.Instance.SetFlag("elena_confession_full");

@@ -12,7 +12,7 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "The lobby smells like burnt coffee and old cigarettes. The guest registry is open on the counter — only two names inked in for the whole week." },
+                        { "speaker": "", "text": "The lobby smells like burnt coffee and old cigarettes. The guest registry is open on the counter, only two names inked in for the whole week." },
                         { "speaker": "", "text": "A muddy footprint is drying near the door, already too smudged to mean anything." },
                         { "speaker": "", "text": "Someone mopped half the floor and gave up halfway through. This town cleans up fast when it wants to, and slow when it doesn't." }
                     ],
@@ -392,7 +392,7 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "The neon sign flickers the same way it did the night my car broke down out here — half the letters dead, the rest buzzing like they mean it." },
+                        { "speaker": "", "text": "The neon sign flickers the same way it did the night my car broke down out here, half the letters dead, the rest buzzing like they mean it." },
                         { "speaker": "", "text": "Three days ago this was just a roadside motel with a vacancy. Now I know every name on that guest registry better than my own." },
                         { "speaker": "", "text": "Whatever I decide tonight, that sign will keep flickering long after I'm gone." }
                     ],
@@ -413,7 +413,7 @@
                     "conditions": [],
                     "lines": [
                         { "speaker": "", "text": "Elena's shift ended hours ago, but a folded scrap of paper is wedged under the office door where only I'd find it." },
-                        { "speaker": "", "text": "'If you don't nail him today, ask why nobody's seen me tomorrow. — E.'" },
+                        { "speaker": "", "text": "'If you don't nail him today, ask why nobody's seen me tomorrow. E.'" },
                         { "speaker": "", "text": "Not evidence. Just fear, in her handwriting, and I've run out of time to tell her it'll be enough." }
                     ],
                     "effects": []

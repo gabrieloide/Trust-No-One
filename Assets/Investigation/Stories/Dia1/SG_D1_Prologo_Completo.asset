@@ -176,7 +176,7 @@ MonoBehaviour:
       data:
         enabled: 1
         titleText: NO ONE IS INNOCENT
-        subtitleText: "Day 1 — The road to nowhere"
+        subtitleText: "Day 1 - The road to nowhere"
         displayMode: 0
         effect: 0
         duration: 2.5
@@ -754,7 +754,7 @@ MonoBehaviour:
       data:
         enabled: 1
         titleText: "DAY 2"
-        subtitleText: "08:00 AM — The motel under suspicion"
+        subtitleText: "08:00 AM - The motel under suspicion"
         displayMode: 0
         effect: 0
         duration: 2.5
