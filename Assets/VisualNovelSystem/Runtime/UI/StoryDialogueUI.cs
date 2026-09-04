@@ -43,9 +43,29 @@ namespace VisualNovelSystem
         [SerializeField] private float inactiveScale = 0.92f;
         [SerializeField] private Color inactiveDimColor = new Color(0.42f, 0.42f, 0.48f, 1f);
 
+        [Header("Expressive Text Settings")]
+        [SerializeField] private bool enableAutoPunctuation = true;
+        [SerializeField] private bool autoEmotionTextEffects = true;
+        [SerializeField] private float commaPause = 0.14f;
+        [SerializeField] private float periodPause = 0.32f;
+        [SerializeField] private float questionExclamationPause = 0.38f;
+        [SerializeField] private float ellipsisPause = 0.52f;
+        [SerializeField] private float ellipsisStepPause = 0.10f;
+        [SerializeField] private float colonPause = 0.18f;
+        [SerializeField] private float dashPause = 0.20f;
+
+        [Header("Text Vertex Effects Settings")]
+        [SerializeField] private float textShakeIntensity = 1.8f;
+        [SerializeField] private float textWaveSpeed = 4.5f;
+        [SerializeField] private float textWaveHeight = 3.2f;
+
+        [Header("Audio Modulation Settings")]
+        [SerializeField] private float minAudioInterval = 0.032f;
+
         private Coroutine activeDialogueRoutine;
         private Coroutine activePortraitRoutine;
         private Coroutine activeFocusRoutine;
+        private Coroutine activeVertexEffectsRoutine;
         private Coroutine talkBobRoutine;
         private Coroutine idleBreathRoutine;
         private const float talkBobAmp = 3.5f;
@@ -113,6 +133,11 @@ namespace VisualNovelSystem
                 StopCoroutine(activeDialogueRoutine);
                 activeDialogueRoutine = null;
             }
+            if (activeVertexEffectsRoutine != null)
+            {
+                StopCoroutine(activeVertexEffectsRoutine);
+                activeVertexEffectsRoutine = null;
+            }
             if (activeFocusRoutine != null)
             {
                 StopCoroutine(activeFocusRoutine);
@@ -144,7 +169,11 @@ namespace VisualNovelSystem
             }
 
             if (continueIndicator != null) continueIndicator.SetActive(false);
-            if (dialogueText != null) dialogueText.text = "";
+            if (dialogueText != null)
+            {
+                dialogueText.text = "";
+                dialogueText.maxVisibleCharacters = 0;
+            }
             if (speakerNameText != null)
             {
                 speakerNameText.text = "";
@@ -192,6 +221,12 @@ namespace VisualNovelSystem
         {
             skipRequested = false;
 
+            if (activeVertexEffectsRoutine != null)
+            {
+                StopCoroutine(activeVertexEffectsRoutine);
+                activeVertexEffectsRoutine = null;
+            }
+
             if (canvasGroup != null)
             {
                 canvasGroup.alpha = 1f;
@@ -204,8 +239,36 @@ namespace VisualNovelSystem
                 speakerNameText.gameObject.SetActive(!string.IsNullOrEmpty(speakerName));
             }
 
-            // Detectar etiquetas emocionales explícitas ([shake], [bounce], etc.)
-            PortraitEmotion emotion = DetectEmotion(ref text);
+            // Parsear texto enriquecido, pausas, velocidades y efectos de vértices
+            ParsedDialogueData parsed = StoryTextEffects.Parse(
+                text,
+                enableAutoPunctuation,
+                commaPause,
+                periodPause,
+                questionExclamationPause,
+                ellipsisPause,
+                ellipsisStepPause,
+                colonPause,
+                dashPause
+            );
+
+            // Adaptación emocional automática si está habilitada
+            if (autoEmotionTextEffects && parsed.startingPortraitEmotion == PortraitEmotion.Tremble && !parsed.hasVertexEffects)
+            {
+                parsed.hasVertexEffects = true;
+                for (int idx = 0; idx < parsed.charTimings.Count; idx++)
+                {
+                    var tInfo = parsed.charTimings[idx];
+                    tInfo.vertexEffect = TextVertexEffect.Tremble;
+                    if (tInfo.dynamics == TypingDynamics.Constant)
+                    {
+                        tInfo.dynamics = TypingDynamics.Decelerate;
+                    }
+                    parsed.charTimings[idx] = tInfo;
+                }
+            }
+
+            PortraitEmotion emotion = parsed.startingPortraitEmotion;
 
             // Actualizar el estado de los personajes en escena (Dual Speaker Stage)
             UpdateSpeakerStage(speakerName, portrait, emotion);
@@ -223,37 +286,141 @@ namespace VisualNovelSystem
                 voiceAudioSource.PlayOneShot(voiceClip);
             }
 
-            float speed = typewriterSpeed > 0f ? typewriterSpeed : defaultTypewriterSpeed;
+            float baseDelay = typewriterSpeed > 0f ? typewriterSpeed : defaultTypewriterSpeed;
+            float currentDelay = baseDelay;
+            float lastAudioPlayTime = -1f;
 
             if (dialogueText != null)
             {
-                dialogueText.text = "";
+                dialogueText.text = parsed.cleanText;
+                dialogueText.maxVisibleCharacters = 0;
+                dialogueText.ForceMeshUpdate();
+
                 isTyping = true;
 
-                for (int i = 0; i <= text.Length; i++)
+                if (parsed.hasVertexEffects)
+                {
+                    activeVertexEffectsRoutine = StartCoroutine(UpdateVertexEffectsRoutine(parsed));
+                }
+
+                int totalChars = dialogueText.textInfo.characterCount;
+                int timingCount = parsed.charTimings.Count;
+
+                for (int charIndex = 0; charIndex < totalChars; charIndex++)
                 {
                     if (skipRequested)
                     {
-                        dialogueText.text = text;
+                        dialogueText.maxVisibleCharacters = totalChars;
                         break;
                     }
 
-                    dialogueText.text = text.Substring(0, i);
+                    CharacterTimingInfo timing = charIndex < timingCount ? parsed.charTimings[charIndex] : default;
 
-                    // Reproducir teletipo al escribir caracteres
-                    if (i > 0 && i < text.Length && text[i - 1] != ' ')
+                    // Disparar emoción de retrato en línea
+                    if (timing.inlineEmotion.HasValue && timing.inlineEmotion.Value != PortraitEmotion.None)
                     {
-                        if (voiceAudioSource != null && typingAudioClip != null)
+                        TriggerActiveSpeakerEmotion(speakerName, timing.inlineEmotion.Value);
+                    }
+
+                    // Modular velocidad dinámicamente
+                    if (timing.speedOverride.HasValue)
+                    {
+                        currentDelay = timing.speedOverride.Value;
+                    }
+                    else if (timing.dynamics == TypingDynamics.Accelerate)
+                    {
+                        currentDelay = Mathf.Max(0.007f, currentDelay - 0.0016f);
+                    }
+                    else if (timing.dynamics == TypingDynamics.Decelerate)
+                    {
+                        currentDelay = Mathf.Min(0.12f, currentDelay + 0.0022f);
+                    }
+
+                    // Pausa antes de revelar el carácter (por puntuación o etiqueta [pause])
+                    if (timing.pauseBefore > 0f && charIndex > 0)
+                    {
+                        float pElapsed = 0f;
+                        while (pElapsed < timing.pauseBefore && !skipRequested)
                         {
-                            voiceAudioSource.pitch = UnityEngine.Random.Range(0.92f, 1.08f);
-                            voiceAudioSource.PlayOneShot(typingAudioClip, typingAudioVolume);
+                            pElapsed += Time.deltaTime;
+                            yield return null;
+                        }
+
+                        if (skipRequested)
+                        {
+                            dialogueText.maxVisibleCharacters = totalChars;
+                            break;
                         }
                     }
 
-                    yield return new WaitForSeconds(speed);
+                    // Si está desacelerando por miedo, agregar micro-vacilación en espacios entre palabras
+                    if (timing.dynamics == TypingDynamics.Decelerate && charIndex > 0)
+                    {
+                        char c = charIndex < parsed.cleanText.Length ? parsed.cleanText[charIndex] : ' ';
+                        if (c == ' ')
+                        {
+                            float hesitate = 0.08f;
+                            float hElapsed = 0f;
+                            while (hElapsed < hesitate && !skipRequested)
+                            {
+                                hElapsed += Time.deltaTime;
+                                yield return null;
+                            }
+                            if (skipRequested)
+                            {
+                                dialogueText.maxVisibleCharacters = totalChars;
+                                break;
+                            }
+                        }
+                    }
+
+                    // Revelar carácter actual
+                    dialogueText.maxVisibleCharacters = charIndex + 1;
+
+                    // Teletipo sonoro modulado (con silencios en pausas y throttling)
+                    char curChar = charIndex < parsed.cleanText.Length ? parsed.cleanText[charIndex] : ' ';
+                    if (!char.IsWhiteSpace(curChar) && voiceAudioSource != null && typingAudioClip != null)
+                    {
+                        if (Time.time - lastAudioPlayTime >= minAudioInterval)
+                        {
+                            float pitchVar = UnityEngine.Random.Range(0.94f, 1.06f);
+                            if (timing.dynamics == TypingDynamics.Decelerate || emotion == PortraitEmotion.Tremble)
+                            {
+                                voiceAudioSource.pitch = pitchVar * 0.88f;
+                            }
+                            else if (timing.dynamics == TypingDynamics.Accelerate || emotion == PortraitEmotion.Punch || emotion == PortraitEmotion.Shake)
+                            {
+                                voiceAudioSource.pitch = pitchVar * 1.15f;
+                            }
+                            else
+                            {
+                                voiceAudioSource.pitch = pitchVar;
+                            }
+
+                            voiceAudioSource.PlayOneShot(typingAudioClip, typingAudioVolume);
+                            lastAudioPlayTime = Time.time;
+                        }
+                    }
+
+                    // Micro-rebote de habla en el retrato al inicio de palabras
+                    if (curChar != ' ' && (charIndex == 0 || (charIndex > 0 && char.IsWhiteSpace(parsed.cleanText[charIndex - 1]))))
+                    {
+                        if (activeSpeakerRect != null && activePortraitRoutine == null && talkBobRoutine == null)
+                        {
+                            talkBobRoutine = StartCoroutine(TalkBobRoutine(activeSpeakerRect, activeSpeakerOrigin));
+                        }
+                    }
+
+                    // Esperar el intervalo de tiempo del carácter actual
+                    float elapsed = 0f;
+                    while (elapsed < currentDelay && !skipRequested)
+                    {
+                        elapsed += Time.deltaTime;
+                        yield return null;
+                    }
                 }
 
-                dialogueText.text = text;
+                dialogueText.maxVisibleCharacters = totalChars;
                 isTyping = false;
             }
 
@@ -289,6 +456,12 @@ namespace VisualNovelSystem
                 {
                     activeSpeakerRect.localScale = activeSpeakerScale;
                 }
+            }
+
+            if (activeVertexEffectsRoutine != null)
+            {
+                StopCoroutine(activeVertexEffectsRoutine);
+                activeVertexEffectsRoutine = null;
             }
 
             if (continueIndicator != null) continueIndicator.SetActive(false);
@@ -532,6 +705,94 @@ namespace VisualNovelSystem
                 rect.localScale = new Vector3(originScale.x, originScale.y * (1f + breathe * amplitude), originScale.z);
                 yield return null;
             }
+        }
+
+        public void TriggerActiveSpeakerEmotion(string speakerName, PortraitEmotion emotion)
+        {
+            if (emotion == PortraitEmotion.None) return;
+
+            bool isGabeSpeaking = IsProtagonistSpeaker(speakerName);
+            bool isNpcSpeaking = !isGabeSpeaking && !IsNarratorSpeaker(speakerName);
+
+            if (isGabeSpeaking && leftRect != null)
+            {
+                PlayPortraitEmotion(emotion, leftRect, originalLeftPos, originalLeftScale);
+            }
+            else if (isNpcSpeaking && rightRect != null)
+            {
+                PlayPortraitEmotion(emotion, rightRect, originalRightPos, originalRightScale);
+            }
+            else if (characterPortrait != null && characterPortrait.gameObject.activeSelf)
+            {
+                PlayPortraitEmotion(emotion, centerRect, originalCenterPos, originalCenterScale);
+            }
+        }
+
+        private IEnumerator UpdateVertexEffectsRoutine(ParsedDialogueData parsed)
+        {
+            while (dialogueText != null && canvasGroup != null && canvasGroup.alpha > 0f)
+            {
+                if (parsed != null && parsed.hasVertexEffects && dialogueText.maxVisibleCharacters > 0)
+                {
+                    dialogueText.ForceMeshUpdate();
+                    TMP_TextInfo textInfo = dialogueText.textInfo;
+                    int visibleCount = Mathf.Min(dialogueText.maxVisibleCharacters, textInfo.characterCount);
+
+                    bool anyModified = false;
+
+                    for (int i = 0; i < visibleCount; i++)
+                    {
+                        TMP_CharacterInfo charInfo = textInfo.characterInfo[i];
+                        if (!charInfo.isVisible) continue;
+
+                        TextVertexEffect effect = i < parsed.charTimings.Count ? parsed.charTimings[i].vertexEffect : TextVertexEffect.None;
+                        if (effect == TextVertexEffect.None) continue;
+
+                        int matIndex = charInfo.materialReferenceIndex;
+                        int vertIndex = charInfo.vertexIndex;
+                        Vector3[] verts = textInfo.meshInfo[matIndex].vertices;
+
+                        Vector3 offset = Vector3.zero;
+
+                        if (effect == TextVertexEffect.Shake || effect == TextVertexEffect.Tremble)
+                        {
+                            float intensity = (effect == TextVertexEffect.Tremble) ? textShakeIntensity * 0.65f : textShakeIntensity;
+                            float time = Time.time * 30f;
+                            float seed = i * 2.3f;
+                            float ox = (Mathf.Sin(time + seed * 17.1f) + Mathf.Sin(time * 1.7f + seed * 43.7f)) * 0.5f * intensity;
+                            float oy = (Mathf.Cos(time * 1.3f + seed * 29.3f) + Mathf.Cos(time * 2.1f + seed * 71.9f)) * 0.5f * intensity;
+                            offset = new Vector3(ox, oy, 0f);
+                        }
+                        else if (effect == TextVertexEffect.Wave)
+                        {
+                            float y = Mathf.Sin(Time.time * textWaveSpeed + i * 0.45f) * textWaveHeight;
+                            offset = new Vector3(0f, y, 0f);
+                        }
+
+                        verts[vertIndex + 0] += offset;
+                        verts[vertIndex + 1] += offset;
+                        verts[vertIndex + 2] += offset;
+                        verts[vertIndex + 3] += offset;
+                        anyModified = true;
+                    }
+
+                    if (anyModified)
+                    {
+                        for (int m = 0; m < textInfo.materialCount; m++)
+                        {
+                            if (textInfo.meshInfo[m].mesh != null)
+                            {
+                                textInfo.meshInfo[m].mesh.vertices = textInfo.meshInfo[m].vertices;
+                                dialogueText.UpdateGeometry(textInfo.meshInfo[m].mesh, m);
+                            }
+                        }
+                    }
+                }
+
+                yield return null;
+            }
+
+            activeVertexEffectsRoutine = null;
         }
 
         private PortraitEmotion DetectEmotion(ref string text)

@@ -6,17 +6,18 @@
       "source": "git",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.test-framework": "1.1.33",
         "com.unity.timeline": "1.7.7",
         "com.unity.ugui": "1.0.0"
       },
-      "hash": "8c31c5a60f96faf8eea24dede71dabe835e2a40e"
+      "hash": "15bb19b86792803a983ebc0570d51591e772feb2"
     },
     "com.gabrieloide.retro-sound-synthesizer": {
       "version": "https://github.com/gabrieloide/Retro-Sound-Synthesizer.git#upm",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c53d6c6ed1125d01e0f02dfa85a98ecbc341d63c"
+      "hash": "f91c51eb0937de6ccd2d71308fb801fa1db017a8"
     },
     "com.unity.2d.animation": {
       "version": "15.1.0",
