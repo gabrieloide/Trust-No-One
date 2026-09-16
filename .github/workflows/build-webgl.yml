@@ -35,6 +35,7 @@ jobs:
         with:
           unityVersion: 6000.5.4f1
           testMode: EditMode
+          cliVersion: v0.1.65
           customParameters: -testFilter Investigation.Tests
           artifactsPath: test-results
           githubToken: ${{ secrets.GITHUB_TOKEN }}
