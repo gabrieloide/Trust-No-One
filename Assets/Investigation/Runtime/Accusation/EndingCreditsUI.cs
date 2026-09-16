@@ -21,8 +21,12 @@ namespace Investigation
             {
                 if (instance == null)
                 {
-                    var go = new GameObject("EndingCreditsUI");
-                    instance = go.AddComponent<EndingCreditsUI>();
+                    instance = UnityEngine.Object.FindAnyObjectByType<EndingCreditsUI>();
+                    if (instance == null)
+                    {
+                        var go = new GameObject("EndingCreditsUI");
+                        instance = go.AddComponent<EndingCreditsUI>();
+                    }
                 }
                 return instance;
             }
@@ -30,11 +34,22 @@ namespace Investigation
 
         private const string GameSceneName = "Investigation";
 
-        private GameObject panelRoot;
-        private CanvasGroup titleGroup;
-        private CanvasGroup thanksGroup;
-        private CanvasGroup buttonGroup;
+        [Header("Serialized References (Optional Prefab/Scene Wiring)")]
+        [SerializeField] private GameObject panelRoot;
+        [SerializeField] private CanvasGroup titleGroup;
+        [SerializeField] private CanvasGroup thanksGroup;
+        [SerializeField] private CanvasGroup buttonGroup;
         private bool playAgainClicked;
+
+        private void Awake()
+        {
+            if (instance != null && instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            instance = this;
+        }
 
         public IEnumerator PlayRoutine()
         {

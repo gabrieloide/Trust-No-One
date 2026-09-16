@@ -8,7 +8,12 @@
             "displayName": "Ask him what he saw or heard",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d2p1_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -16,14 +21,33 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Mark is sitting against the wall of the gas station, shivering and clutching his brown paper bag." },
-                        { "speaker": "Mark", "text": "Noises. Last night, before, always. Banging down below in the boiler room. Like someone pounding to be heard and nobody listens." },
-                        { "speaker": "Gabe", "text": "Banging from where?" },
-                        { "speaker": "Mark", "text": "From under the motel floorboards. Someone was trapped down there. Then last night, she came bursting out like a ghost from the ground." },
-                        { "speaker": "", "text": "He speaks in feverish bursts, but a chilling pattern emerges from his words." }
+                        {
+                            "speaker": "",
+                            "text": "Mark is sitting against the wall of the gas station, shivering and clutching his brown paper bag."
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "Noises. Last night, before, always. Banging down below in the boiler room. Like someone pounding to be heard and nobody listens."
+                        },
+                        {
+                            "speaker": "Gabe",
+                            "text": "Banging from where?"
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "From under the motel floorboards. Someone was trapped down there. Then last night, she came bursting out like a ghost from the ground."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "He speaks in feverish bursts, but a chilling pattern emerges from his words."
+                        }
                     ],
                     "effects": [
-                        { "kind": 3, "a": "basement_noises_match", "b": "" }
+                        {
+                            "kind": 3,
+                            "a": "basement_noises_match",
+                            "b": ""
+                        }
                     ]
                 }
             ]
@@ -33,10 +57,30 @@
             "displayName": "Tell him you believe him",
             "kind": 1,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
-                { "kind": 2, "a": "mark", "b": "mark_noises", "negate": false },
-                { "kind": 2, "a": "mark", "b": "mark_noises_believe", "negate": true },
-                { "kind": 2, "a": "mark", "b": "mark_noises_dismiss", "negate": true }
+                {
+                    "kind": 0,
+                    "a": "d2p2_started",
+                    "b": "",
+                    "negate": false
+                },
+                {
+                    "kind": 2,
+                    "a": "mark",
+                    "b": "mark_noises",
+                    "negate": false
+                },
+                {
+                    "kind": 2,
+                    "a": "mark",
+                    "b": "mark_noises_believe",
+                    "negate": true
+                },
+                {
+                    "kind": 2,
+                    "a": "mark",
+                    "b": "mark_noises_dismiss",
+                    "negate": true
+                }
             ],
             "variants": [
                 {
@@ -44,14 +88,33 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "I believe you, Mark. Go on." },
-                        { "speaker": "Mark", "text": "Yeah? Nobody ever believes me. Not even Frank." },
-                        { "speaker": "", "text": "He calms down a little, his eyes widening with vivid memory." },
-                        { "speaker": "Mark", "text": "When she ran past me toward the hedges, I stumbled and dropped my gin bottle on the curb. Smashed into a hundred pieces." },
-                        { "speaker": "Mark", "text": "Right behind her came a tall shadow with clean clothes and shiny shoes. I hid behind the pump because the dark around that man has teeth." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "I believe you, Mark. Go on."
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "Yeah? Nobody ever believes me. Not even Frank."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "He calms down a little, his eyes widening with vivid memory."
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "When she ran past me toward the hedges, I stumbled and dropped my gin bottle on the curb. Smashed into a hundred pieces."
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "Right behind her came a tall shadow with clean clothes and shiny shoes. I hid behind the pump because the dark around that man has teeth."
+                        }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "mark_trusted", "b": "" }
+                        {
+                            "kind": 0,
+                            "a": "mark_trusted",
+                            "b": ""
+                        }
                     ]
                 }
             ]
@@ -61,10 +124,30 @@
             "displayName": "Cut him off, he doesn't sound reliable",
             "kind": 1,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
-                { "kind": 2, "a": "mark", "b": "mark_noises", "negate": false },
-                { "kind": 2, "a": "mark", "b": "mark_noises_believe", "negate": true },
-                { "kind": 2, "a": "mark", "b": "mark_noises_dismiss", "negate": true }
+                {
+                    "kind": 0,
+                    "a": "d2p2_started",
+                    "b": "",
+                    "negate": false
+                },
+                {
+                    "kind": 2,
+                    "a": "mark",
+                    "b": "mark_noises",
+                    "negate": false
+                },
+                {
+                    "kind": 2,
+                    "a": "mark",
+                    "b": "mark_noises_believe",
+                    "negate": true
+                },
+                {
+                    "kind": 2,
+                    "a": "mark",
+                    "b": "mark_noises_dismiss",
+                    "negate": true
+                }
             ],
             "variants": [
                 {
@@ -72,12 +155,25 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "I get it, Mark. Thanks." },
-                        { "speaker": "", "text": "My skepticism shows in my tone immediately." },
-                        { "speaker": "Mark", "text": "Sure. Like everyone else. The crazy drunk talks, nobody cares until the shadows swallow them too." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "I get it, Mark. Thanks."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "My skepticism shows in my tone immediately."
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "Sure. Like everyone else. The crazy drunk talks, nobody cares until the shadows swallow them too."
+                        }
                     ],
                     "effects": [
-                        { "kind": 4, "a": "mark_credibility_broken", "b": "1" }
+                        {
+                            "kind": 4,
+                            "a": "mark_credibility_broken",
+                            "b": "1"
+                        }
                     ]
                 }
             ]
@@ -87,7 +183,12 @@
             "displayName": "Ask what scares him at night",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d2p3_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -95,10 +196,22 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "You don't sleep much, do you, Mark?" },
-                        { "speaker": "Mark", "text": "Sleep's for people the dark doesn't want. I keep watch instead." },
-                        { "speaker": "Mark", "text": "Same shapes pass by every night. Most never look down at me. That's how I know which ones to be scared of: the ones that never look down." },
-                        { "speaker": "", "text": "He pulls his knees in tighter and stares past me, like something's still walking by right now." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "You don't sleep much, do you, Mark?"
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "Sleep's for people the dark doesn't want. I keep watch instead."
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "Same shapes pass by every night. Most never look down at me. That's how I know which ones to be scared of: the ones that never look down."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "He pulls his knees in tighter and stares past me, like something's still walking by right now."
+                        }
                     ],
                     "effects": []
                 }
@@ -109,20 +222,42 @@
             "displayName": "Ask him about that night again",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d3p2_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
                     "id": "broken",
                     "priority": 1,
                     "conditions": [
-                        { "kind": 5, "a": "mark_credibility_broken", "b": "1", "negate": false }
+                        {
+                            "kind": 5,
+                            "a": "mark_credibility_broken",
+                            "b": "1",
+                            "negate": false
+                        }
                     ],
                     "lines": [
-                        { "speaker": "Mark", "text": "Broken glass... cheap gin... it all blurs together in my head. I don't remember anything." },
-                        { "speaker": "Gabe", "text": "What about the tall shadow in clean clothes?" },
-                        { "speaker": "Mark", "text": "What shadow? Leave me alone. You already made up your mind about me." },
-                        { "speaker": "", "text": "He curls up against the bricks and looks away. He won't say another word." }
+                        {
+                            "speaker": "Mark",
+                            "text": "Broken glass... cheap gin... it all blurs together in my head. I don't remember anything."
+                        },
+                        {
+                            "speaker": "Gabe",
+                            "text": "What about the tall shadow in clean clothes?"
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "What shadow? Leave me alone. You already made up your mind about me."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "He curls up against the bricks and looks away. He won't say another word."
+                        }
                     ],
                     "effects": []
                 },
@@ -131,13 +266,29 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Mark", "text": "Footsteps going down into the boiler room... almost every night for weeks." },
-                        { "speaker": "Gabe", "text": "And right after the girl screamed in the bushes?" },
-                        { "speaker": "Mark", "text": "That part... my head went blank with fear. I ran. But that bottle wasn't in my hand when she died, I swear on my mother's grave." },
-                        { "speaker": "", "text": "His terror is genuine. His bottle was the weapon, but he wasn't the killer." }
+                        {
+                            "speaker": "Mark",
+                            "text": "Footsteps going down into the boiler room... almost every night for weeks."
+                        },
+                        {
+                            "speaker": "Gabe",
+                            "text": "And right after the girl screamed in the bushes?"
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "That part... my head went blank with fear. I ran. But that bottle wasn't in my hand when she died, I swear on my mother's grave."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "His terror is genuine. His bottle was the weapon, but he wasn't the killer."
+                        }
                     ],
                     "effects": [
-                        { "kind": 3, "a": "mark_no_memory", "b": "" }
+                        {
+                            "kind": 3,
+                            "a": "mark_no_memory",
+                            "b": ""
+                        }
                     ]
                 }
             ]
@@ -147,7 +298,12 @@
             "displayName": "Ask him one last time",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d3p3_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -155,14 +311,98 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Last night in town, Mark. Anything you didn't tell me?" },
-                        { "speaker": "Mark", "text": "Told you everything already. Nobody wrote it down, though, did they. Nobody ever does." },
-                        { "speaker": "Mark", "text": "Whatever you decide, detective... just don't let the quiet ones win because they talk nicer than me." },
-                        { "speaker": "", "text": "For a moment his eyes are perfectly clear. Then the shaking starts again, and he's just the drunk by the gas station once more." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "Last night in town, Mark. Anything you didn't tell me?"
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "Told you everything already. Nobody wrote it down, though, did they. Nobody ever does."
+                        },
+                        {
+                            "speaker": "Mark",
+                            "text": "Whatever you decide, detective... just don't let the quiet ones win because they talk nicer than me."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "For a moment his eyes are perfectly clear. Then the shaking starts again, and he's just the drunk by the gas station once more."
+                        }
                     ],
                     "effects": []
                 }
             ]
+        }
+    ],
+    "defaultRejection": "Lights and shadows... that doesn't tell me anything. The noises come from the night...",
+    "confrontations": [
+        {
+            "clueId": "bottle_was_marks",
+            "alternativeClueIds": [
+                "glass_matches_bottle"
+            ],
+            "lines": [
+                {
+                    "speaker": "Gabe",
+                    "text": "The broken glass next to the body matches the gin you bought at the gas station last night."
+                },
+                {
+                    "speaker": "Mark",
+                    "text": "No... no, I didn't do anything to her! I tripped on the curb... the bottle slipped out of my hands and shattered against the edge. Carla screamed and ran off toward the back of the motel."
+                },
+                {
+                    "speaker": "Gabe",
+                    "text": "Did you see anyone else near her?"
+                },
+                {
+                    "speaker": "Mark",
+                    "text": "Saw a tall shape... someone stepped out of the shadows in the hallway. I got scared and hid behind the sign."
+                }
+            ],
+            "effects": [
+                {
+                    "kind": 0,
+                    "a": "mark_cleared_murder",
+                    "b": ""
+                },
+                {
+                    "kind": 3,
+                    "a": "mark_no_memory",
+                    "b": ""
+                }
+            ]
+        },
+        {
+            "clueId": "frank_saw_mark_and_carla",
+            "alternativeClueIds": [],
+            "lines": [
+                {
+                    "speaker": "Gabe",
+                    "text": "Frank saw you two cross paths near the highway before midnight."
+                },
+                {
+                    "speaker": "Mark",
+                    "text": "I asked her for some change... she gave me a crumpled bill and said she had to leave town before sunrise. That's all it was!"
+                }
+            ],
+            "effects": [
+                {
+                    "kind": 0,
+                    "a": "mark_carla_warning_revealed",
+                    "b": ""
+                }
+            ]
+        }
+    ],
+    "ambientGreetings": [
+        {
+            "day": 2,
+            "phase": 0,
+            "text": "Noises... footsteps in the night... don't look at me, I didn't do anything..."
+        },
+        {
+            "day": 3,
+            "phase": 0,
+            "text": "The basement... nobody believes me, but they know what's down there..."
         }
     ]
 }

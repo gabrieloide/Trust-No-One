@@ -109,16 +109,25 @@ namespace Investigation
 
             if (clip != null)
             {
-                if (pitchVariation > 0f)
+                if (VisualNovelSystem.StoryAudioManager.Instance != null)
                 {
-                    sfxSource.pitch = Random.Range(1f - pitchVariation, 1f + pitchVariation);
-                }
-                else
-                {
-                    sfxSource.pitch = 1f;
+                    VisualNovelSystem.StoryAudioManager.Instance.PlaySFX(clip, volume, pitchVariation);
+                    return;
                 }
 
-                sfxSource.PlayOneShot(clip, volume);
+                if (sfxSource != null)
+                {
+                    if (pitchVariation > 0f)
+                    {
+                        sfxSource.pitch = Random.Range(1f - pitchVariation, 1f + pitchVariation);
+                    }
+                    else
+                    {
+                        sfxSource.pitch = 1f;
+                    }
+
+                    sfxSource.PlayOneShot(clip, volume);
+                }
             }
         }
     }

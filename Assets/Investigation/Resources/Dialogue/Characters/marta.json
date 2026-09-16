@@ -8,7 +8,12 @@
             "displayName": "Ask if she saw anything",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d2p1_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -16,10 +21,22 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Marta", "text": "Didn't see a thing. I close late, open early, no time to look sideways." },
-                        { "speaker": "Gabe", "text": "You know Mark, the one who hangs around here?" },
-                        { "speaker": "Marta", "text": "The crazy one? I know him. Wouldn't trust him to tell me the time of day." },
-                        { "speaker": "", "text": "She says it without malice, with the tiredness of someone who decided long ago which words are worth listening to." }
+                        {
+                            "speaker": "Marta",
+                            "text": "Didn't see a thing. I close late, open early, no time to look sideways."
+                        },
+                        {
+                            "speaker": "Gabe",
+                            "text": "You know Mark, the one who hangs around here?"
+                        },
+                        {
+                            "speaker": "Marta",
+                            "text": "The crazy one? I know him. Wouldn't trust him to tell me the time of day."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "She says it without malice, with the tiredness of someone who decided long ago which words are worth listening to."
+                        }
                     ],
                     "effects": []
                 }
@@ -30,7 +47,12 @@
             "displayName": "Ask her about Carla Rossi",
             "kind": 1,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d2p2_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -38,13 +60,29 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Marta", "text": "Carla used to come in for coffee alone. Always sitting by the window, like she was waiting for someone who never showed." },
-                        { "speaker": "Gabe", "text": "Did she mention having trouble with anyone at the motel?" },
-                        { "speaker": "Marta", "text": "Nobody around here speaks ill of Robert Hale, detective. And when a whole town won't dare criticize a man... that's exactly when you should be most suspicious." },
-                        { "speaker": "", "text": "She wipes the cup with a dry rag and doesn't add another word." }
+                        {
+                            "speaker": "Marta",
+                            "text": "Carla used to come in for coffee alone. Always sitting by the window, like she was waiting for someone who never showed."
+                        },
+                        {
+                            "speaker": "Gabe",
+                            "text": "Did she mention having trouble with anyone at the motel?"
+                        },
+                        {
+                            "speaker": "Marta",
+                            "text": "Nobody around here speaks ill of Robert Hale, detective. And when a whole town won't dare criticize a man... that's exactly when you should be most suspicious."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "She wipes the cup with a dry rag and doesn't add another word."
+                        }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "marta_hint_heard", "b": "" }
+                        {
+                            "kind": 0,
+                            "a": "marta_hint_heard",
+                            "b": ""
+                        }
                     ]
                 }
             ]
@@ -54,8 +92,18 @@
             "displayName": "Chat while she closes up",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false },
-                { "kind": 0, "a": "d3p1_started", "b": "", "negate": true }
+                {
+                    "kind": 0,
+                    "a": "d2p3_started",
+                    "b": "",
+                    "negate": false
+                },
+                {
+                    "kind": 0,
+                    "a": "d3p1_started",
+                    "b": "",
+                    "negate": true
+                }
             ],
             "variants": [
                 {
@@ -63,14 +111,33 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Marta flips the sign on the door, but doesn't kick me out." },
-                        { "speaker": "Marta", "text": "Carla would come by late, sometimes. When there was nobody else left. She said she felt safe here." },
-                        { "speaker": "Gabe", "text": "Safe from what, exactly?" },
-                        { "speaker": "Marta", "text": "She never said it in so many words. But you learn to read it, when someone checks the door every two minutes." },
-                        { "speaker": "", "text": "She switches off the coffee maker. The conversation, for today, is over." }
+                        {
+                            "speaker": "",
+                            "text": "Marta flips the sign on the door, but doesn't kick me out."
+                        },
+                        {
+                            "speaker": "Marta",
+                            "text": "Carla would come by late, sometimes. When there was nobody else left. She said she felt safe here."
+                        },
+                        {
+                            "speaker": "Gabe",
+                            "text": "Safe from what, exactly?"
+                        },
+                        {
+                            "speaker": "Marta",
+                            "text": "She never said it in so many words. But you learn to read it, when someone checks the door every two minutes."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "She switches off the coffee maker. The conversation, for today, is over."
+                        }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "marta_evening_reflection", "b": "" }
+                        {
+                            "kind": 0,
+                            "a": "marta_evening_reflection",
+                            "b": ""
+                        }
                     ]
                 }
             ]
@@ -80,7 +147,12 @@
             "displayName": "Order coffee and talk",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d3p2_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -88,10 +160,22 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Marta", "text": "Coffee, detective? On the house today." },
-                        { "speaker": "Gabe", "text": "That's new." },
-                        { "speaker": "Marta", "text": "Carla never let me pay her back for anything either. Kept saying 'someday, when I'm in Seattle, I'll send you a postcard and we'll call it even.'" },
-                        { "speaker": "", "text": "Marta sets the cup down without meeting my eyes. There won't be a postcard now, and we both know it." }
+                        {
+                            "speaker": "Marta",
+                            "text": "Coffee, detective? On the house today."
+                        },
+                        {
+                            "speaker": "Gabe",
+                            "text": "That's new."
+                        },
+                        {
+                            "speaker": "Marta",
+                            "text": "Carla never let me pay her back for anything either. Kept saying 'someday, when I'm in Seattle, I'll send you a postcard and we'll call it even.'"
+                        },
+                        {
+                            "speaker": "",
+                            "text": "Marta sets the cup down without meeting my eyes. There won't be a postcard now, and we both know it."
+                        }
                     ],
                     "effects": []
                 }
@@ -102,8 +186,18 @@
             "displayName": "Ask her what she meant about Robert",
             "kind": 1,
             "unlockConditions": [
-                { "kind": 0, "a": "d3p1_started", "b": "", "negate": false },
-                { "kind": 2, "a": "marta", "b": "marta_about_carla", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d3p1_started",
+                    "b": "",
+                    "negate": false
+                },
+                {
+                    "kind": 2,
+                    "a": "marta",
+                    "b": "marta_about_carla",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -111,16 +205,74 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "You said to be suspicious when nobody criticizes a man. Was that about Robert?" },
-                        { "speaker": "", "text": "She takes a long moment before answering, glancing at the door like she's calculating who might be listening." },
-                        { "speaker": "Marta", "text": "I didn't say any names, detective. But Carla stopped coming in smiling about a month before she died. And she started carrying that bag everywhere, like she couldn't bear to put it down." },
-                        { "speaker": "Marta", "text": "That's all I can tell you without my voice shaking." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "You said to be suspicious when nobody criticizes a man. Was that about Robert?"
+                        },
+                        {
+                            "speaker": "",
+                            "text": "She takes a long moment before answering, glancing at the door like she's calculating who might be listening."
+                        },
+                        {
+                            "speaker": "Marta",
+                            "text": "I didn't say any names, detective. But Carla stopped coming in smiling about a month before she died. And she started carrying that bag everywhere, like she couldn't bear to put it down."
+                        },
+                        {
+                            "speaker": "Marta",
+                            "text": "That's all I can tell you without my voice shaking."
+                        }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "marta_suspicion_confirmed", "b": "" }
+                        {
+                            "kind": 0,
+                            "a": "marta_suspicion_confirmed",
+                            "b": ""
+                        }
                     ]
                 }
             ]
+        }
+    ],
+    "defaultRejection": "I don't know what that is, sir. Around here people come in for coffee and to keep their mouths shut.",
+    "confrontations": [
+        {
+            "clueId": "carla_belongings",
+            "alternativeClueIds": [],
+            "lines": [
+                {
+                    "speaker": "Marta",
+                    "text": "Poor Carla... she told me she was saving up money to leave on the bus to Seattle. Said Robert wouldn't leave her alone and that she was scared of him."
+                }
+            ],
+            "effects": [
+                {
+                    "kind": 0,
+                    "a": "marta_carla_seattle_confirmed",
+                    "b": ""
+                }
+            ]
+        }
+    ],
+    "ambientGreetings": [
+        {
+            "day": 2,
+            "phase": 1,
+            "text": "Cold day to be investigating crimes, sir. Coffee, or are you after answers?"
+        },
+        {
+            "day": 2,
+            "phase": 2,
+            "text": "Carla used to come sit by the window around this hour. Such a shame about that girl..."
+        },
+        {
+            "day": 2,
+            "phase": 3,
+            "text": "Closing up soon. Be careful if you're out wandering at night."
+        },
+        {
+            "day": 3,
+            "phase": 0,
+            "text": "I hope you find whoever did this to Carla. This town needs that wound closed."
         }
     ]
 }

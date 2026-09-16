@@ -8,7 +8,12 @@
             "displayName": "Say hello and ask about town",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d2p1_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -16,12 +21,25 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "Frank wipes down the gas station counter even though it doesn't need it." },
-                        { "speaker": "Frank", "text": "Hey, the broken-down-car guy! Anybody looked at your engine yet? Terrible business last night, huh? Robert must be wrecked, that man's a saint." },
-                        { "speaker": "Frank", "text": "Known him for... uh, fifteen years, maybe more. Never once seen him give anyone a hard time. Not once." }
+                        {
+                            "speaker": "",
+                            "text": "Frank wipes down the gas station counter even though it doesn't need it."
+                        },
+                        {
+                            "speaker": "Frank",
+                            "text": "Hey, the broken-down-car guy! Anybody looked at your engine yet? Terrible business last night, huh? Robert must be wrecked, that man's a saint."
+                        },
+                        {
+                            "speaker": "Frank",
+                            "text": "Known him for... uh, fifteen years, maybe more. Never once seen him give anyone a hard time. Not once."
+                        }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "frank_d2_talked", "b": "" }
+                        {
+                            "kind": 0,
+                            "a": "frank_d2_talked",
+                            "b": ""
+                        }
                     ]
                 }
             ]
@@ -31,7 +49,12 @@
             "displayName": "Ask if he saw anything odd last night",
             "kind": 1,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d2p2_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -39,12 +62,25 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Did you see anything odd last night, before what happened at the motel?" },
-                        { "speaker": "Frank", "text": "Mmm... now that you mention it, yeah. Saw Mark run into a girl near the highway. Arguing or something, I don't know, I was far off." },
-                        { "speaker": "Frank", "text": "Didn't think much of it, Mark's always talking to himself or to someone who isn't there. But now that you ask." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "Did you see anything odd last night, before what happened at the motel?"
+                        },
+                        {
+                            "speaker": "Frank",
+                            "text": "Mmm... now that you mention it, yeah. Saw Mark run into a girl near the highway. Arguing or something, I don't know, I was far off."
+                        },
+                        {
+                            "speaker": "Frank",
+                            "text": "Didn't think much of it, Mark's always talking to himself or to someone who isn't there. But now that you ask."
+                        }
                     ],
                     "effects": [
-                        { "kind": 3, "a": "frank_saw_mark_and_carla", "b": "" }
+                        {
+                            "kind": 3,
+                            "a": "frank_saw_mark_and_carla",
+                            "b": ""
+                        }
                     ]
                 }
             ]
@@ -54,7 +90,12 @@
             "displayName": "Ask about late deliveries",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d2p3_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -62,13 +103,29 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Anybody come through tonight, Frank?" },
-                        { "speaker": "Frank", "text": "Robert did, actually. Filled up a couple of jerry cans around eleven. Said the generator's been eating more fuel than it used to." },
-                        { "speaker": "Frank", "text": "Struck me as a little odd, that generator's run fine for years. But machines get old, I guess." },
-                        { "speaker": "", "text": "Frank shrugs it off before he's even finished the sentence. I don't." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "Anybody come through tonight, Frank?"
+                        },
+                        {
+                            "speaker": "Frank",
+                            "text": "Robert did, actually. Filled up a couple of jerry cans around eleven. Said the generator's been eating more fuel than it used to."
+                        },
+                        {
+                            "speaker": "Frank",
+                            "text": "Struck me as a little odd, that generator's run fine for years. But machines get old, I guess."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "Frank shrugs it off before he's even finished the sentence. I don't."
+                        }
                     ],
                     "effects": [
-                        { "kind": 3, "a": "robert_late_fuel_runs", "b": "" }
+                        {
+                            "kind": 3,
+                            "a": "robert_late_fuel_runs",
+                            "b": ""
+                        }
                     ]
                 }
             ]
@@ -78,7 +135,12 @@
             "displayName": "Chat with him about Robert again",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d3p3_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -86,15 +148,100 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Frank", "text": "Robert's always hauling stuff for that generator in the basement. Boxes, bags. I tell him, hey, hire somebody, and he just laughs." },
-                        { "speaker": "", "text": "He says it in passing, no weight to it. To him it's just another story about a hardworking friend." },
-                        { "speaker": "Frank", "text": "Good guy. One of the few around here who really handles everything himself." }
+                        {
+                            "speaker": "Frank",
+                            "text": "Robert's always hauling stuff for that generator in the basement. Boxes, bags. I tell him, hey, hire somebody, and he just laughs."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "He says it in passing, no weight to it. To him it's just another story about a hardworking friend."
+                        },
+                        {
+                            "speaker": "Frank",
+                            "text": "Good guy. One of the few around here who really handles everything himself."
+                        }
                     ],
                     "effects": [
-                        { "kind": 3, "a": "basement_noises_match", "b": "" }
+                        {
+                            "kind": 3,
+                            "a": "basement_noises_match",
+                            "b": ""
+                        }
                     ]
                 }
             ]
+        }
+    ],
+    "defaultRejection": "No idea what that is, friend. Gasoline, I know all about; town gossip, just enough to get by.",
+    "confrontations": [
+        {
+            "clueId": "frank_saw_mark_and_carla",
+            "alternativeClueIds": [],
+            "lines": [
+                {
+                    "speaker": "Gabe",
+                    "text": "Frank, when you saw Mark with Carla, was anyone else watching from the shadows?"
+                },
+                {
+                    "speaker": "Frank",
+                    "text": "Well... now that I think back... Ernesto's truck rolled by slow on the shoulder with the lights off, two minutes later."
+                }
+            ],
+            "effects": [
+                {
+                    "kind": 0,
+                    "a": "frank_saw_ernesto_truck",
+                    "b": ""
+                },
+                {
+                    "kind": 3,
+                    "a": "ernesto_false_alibi",
+                    "b": ""
+                }
+            ]
+        },
+        {
+            "clueId": "glass_matches_bottle",
+            "alternativeClueIds": [],
+            "lines": [
+                {
+                    "speaker": "Gabe",
+                    "text": "This broken bottle neck matches the gin you sell at your station."
+                },
+                {
+                    "speaker": "Frank",
+                    "text": "That's right. Sold it to Mark at eight at night. He staggered off toward the shoulder by the motel."
+                }
+            ],
+            "effects": [
+                {
+                    "kind": 3,
+                    "a": "bottle_was_marks",
+                    "b": ""
+                }
+            ]
+        }
+    ],
+    "ambientGreetings": [
+        {
+            "day": 2,
+            "phase": 1,
+            "text": "Hey, the broken-down-car guy! Terrible business at the motel. Good thing Robert's keeping a level head."
+        },
+        {
+            "day": 2,
+            "phase": 2,
+            "text": "Hey, the broken-down-car guy! Terrible business at the motel. Good thing Robert's keeping a level head."
+        },
+        {
+            "day": 2,
+            "phase": 3,
+            "text": "The station sees all sorts at night. What can I do for you?"
+        },
+        {
+            "day": 3,
+            "phase": 0,
+            "text": "Don't like the mood in this town today. Hope it all gets sorted out soon."
         }
     ]
 }

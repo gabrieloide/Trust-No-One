@@ -18,8 +18,17 @@ namespace Investigation
             {
                 if (instance == null)
                 {
-                    var go = new GameObject("DialogueDatabase");
-                    instance = go.AddComponent<DialogueDatabase>();
+                    instance = UnityEngine.Object.FindAnyObjectByType<DialogueDatabase>();
+                    if (instance == null)
+                    {
+                        var go = new GameObject("DialogueDatabase");
+                        instance = go.AddComponent<DialogueDatabase>();
+                        instance.LoadAll();
+                    }
+                }
+                if (instance.characters.Count == 0)
+                {
+                    instance.LoadAll();
                 }
                 return instance;
             }
@@ -114,6 +123,60 @@ namespace Investigation
         public InvestigateSpotData GetInvestigateSpot(string spotId)
         {
             return investigateSpots.TryGetValue(spotId, out var data) ? data : null;
+        }
+
+        public ConfrontationReactionData GetConfrontation(string characterId, string clueId)
+        {
+            var character = GetCharacter(characterId);
+            if (character == null || character.confrontations == null) return null;
+
+            foreach (var conf in character.confrontations)
+            {
+                if (conf.clueId == clueId) return conf;
+                if (conf.alternativeClueIds != null && conf.alternativeClueIds.Contains(clueId)) return conf;
+            }
+
+            return null;
+        }
+
+        public string GetAmbientGreeting(string characterId, int day, int phase)
+        {
+            var character = GetCharacter(characterId);
+            if (character == null || character.ambientGreetings == null || character.ambientGreetings.Count == 0)
+            {
+                return "Yes? How can I help you?";
+            }
+
+            // Buscar coincidencia exacta de día y fase
+            foreach (var g in character.ambientGreetings)
+            {
+                if (g.day == day && g.phase == phase && !string.IsNullOrEmpty(g.text))
+                {
+                    return g.text;
+                }
+            }
+
+            // Fallback: coincidencia de día con phase 0 (cualquiera)
+            foreach (var g in character.ambientGreetings)
+            {
+                if (g.day == day && g.phase == 0 && !string.IsNullOrEmpty(g.text))
+                {
+                    return g.text;
+                }
+            }
+
+            // Fallback: primer saludo disponible
+            return character.ambientGreetings[0].text;
+        }
+
+        public string GetDefaultRejection(string characterId)
+        {
+            var character = GetCharacter(characterId);
+            if (character != null && !string.IsNullOrEmpty(character.defaultRejection))
+            {
+                return character.defaultRejection;
+            }
+            return "I have nothing to say about that object.";
         }
 
         public IEnumerable<CharacterData> AllCharacters => characters.Values;

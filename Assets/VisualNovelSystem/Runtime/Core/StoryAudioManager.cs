@@ -32,11 +32,38 @@ namespace VisualNovelSystem
             if (voiceSource == null) voiceSource = gameObject.AddComponent<AudioSource>();
         }
 
-        public void PlaySFX(AudioClip clip, float volume = 1f)
+        public static float MasterVolume { get; private set; } = 1.0f;
+        public static float BGMVolume { get; private set; } = 1.0f;
+        public static float SFXVolume { get; private set; } = 1.0f;
+
+        private float currentBgmBaseVolume = 1f;
+
+        public static void SetGlobalVolumes(float master, float bgm, float sfx)
+        {
+            MasterVolume = Mathf.Clamp01(master);
+            BGMVolume = Mathf.Clamp01(bgm);
+            SFXVolume = Mathf.Clamp01(sfx);
+
+            if (Instance != null && Instance.bgmSource != null && Instance.bgmSource.isPlaying)
+            {
+                Instance.bgmSource.volume = Instance.currentBgmBaseVolume * MasterVolume * BGMVolume;
+            }
+        }
+
+        public void PlaySFX(AudioClip clip, float volume = 1f, float pitchVariation = 0f)
         {
             if (clip != null && sfxSource != null)
             {
-                sfxSource.PlayOneShot(clip, volume);
+                if (pitchVariation > 0f)
+                {
+                    sfxSource.pitch = Random.Range(1f - pitchVariation, 1f + pitchVariation);
+                }
+                else
+                {
+                    sfxSource.pitch = 1f;
+                }
+                float finalVolume = Mathf.Clamp01(volume * MasterVolume * SFXVolume);
+                sfxSource.PlayOneShot(clip, finalVolume);
             }
         }
 
@@ -46,7 +73,7 @@ namespace VisualNovelSystem
             {
                 voiceSource.Stop();
                 voiceSource.clip = clip;
-                voiceSource.volume = volume;
+                voiceSource.volume = Mathf.Clamp01(volume * MasterVolume * SFXVolume);
                 voiceSource.Play();
             }
         }
@@ -54,7 +81,9 @@ namespace VisualNovelSystem
         public void PlayBGM(AudioClip clip, float volume = 1f, bool loop = true, float fadeDuration = 0.5f)
         {
             if (bgmSource == null) return;
-            StartCoroutine(FadeBGM(clip, volume, loop, fadeDuration));
+            currentBgmBaseVolume = volume;
+            float effectiveVolume = volume * MasterVolume * BGMVolume;
+            StartCoroutine(FadeBGM(clip, effectiveVolume, loop, fadeDuration));
         }
 
         public void StopBGM(float fadeDuration = 0.5f)

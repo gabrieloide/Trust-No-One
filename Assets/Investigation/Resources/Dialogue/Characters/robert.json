@@ -8,7 +8,12 @@
             "displayName": "Ask for a room",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p1_started", "b": "", "negate": true }
+                {
+                    "kind": 0,
+                    "a": "d2p1_started",
+                    "b": "",
+                    "negate": true
+                }
             ],
             "variants": [
                 {
@@ -16,11 +21,26 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "", "text": "A neatly dressed man with an easy manner comes out from the hallway to greet me with a polite smile." },
-                        { "speaker": "Robert", "text": "Welcome, welcome! Not every day a man's car breaks down right in front of a motel. Lucky, in the unluckiest way possible." },
-                        { "speaker": "Gabe", "text": "I need a room for the night." },
-                        { "speaker": "Robert", "text": "Of course. I'll give you room 4, it's the quietest one. If you need anything, any hour, my door's the first one by the lobby." },
-                        { "speaker": "", "text": "The kind of efficient manager you'd hope to find out on the highway. He clearly takes care of the place." }
+                        {
+                            "speaker": "",
+                            "text": "A neatly dressed man with an easy manner comes out from the hallway to greet me with a polite smile."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "Welcome, welcome! Not every day a man's car breaks down right in front of a motel. Lucky, in the unluckiest way possible."
+                        },
+                        {
+                            "speaker": "Gabe",
+                            "text": "I need a room for the night."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "Of course. I'll give you room 4, it's the quietest one. If you need anything, any hour, my door's the first one by the lobby."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "The kind of efficient manager you'd hope to find out on the highway. He clearly takes care of the place."
+                        }
                     ],
                     "effects": []
                 }
@@ -31,7 +51,12 @@
             "displayName": "Ask him about what happened",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p1_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d2p1_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -39,15 +64,38 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Robert", "text": "A terrible business last night, detective. The Starlight has always been a peaceful place. I already notified the county sheriff first thing this morning." },
-                        { "speaker": "Gabe", "text": "You were fully dressed in your suit when you arrived at the scene in seconds." },
-                        { "speaker": "Robert", "text": "I was working late in my office reviewing supplier accounts with Mr. Vidal until past midnight. Running a business out here takes long hours." },
-                        { "speaker": "Robert", "text": "If you ask me, that vagrant Mark hangs around the gas station drinking cheap gin and gets aggressive in the dark." },
-                        { "speaker": "", "text": "An immaculate explanation, delivered without a single stutter. He deflects attention smoothly onto Mark." }
+                        {
+                            "speaker": "Robert",
+                            "text": "A terrible business last night, detective. The Starlight has always been a peaceful place. I already notified the county sheriff first thing this morning."
+                        },
+                        {
+                            "speaker": "Gabe",
+                            "text": "You were fully dressed in your suit when you arrived at the scene in seconds."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "I was working late in my office reviewing supplier accounts with Mr. Vidal until past midnight. Running a business out here takes long hours."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "If you ask me, that vagrant Mark hangs around the gas station drinking cheap gin and gets aggressive in the dark."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "An immaculate explanation, delivered without a single stutter. He deflects attention smoothly onto Mark."
+                        }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "robert_d2_talked", "b": "" },
-                        { "kind": 3, "a": "robert_quick_arrival", "b": "" }
+                        {
+                            "kind": 0,
+                            "a": "robert_d2_talked",
+                            "b": ""
+                        },
+                        {
+                            "kind": 3,
+                            "a": "robert_quick_arrival",
+                            "b": ""
+                        }
                     ]
                 }
             ]
@@ -57,9 +105,24 @@
             "displayName": "Ask about the facilities",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p2_started", "b": "", "negate": false },
-                { "kind": 0, "a": "d3p1_started", "b": "", "negate": true },
-                { "kind": 0, "a": "robert_excuse_locked", "b": "", "negate": true }
+                {
+                    "kind": 0,
+                    "a": "d2p2_started",
+                    "b": "",
+                    "negate": false
+                },
+                {
+                    "kind": 0,
+                    "a": "d3p1_started",
+                    "b": "",
+                    "negate": true
+                },
+                {
+                    "kind": 0,
+                    "a": "robert_excuse_locked",
+                    "b": "",
+                    "negate": true
+                }
             ],
             "variants": [
                 {
@@ -67,13 +130,29 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "I understand the building has a basement. What do you keep down there?" },
-                        { "speaker": "Robert", "text": "The machine room: backup generator, boilers, heavy tools. It's damp and hazardous, that's why I keep it padlocked." },
-                        { "speaker": "Robert", "text": "Why do you ask, detective? If you need to inspect the motel's facilities, I'll gladly walk you through later." },
-                        { "speaker": "", "text": "A practical, professional answer. If he's hiding something, he covers it with the calm of a man used to managing everything himself." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "I understand the building has a basement. What do you keep down there?"
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "The machine room: backup generator, boilers, heavy tools. It's damp and hazardous, that's why I keep it padlocked."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "Why do you ask, detective? If you need to inspect the motel's facilities, I'll gladly walk you through later."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "A practical, professional answer. If he's hiding something, he covers it with the calm of a man used to managing everything himself."
+                        }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "robert_excuse_locked", "b": "" }
+                        {
+                            "kind": 0,
+                            "a": "robert_excuse_locked",
+                            "b": ""
+                        }
                     ]
                 }
             ]
@@ -83,7 +162,12 @@
             "displayName": "Ask about his nightly routine",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d2p3_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d2p3_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -91,11 +175,26 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "You're still up this late, Robert." },
-                        { "speaker": "Robert", "text": "The Starlight doesn't run itself, detective. I walk the whole property every night before I lock up: boiler, generator, the guest wing. Old habit." },
-                        { "speaker": "Gabe", "text": "Every night, no exceptions?" },
-                        { "speaker": "Robert", "text": "Every night for eleven years. You learn every creak in a place like this. It's almost comforting." },
-                        { "speaker": "", "text": "He says it like a lullaby he's recited a thousand times. Maybe it is." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "You're still up this late, Robert."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "The Starlight doesn't run itself, detective. I walk the whole property every night before I lock up: boiler, generator, the guest wing. Old habit."
+                        },
+                        {
+                            "speaker": "Gabe",
+                            "text": "Every night, no exceptions?"
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "Every night for eleven years. You learn every creak in a place like this. It's almost comforting."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "He says it like a lullaby he's recited a thousand times. Maybe it is."
+                        }
                     ],
                     "effects": []
                 }
@@ -106,19 +205,38 @@
             "displayName": "Press him on basement access",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d3p1_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d3p1_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
                     "id": "locked",
                     "priority": 1,
                     "conditions": [
-                        { "kind": 0, "a": "robert_excuse_locked", "b": "", "negate": false }
+                        {
+                            "kind": 0,
+                            "a": "robert_excuse_locked",
+                            "b": "",
+                            "negate": false
+                        }
                     ],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Back to the basement: Elena told me you keep the only key to that door." },
-                        { "speaker": "Robert", "text": "Of course. The boilers are old and the liability insurance is very strict. I can't have staff wandering down there." },
-                        { "speaker": "", "text": "Impeccable, from a business-management standpoint. But physical evidence will tell what really happened down there." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "Back to the basement: Elena told me you keep the only key to that door."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "Of course. The boilers are old and the liability insurance is very strict. I can't have staff wandering down there."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "Impeccable, from a business-management standpoint. But physical evidence will tell what really happened down there."
+                        }
                     ],
                     "effects": []
                 },
@@ -127,9 +245,18 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "Elena told me you're the only one with a key to the basement." },
-                        { "speaker": "Robert", "text": "That's right. I handle the boilers and parts myself to avoid accidents. Basic safety protocol." },
-                        { "speaker": "", "text": "The explanation sounds reasonable and measured." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "Elena told me you're the only one with a key to the basement."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "That's right. I handle the boilers and parts myself to avoid accidents. Basic safety protocol."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "The explanation sounds reasonable and measured."
+                        }
                     ],
                     "effects": []
                 }
@@ -140,7 +267,12 @@
             "displayName": "Ask if he has anything to add",
             "kind": 0,
             "unlockConditions": [
-                { "kind": 0, "a": "d3p2_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d3p2_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
@@ -148,10 +280,22 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "The sheriff comes tonight, Robert. Anything you want to add before then?" },
-                        { "speaker": "Robert", "text": "Only that this town survives on people minding their own business, detective. It's kept the peace a long time." },
-                        { "speaker": "Robert", "text": "I hope whatever you decide, you decide it carefully. The Starlight still has to open its doors tomorrow." },
-                        { "speaker": "", "text": "Not a threat. Not quite. But close enough to one that it settles cold in my chest." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "The sheriff comes tonight, Robert. Anything you want to add before then?"
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "Only that this town survives on people minding their own business, detective. It's kept the peace a long time."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "I hope whatever you decide, you decide it carefully. The Starlight still has to open its doors tomorrow."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "Not a threat. Not quite. But close enough to one that it settles cold in my chest."
+                        }
                     ],
                     "effects": []
                 }
@@ -162,23 +306,49 @@
             "displayName": "Confront him with the motel evidence",
             "kind": 1,
             "unlockConditions": [
-                { "kind": 0, "a": "d3p3_started", "b": "", "negate": false }
+                {
+                    "kind": 0,
+                    "a": "d3p3_started",
+                    "b": "",
+                    "negate": false
+                }
             ],
             "variants": [
                 {
                     "id": "locked",
                     "priority": 1,
                     "conditions": [
-                        { "kind": 0, "a": "robert_excuse_locked", "b": "", "negate": false }
+                        {
+                            "kind": 0,
+                            "a": "robert_excuse_locked",
+                            "b": "",
+                            "negate": false
+                        }
                     ],
                     "lines": [
-                        { "speaker": "Gabe", "text": "The latch pried from the inside. Exclusive key access, yours alone. And Carla's travel bag hidden behind your toolboxes." },
-                        { "speaker": "Robert", "text": "Those are very bold inferences, detective. A desperate drifter could have forced that lock, or planted those items to blackmail management." },
-                        { "speaker": "", "text": "For the first time, his polite smile vanishes. His eyes weigh every word of mine with icy calculation." },
-                        { "speaker": "Robert", "text": "If you have a formal accusation, I suggest you bring it to the sheriff with all the proof the law demands." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "The latch pried from the inside. Exclusive key access, yours alone. And Carla's travel bag hidden behind your toolboxes."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "Those are very bold inferences, detective. A desperate drifter could have forced that lock, or planted those items to blackmail management."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "For the first time, his polite smile vanishes. His eyes weigh every word of mine with icy calculation."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "If you have a formal accusation, I suggest you bring it to the sheriff with all the proof the law demands."
+                        }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "robert_confronted_final", "b": "" }
+                        {
+                            "kind": 0,
+                            "a": "robert_confronted_final",
+                            "b": ""
+                        }
                     ]
                 },
                 {
@@ -186,15 +356,146 @@
                     "priority": 0,
                     "conditions": [],
                     "lines": [
-                        { "speaker": "Gabe", "text": "The padlock was busted from the inside, and you're the only one with a key to that room." },
-                        { "speaker": "Robert", "text": "Unfortunate coincidences, detective. But in a serious investigation, coincidences don't add up to a verdict." },
-                        { "speaker": "", "text": "He takes a measured second before answering. His facade holds, but the physical facts speak clearly." }
+                        {
+                            "speaker": "Gabe",
+                            "text": "The padlock was busted from the inside, and you're the only one with a key to that room."
+                        },
+                        {
+                            "speaker": "Robert",
+                            "text": "Unfortunate coincidences, detective. But in a serious investigation, coincidences don't add up to a verdict."
+                        },
+                        {
+                            "speaker": "",
+                            "text": "He takes a measured second before answering. His facade holds, but the physical facts speak clearly."
+                        }
                     ],
                     "effects": [
-                        { "kind": 0, "a": "robert_confronted_final", "b": "" }
+                        {
+                            "kind": 0,
+                            "a": "robert_confronted_final",
+                            "b": ""
+                        }
                     ]
                 }
             ]
+        }
+    ],
+    "defaultRejection": "A curious object, detective. But I don't see what it has to do with running the Starlight.",
+    "confrontations": [
+        {
+            "clueId": "basement_lock",
+            "alternativeClueIds": [],
+            "lines": [
+                {
+                    "speaker": "Gabe",
+                    "text": "The basement padlock wasn't forced from outside: it gave way from a hard impact from inside."
+                },
+                {
+                    "speaker": "Robert",
+                    "text": "It's an old building, detective. Damp swells the beams and the locks give. Or maybe some intruder tried to take shelter from the storm."
+                },
+                {
+                    "speaker": "Gabe",
+                    "text": "You have the only key. And the door was locked from the outside. Makes no sense for an intruder to lock himself in."
+                }
+            ],
+            "effects": [
+                {
+                    "kind": 0,
+                    "a": "robert_cornered_basement",
+                    "b": ""
+                },
+                {
+                    "kind": 3,
+                    "a": "basement_exclusive_access",
+                    "b": ""
+                }
+            ]
+        },
+        {
+            "clueId": "robert_quick_arrival",
+            "alternativeClueIds": [],
+            "lines": [
+                {
+                    "speaker": "Gabe",
+                    "text": "The first witnesses took a while to come over after the scream. You got there in under ninety seconds, dressed and groomed."
+                },
+                {
+                    "speaker": "Robert",
+                    "text": "It's my motel, detective. I'm a light sleeper when it comes to my guests' safety, and I keep my work clothes handy in case of emergencies. Looking after my guests is my duty."
+                }
+            ],
+            "effects": [
+                {
+                    "kind": 0,
+                    "a": "robert_timing_doubt",
+                    "b": ""
+                }
+            ]
+        },
+        {
+            "clueId": "carla_belongings",
+            "alternativeClueIds": [],
+            "lines": [
+                {
+                    "speaker": "Gabe",
+                    "text": "I found Carla's purse and papers hidden behind some crates near the basement. They weren't in her room."
+                },
+                {
+                    "speaker": "Robert",
+                    "text": "Someone must have moved them... some dishonest employee, or the attacker himself. I'll look into this with the sheriff."
+                }
+            ],
+            "effects": [
+                {
+                    "kind": 0,
+                    "a": "robert_belongings_exposed",
+                    "b": ""
+                }
+            ]
+        },
+        {
+            "clueId": "basement_noises_match",
+            "alternativeClueIds": [],
+            "lines": [
+                {
+                    "speaker": "Gabe",
+                    "text": "There were noises coming from the basement at odd hours of the night."
+                },
+                {
+                    "speaker": "Robert",
+                    "text": "I do the heavy maintenance work in the early hours so I don't bother guests with the water pumps. If you're looking for suspects, ask the vagrant who hangs around the gas station."
+                }
+            ],
+            "effects": [
+                {
+                    "kind": 0,
+                    "a": "robert_excuse_locked",
+                    "b": ""
+                }
+            ]
+        }
+    ],
+    "ambientGreetings": [
+        {
+            "day": 2,
+            "phase": 1,
+            "text": "Good morning, detective. Trying to keep things calm at the motel after the tragedy. How can I help you?"
+        },
+        {
+            "day": 2,
+            "phase": 2,
+            "text": "Detective Gabe. Find anything useful to clear this up?"
+        },
+        {
+            "day": 2,
+            "phase": 3,
+            "text": "It's getting late, detective. Need anything before I close up the front desk?"
+        },
+        {
+            "day": 3,
+            "phase": 0,
+            "text": "Last day around here, I understand. I hope your conclusions are fair and professional."
         }
     ]
 }

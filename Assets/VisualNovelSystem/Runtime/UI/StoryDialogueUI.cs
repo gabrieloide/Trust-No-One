@@ -62,6 +62,15 @@ namespace VisualNovelSystem
         [Header("Audio Modulation Settings")]
         [SerializeField] private float minAudioInterval = 0.032f;
 
+        [Header("Emotion Keywords Configuration")]
+        [SerializeField] private string[] autoTrembleKeywords = { "afraid", "scared", "dead", "body", "blood", "murder", "kill", "lie", "knife", "glass" };
+
+        /// <summary>
+        /// Injected provider for speaker styling and colors, decoupling generic UI from game-specific casts.
+        /// </summary>
+        public static ISpeakerVisualConfigProvider SpeakerConfigProvider { get; set; }
+        public static float TextSpeedMultiplier { get; set; } = 1.0f;
+
         private Coroutine activeDialogueRoutine;
         private Coroutine activePortraitRoutine;
         private Coroutine activeFocusRoutine;
@@ -306,13 +315,19 @@ namespace VisualNovelSystem
                 int totalChars = dialogueText.textInfo.characterCount;
                 int timingCount = parsed.charTimings.Count;
 
-                for (int charIndex = 0; charIndex < totalChars; charIndex++)
+                if (TextSpeedMultiplier <= 0f)
                 {
-                    if (skipRequested)
+                    dialogueText.maxVisibleCharacters = totalChars;
+                }
+                else
+                {
+                    for (int charIndex = 0; charIndex < totalChars; charIndex++)
                     {
-                        dialogueText.maxVisibleCharacters = totalChars;
-                        break;
-                    }
+                        if (skipRequested)
+                        {
+                            dialogueText.maxVisibleCharacters = totalChars;
+                            break;
+                        }
 
                     CharacterTimingInfo timing = charIndex < timingCount ? parsed.charTimings[charIndex] : default;
 
@@ -397,7 +412,8 @@ namespace VisualNovelSystem
                                 voiceAudioSource.pitch = pitchVar;
                             }
 
-                            voiceAudioSource.PlayOneShot(typingAudioClip, typingAudioVolume);
+                            float finalTypingVol = Mathf.Clamp01(typingAudioVolume * StoryAudioManager.MasterVolume * StoryAudioManager.SFXVolume);
+                            voiceAudioSource.PlayOneShot(typingAudioClip, finalTypingVol);
                             lastAudioPlayTime = Time.time;
                         }
                     }
@@ -413,11 +429,13 @@ namespace VisualNovelSystem
 
                     // Esperar el intervalo de tiempo del carácter actual
                     float elapsed = 0f;
-                    while (elapsed < currentDelay && !skipRequested)
+                    float effectiveDelay = currentDelay * TextSpeedMultiplier;
+                    while (elapsed < effectiveDelay && !skipRequested)
                     {
                         elapsed += Time.deltaTime;
                         yield return null;
                     }
+                }
                 }
 
                 dialogueText.maxVisibleCharacters = totalChars;
@@ -471,6 +489,7 @@ namespace VisualNovelSystem
         private bool IsProtagonistSpeaker(string name)
         {
             if (string.IsNullOrEmpty(name)) return false;
+            if (SpeakerConfigProvider != null) return SpeakerConfigProvider.IsProtagonist(name);
             return name.Equals("Gabe", StringComparison.OrdinalIgnoreCase) ||
                    name.Equals("Protagonista", StringComparison.OrdinalIgnoreCase) ||
                    name.Equals("Player", StringComparison.OrdinalIgnoreCase) ||
@@ -838,9 +857,15 @@ namespace VisualNovelSystem
             {
                 return PortraitEmotion.Nod;
             }
-            if (text.Contains("...") && (text.Contains("afraid") || text.Contains("scared") || text.Contains("dead") || text.Contains("body") || text.Contains("blood") || text.Contains("murder") || text.Contains("kill") || text.Contains("lie") || text.Contains("knife") || text.Contains("glass")))
+            if (text.Contains("...") && autoTrembleKeywords != null && autoTrembleKeywords.Length > 0)
             {
-                return PortraitEmotion.Tremble;
+                for (int i = 0; i < autoTrembleKeywords.Length; i++)
+                {
+                    if (text.IndexOf(autoTrembleKeywords[i], StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        return PortraitEmotion.Tremble;
+                    }
+                }
             }
 
             return PortraitEmotion.None;
@@ -1004,6 +1029,11 @@ namespace VisualNovelSystem
 
         private Color GetSpeakerPlaceholderColor(string speakerName)
         {
+            if (SpeakerConfigProvider != null)
+            {
+                return SpeakerConfigProvider.GetSpeakerColor(speakerName);
+            }
+
             if (IsProtagonistSpeaker(speakerName)) return new Color(0.35f, 0.50f, 0.70f, 1f); // Azul detective noir
 
             switch (speakerName)

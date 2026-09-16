@@ -22,8 +22,12 @@ namespace Investigation
             {
                 if (instance == null)
                 {
-                    var go = new GameObject("CaseState");
-                    instance = go.AddComponent<CaseState>();
+                    instance = UnityEngine.Object.FindAnyObjectByType<CaseState>();
+                    if (instance == null)
+                    {
+                        var go = new GameObject("CaseState");
+                        instance = go.AddComponent<CaseState>();
+                    }
                 }
                 return instance;
             }
@@ -59,7 +63,14 @@ namespace Investigation
         {
             if (instance != null)
             {
-                Destroy(instance.gameObject);
+                if (Application.isPlaying)
+                {
+                    Destroy(instance.gameObject);
+                }
+                else
+                {
+                    DestroyImmediate(instance.gameObject);
+                }
                 instance = null;
             }
         }
@@ -74,6 +85,83 @@ namespace Investigation
         public void MarkTopicSeen(string characterId, string topicId) => seenTopics.Add(TopicKey(characterId, topicId));
         public bool HasSeenTopic(string characterId, string topicId) => seenTopics.Contains(TopicKey(characterId, topicId));
 
+        public static event Action OnStateRestored;
+
+        public SaveData CaptureSnapshot()
+        {
+            var data = new SaveData
+            {
+                currentDay = this.currentDay,
+                currentPhase = this.currentPhase,
+                actionsRemainingInPhase = this.actionsRemainingInPhase,
+                flags = new List<string>(flags),
+                unlockedTopics = new List<string>(unlockedTopics),
+                seenTopics = new List<string>(seenTopics),
+                collectedClues = new List<string>(collectedClues),
+                confrontations = new List<string>(confrontations)
+            };
+
+            foreach (var kvp in counters)
+            {
+                data.counters.Add(new CounterEntry(kvp.Key, kvp.Value));
+            }
+
+            return data;
+        }
+
+        public void RestoreSnapshot(SaveData data)
+        {
+            if (data == null) return;
+
+            currentDay = data.currentDay;
+            currentPhase = data.currentPhase;
+            actionsRemainingInPhase = data.actionsRemainingInPhase;
+
+            flags.Clear();
+            if (data.flags != null)
+            {
+                foreach (var f in data.flags) flags.Add(f);
+            }
+
+            unlockedTopics.Clear();
+            if (data.unlockedTopics != null)
+            {
+                foreach (var t in data.unlockedTopics) unlockedTopics.Add(t);
+            }
+
+            seenTopics.Clear();
+            if (data.seenTopics != null)
+            {
+                foreach (var s in data.seenTopics) seenTopics.Add(s);
+            }
+
+            collectedClues.Clear();
+            if (data.collectedClues != null)
+            {
+                foreach (var c in data.collectedClues) collectedClues.Add(c);
+            }
+
+            confrontations.Clear();
+            if (data.confrontations != null)
+            {
+                foreach (var cf in data.confrontations) confrontations.Add(cf);
+            }
+
+            counters.Clear();
+            if (data.counters != null)
+            {
+                foreach (var entry in data.counters)
+                {
+                    if (entry != null && !string.IsNullOrEmpty(entry.key))
+                    {
+                        counters[entry.key] = entry.value;
+                    }
+                }
+            }
+
+            OnStateRestored?.Invoke();
+        }
+
         public static event Action OnClueCollected;
 
         public void CollectClue(string clueId, bool playSound = true)
@@ -85,6 +173,7 @@ namespace Investigation
                     AudioManager.Play(SFXType.ClueFound);
                 }
                 OnClueCollected?.Invoke();
+                SaveGameService.Instance.Save();
             }
         }
 

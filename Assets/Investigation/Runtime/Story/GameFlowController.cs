@@ -25,7 +25,31 @@ namespace Investigation
 
         private void Start()
         {
+            AudioSettingsService.Instance.ApplySettings();
+            _ = PauseMenuController.Instance;
+
+            if (SaveGameService.Instance.HasSave() && SaveGameService.Instance.TryLoad(out var savedData))
+            {
+                lastSeenDay = CaseState.Instance.currentDay;
+                if (savedData.currentDay > 1 || savedData.flags.Count > 1 || savedData.collectedClues.Count > 0)
+                {
+                    StartCoroutine(ResumeSavedGameSequence());
+                    return;
+                }
+            }
+
             StartCoroutine(IntroSequence());
+        }
+
+        private IEnumerator ResumeSavedGameSequence()
+        {
+            if (LocationController.Instance != null)
+            {
+                LocationController.Instance.SetWorldUIActive(true);
+                LocationController.Instance.RevealStartingLocation();
+                LocationController.Instance.RefreshAll();
+            }
+            yield break;
         }
 
         private IEnumerator IntroSequence()

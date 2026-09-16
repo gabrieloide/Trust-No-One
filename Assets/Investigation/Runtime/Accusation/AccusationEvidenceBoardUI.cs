@@ -22,23 +22,38 @@ namespace Investigation
             {
                 if (instance == null)
                 {
-                    var go = new GameObject("AccusationEvidenceBoardUI");
-                    instance = go.AddComponent<AccusationEvidenceBoardUI>();
+                    instance = UnityEngine.Object.FindAnyObjectByType<AccusationEvidenceBoardUI>();
+                    if (instance == null)
+                    {
+                        var go = new GameObject("AccusationEvidenceBoardUI");
+                        instance = go.AddComponent<AccusationEvidenceBoardUI>();
+                    }
                 }
                 return instance;
             }
         }
 
-        private GameObject panelRoot;
-        private RectTransform pinArea;
-        private TextMeshProUGUI detailText;
-        private TMP_FontAsset boardFont;
+        [Header("Serialized References (Optional Prefab/Scene Wiring)")]
+        [SerializeField] private GameObject panelRoot;
+        [SerializeField] private RectTransform pinArea;
+        [SerializeField] private TextMeshProUGUI detailText;
+        [SerializeField] private TMP_FontAsset boardFont;
         private const string DetailPlaceholder = "Hover a pin to read it.";
 
         private readonly List<GameObject> spawnedPins = new List<GameObject>();
 
         private bool selectionMade;
         private string selectedClueId;
+
+        private void Awake()
+        {
+            if (instance != null && instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            instance = this;
+        }
 
         public IEnumerator SelectEvidenceRoutine(List<ClueData> collectedClues, Action<string> onSelected)
         {

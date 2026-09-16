@@ -15,8 +15,12 @@ namespace Investigation
             {
                 if (instance == null)
                 {
-                    var go = new GameObject("PhaseController");
-                    instance = go.AddComponent<PhaseController>();
+                    instance = UnityEngine.Object.FindAnyObjectByType<PhaseController>();
+                    if (instance == null)
+                    {
+                        var go = new GameObject("PhaseController");
+                        instance = go.AddComponent<PhaseController>();
+                    }
                 }
                 return instance;
             }
@@ -53,7 +57,14 @@ namespace Investigation
         {
             if (instance != null)
             {
-                Destroy(instance.gameObject);
+                if (Application.isPlaying)
+                {
+                    Destroy(instance.gameObject);
+                }
+                else
+                {
+                    DestroyImmediate(instance.gameObject);
+                }
                 instance = null;
             }
         }
@@ -92,6 +103,7 @@ namespace Investigation
             }
 
             OnActionsChanged?.Invoke();
+            SaveGameService.Instance.Save();
         }
 
         public void SpendAction()
@@ -123,6 +135,7 @@ namespace Investigation
             }
 
             OnActionsChanged?.Invoke();
+            SaveGameService.Instance.Save();
         }
 
         private void AdvancePhase()
@@ -164,6 +177,8 @@ namespace Investigation
             {
                 CaseState.Instance.SetFlag(PhaseFlag(day, phase));
             }
+
+            SaveGameService.Instance.Save();
         }
 
         private static string PhaseFlag(int day, int phase) => $"d{day}p{phase}_started";

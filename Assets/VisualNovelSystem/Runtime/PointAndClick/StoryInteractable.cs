@@ -19,20 +19,32 @@ namespace VisualNovelSystem
         OpenClueBoard,
         EndDayBed,
         RoomMirror,
-        RoomDesk
+        RoomDesk,
+        CustomAction = 100
     }
 
     public class StoryInteractable : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
+        // Evento genérico desacoplado para cualquier acción personalizada
+        public static event Action<string, StoryInteractable> OnCustomActionRequested;
+
         // Desacoplados a propósito: VisualNovelSystem no referencia el código del juego
         // (Investigation). Los listeners (ConversationController/LocationController) se
+        [Obsolete("Use OnCustomActionRequested or dedicated domain handlers instead.")]
         public static event Action<string> OnOpenConversationRequested;
+        [Obsolete("Use OnCustomActionRequested or dedicated domain handlers instead.")]
         public static event Action<string> OnInvestigateRequested;
+        [Obsolete("Use OnCustomActionRequested or dedicated domain handlers instead.")]
         public static event Action<string> OnGoToLocationRequested;
+        [Obsolete("Use OnCustomActionRequested or dedicated domain handlers instead.")]
         public static event Action OnOpenAccusationRequested;
+        [Obsolete("Use OnCustomActionRequested or dedicated domain handlers instead.")]
         public static event Action OnOpenClueBoardRequested;
+        [Obsolete("Use OnCustomActionRequested or dedicated domain handlers instead.")]
         public static event Action OnEndDayRequested;
+        [Obsolete("Use OnCustomActionRequested or dedicated domain handlers instead.")]
         public static event Action OnRoomMirrorRequested;
+        [Obsolete("Use OnCustomActionRequested or dedicated domain handlers instead.")]
         public static event Action OnRoomDeskRequested;
         public static event Action OnAnyInteractClicked;
         public static event Action OnAnyInteractHovered;
@@ -43,6 +55,10 @@ namespace VisualNovelSystem
         [SerializeField] private InteractType interactType = InteractType.QuickDialogue;
         [SerializeField] private CursorIconType cursorOnHover = CursorIconType.Inspect;
         [SerializeField] private bool interactable = true;
+
+        [Header("Custom Action Trigger")]
+        [SerializeField] private string customActionId = "";
+        public string CustomActionId => customActionId;
 
         [Header("Quick Dialogue Settings")]
         [SerializeField] private string speakerName = "Protagonista";
@@ -208,6 +224,13 @@ namespace VisualNovelSystem
 
                 case InteractType.RoomDesk:
                     OnRoomDeskRequested?.Invoke();
+                    break;
+
+                case InteractType.CustomAction:
+                    if (!string.IsNullOrEmpty(customActionId))
+                    {
+                        OnCustomActionRequested?.Invoke(customActionId, this);
+                    }
                     break;
             }
 
