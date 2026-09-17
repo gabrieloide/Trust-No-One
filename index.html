@@ -32,7 +32,7 @@
       // Modify or remove this function to customize the visually presented
       // way that non-critical warnings and error messages are presented to the
       // user.
-      function unityShowBanner(msg, type) {
+      function console.log(msg, type) {
         var warningBanner = document.querySelector("#unity-warning");
         function updateBannerVisibility() {
           warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
@@ -61,8 +61,8 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Trust No One",
-        productVersion: "0.0.40",
-        showBanner: unityShowBanner,
+        productVersion: "0.0.41",
+        showBanner: console.log,
         // errorHandler: function(err, url, line) {
         //    alert("error " + err + " occurred at line " + line);
         //    // Return 'true' if you handled this error and don't want Unity
