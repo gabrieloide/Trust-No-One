@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 namespace Investigation
 {
@@ -40,6 +41,7 @@ namespace Investigation
         private TextMeshProUGUI sfxValText;
         private TextMeshProUGUI textSpeedValText;
         private TextMeshProUGUI feedbackText;
+        private GameObject pauseTriggerButton;
 
         private void Awake()
         {
@@ -52,9 +54,14 @@ namespace Investigation
             DontDestroyOnLoad(gameObject);
         }
 
+        private void Start()
+        {
+            BuildTriggerButtonIfNeeded();
+        }
+
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
             {
                 TogglePause();
             }
@@ -73,10 +80,12 @@ namespace Investigation
                 BuildUIIfNeeded();
                 UpdateSettingsDisplay();
                 if (panelRoot != null) panelRoot.SetActive(true);
+                if (pauseTriggerButton != null) pauseTriggerButton.SetActive(false);
             }
             else
             {
                 if (panelRoot != null) panelRoot.SetActive(false);
+                if (pauseTriggerButton != null) pauseTriggerButton.SetActive(true);
             }
 
             OnPauseToggled?.Invoke(isPaused);
@@ -154,9 +163,9 @@ namespace Investigation
             if (feedbackText != null) feedbackText.text = "";
         }
 
-        private void BuildUIIfNeeded()
+        private void EnsureCanvas()
         {
-            if (panelRoot != null) return;
+            if (pauseCanvas != null) return;
 
             var dialogueUI = VisualNovelSystem.StoryUIController.Instance != null
                 ? VisualNovelSystem.StoryUIController.Instance.DialogueUI
@@ -173,9 +182,58 @@ namespace Investigation
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920f, 1080f);
             scaler.matchWidthOrHeight = 0.5f;
+        }
+
+        public void BuildTriggerButtonIfNeeded()
+        {
+            if (pauseTriggerButton != null) return;
+            EnsureCanvas();
+
+            pauseTriggerButton = new GameObject("MobilePauseTriggerButton", typeof(RectTransform), typeof(Image), typeof(Button));
+            pauseTriggerButton.transform.SetParent(pauseCanvas.transform, false);
+
+            var rect = pauseTriggerButton.GetComponent<RectTransform>();
+            rect.anchorMin = rect.anchorMax = new Vector2(1f, 1f);
+            rect.pivot = new Vector2(1f, 1f);
+            rect.sizeDelta = new Vector2(56f, 56f);
+            rect.anchoredPosition = new Vector2(-28f, -28f);
+
+            var img = pauseTriggerButton.GetComponent<Image>();
+            img.color = new Color(0.12f, 0.12f, 0.16f, 0.75f);
+
+            var btn = pauseTriggerButton.GetComponent<Button>();
+            var colors = btn.colors;
+            colors.normalColor = new Color(0.12f, 0.12f, 0.16f, 0.75f);
+            colors.highlightedColor = new Color(0.24f, 0.24f, 0.30f, 0.90f);
+            colors.pressedColor = new Color(0.08f, 0.08f, 0.10f, 0.95f);
+            btn.colors = colors;
+            btn.onClick.AddListener(TogglePause);
+
+            var labelGO = new GameObject("Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+            labelGO.transform.SetParent(pauseTriggerButton.transform, false);
+            var labelRect = labelGO.GetComponent<RectTransform>();
+            labelRect.anchorMin = Vector2.zero;
+            labelRect.anchorMax = Vector2.one;
+            labelRect.offsetMin = Vector2.zero;
+            labelRect.offsetMax = Vector2.zero;
+
+            var tmp = labelGO.GetComponent<TextMeshProUGUI>();
+            if (noirFont != null) tmp.font = noirFont;
+            tmp.text = "||";
+            tmp.fontSize = 20f;
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.color = Color.white;
+            tmp.raycastTarget = false;
+        }
+
+        private void BuildUIIfNeeded()
+        {
+            if (panelRoot != null) return;
+
+            EnsureCanvas();
 
             panelRoot = new GameObject("PausePanel", typeof(RectTransform), typeof(Image));
-            panelRoot.transform.SetParent(canvasGO.transform, false);
+            panelRoot.transform.SetParent(pauseCanvas.transform, false);
             var panelRect = panelRoot.GetComponent<RectTransform>();
             panelRect.anchorMin = Vector2.zero;
             panelRect.anchorMax = Vector2.one;

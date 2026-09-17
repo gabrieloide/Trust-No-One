@@ -38,12 +38,13 @@ namespace Investigation
         [SerializeField] private RectTransform pinArea;
         [SerializeField] private TextMeshProUGUI detailText;
         [SerializeField] private TMP_FontAsset boardFont;
-        private const string DetailPlaceholder = "Hover a pin to read it.";
+        private const string DetailPlaceholder = "Tap or hover a pin to read it. Tap again to accuse.";
 
         private readonly List<GameObject> spawnedPins = new List<GameObject>();
 
         private bool selectionMade;
         private string selectedClueId;
+        private string selectedClueIdForPreview;
 
         private void Awake()
         {
@@ -67,6 +68,7 @@ namespace Investigation
 
             selectionMade = false;
             selectedClueId = null;
+            selectedClueIdForPreview = null;
             detailText.text = DetailPlaceholder;
             panelRoot.SetActive(true);
 
@@ -79,6 +81,22 @@ namespace Investigation
             ClearPins();
 
             onSelected?.Invoke(selectedClueId);
+        }
+
+        private void HandlePinSelect(string clueId, string label, string description)
+        {
+            if (selectedClueIdForPreview != clueId)
+            {
+                selectedClueIdForPreview = clueId;
+                if (detailText != null)
+                {
+                    detailText.text = $"{label}\n\n{description}\n\n<color=#FFCC00>▶ Tap this pin again to present as evidence.</color>";
+                }
+            }
+            else
+            {
+                Confirm(clueId);
+            }
         }
 
         private void Confirm(string clueId)
@@ -154,9 +172,9 @@ namespace Investigation
 
             var pin = go.AddComponent<EvidencePinView>();
             pin.Init(clue.id, clue.displayName, clue.description, markGO,
-                onSelect: Confirm,
+                onSelect: (id) => HandlePinSelect(id, clue.displayName, clue.description),
                 onHover: (l, d) => detailText.text = $"{l}\n\n{d}",
-                onHoverExit: () => detailText.text = DetailPlaceholder);
+                onHoverExit: () => { if (string.IsNullOrEmpty(selectedClueIdForPreview)) detailText.text = DetailPlaceholder; });
 
             return rect;
         }
